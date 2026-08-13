@@ -1,0 +1,180 @@
+/* PAARI Food Rescue Network - Global organic charity style system */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #0F3B2E;         /* Deep Forest Green */
+  --primary-hover: #165343;
+  --primary-light: #E9F1EE;   /* Soft Sage Green Tint */
+  --accent: #E65F2B;          /* Warm Earthy Clay Orange */
+  --accent-hover: #CF4E1D;
+  --accent-light: #FDF0EC;
+  --background: #FAF8F4;      /* Soft warm off-white / cream background */
+  --surface: #FFFFFF;
+  --surface-card: #FFFFFF;
+  --border: #E8E4DC;          /* Soft organic clay-tinted border */
+  --text-main: #1D2622;       /* Rich Charcoal/Dark Green Text */
+  --text-muted: #626D68;      /* Sage-tinted muted text */
+  --font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, sans-serif;
+  --transition-fast: 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --shadow-premium: 0 12px 40px rgba(15, 59, 46, 0.04), 0 2px 8px rgba(15, 59, 46, 0.02);
+  --shadow-hover: 0 20px 48px rgba(15, 59, 46, 0.09), 0 4px 16px rgba(15, 59, 46, 0.03);
+  --border-radius-large: 24px;
+  --border-radius-medium: 16px;
+  --border-radius-small: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  background-image: 
+    radial-gradient(at 10% 10%, rgba(230, 95, 43, 0.03) 0px, transparent 40%),
+    radial-gradient(at 90% 90%, rgba(15, 59, 46, 0.03) 0px, transparent 40%);
+  background-attachment: fixed;
+}
+
+/* Organic Layout Containers */
+.glass-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-premium);
+  transition: all var(--transition-fast);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(15, 59, 46, 0.15);
+}
+
+.glass-button {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #fff;
+  border-radius: 99px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(230, 95, 43, 0.15);
+  transition: all var(--transition-fast);
+  font-family: var(--font-family);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.glass-button:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(230, 95, 43, 0.25);
+}
+
+.glass-button:active {
+  transform: translateY(0);
+}
+
+.glass-button-secondary {
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: 99px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-family);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.glass-button-secondary:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.glass-button-secondary:active {
+  transform: translateY(0);
+}
+
+.glass-input {
+  background: var(--surface);
+  border: 2.2px solid var(--border);
+  border-radius: var(--border-radius-medium);
+  color: var(--text-main);
+  padding: 14px 18px;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+  width: 100%;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(15, 59, 46, 0.08);
+}
+
+.label-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animated-fade {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Status Badges */
+.badge {
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.badge-success { background: var(--primary-light); color: var(--primary); border: 1px solid rgba(15, 59, 46, 0.15); }
+.badge-warning { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(230, 95, 43, 0.15); }
+.badge-error { background: #FDF2F2; color: #DC2626; border: 1px solid rgba(220, 38, 38, 0.15); }
+.badge-info { background: #EFF6FF; color: #1D4ED8; border: 1px solid rgba(29, 78, 216, 0.15); }
+
+/* Global helper classes */
+.charity-card-header {
+  font-family: 'Outfit', var(--font-family);
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.text-editorial {
+  font-family: 'Outfit', var(--font-family);
+}

@@ -1,0 +1,690 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< com.paari:backend >--------------------------
+[INFO] Building PAARI Backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ backend >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ backend ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ backend ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ backend ---
+[INFO] skip non existing resourceDirectory C:\Users\dell\PAARI\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ backend ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.2.5:run (default-cli) < test-compile @ backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.5:run (default-cli) @ backend ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-08-13T06:12:54.572-07:00  INFO 8560 --- [paari] [  restartedMain] com.paari.PaariApplication               : Starting PaariApplication using Java 25.0.3 with PID 8560 (C:\Users\dell\PAARI\backend\target\classes started by dell in C:\Users\dell\PAARI\backend)
+2026-08-13T06:12:54.576-07:00  INFO 8560 --- [paari] [  restartedMain] com.paari.PaariApplication               : The following 1 profile is active: "dev"
+2026-08-13T06:12:54.641-07:00  INFO 8560 --- [paari] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-13T06:12:54.641-07:00  INFO 8560 --- [paari] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-13T06:12:55.488-07:00  INFO 8560 --- [paari] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-13T06:12:55.604-07:00  INFO 8560 --- [paari] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 108 ms. Found 10 JPA repository interfaces.
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/C:/Users/dell/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.20/tomcat-embed-core-10.1.20.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+2026-08-13T06:12:56.378-07:00  INFO 8560 --- [paari] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-08-13T06:12:56.391-07:00  INFO 8560 --- [paari] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-13T06:12:56.392-07:00  INFO 8560 --- [paari] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-08-13T06:12:56.450-07:00  INFO 8560 --- [paari] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-08-13T06:12:56.451-07:00  INFO 8560 --- [paari] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1809 ms
+2026-08-13T06:12:56.500-07:00  INFO 8560 --- [paari] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-13T06:12:56.748-07:00  INFO 8560 --- [paari] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:paari_db user=SA
+2026-08-13T06:12:56.750-07:00  INFO 8560 --- [paari] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-13T06:12:56.771-07:00  INFO 8560 --- [paari] [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:paari_db'
+2026-08-13T06:12:56.910-07:00  INFO 8560 --- [paari] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-13T06:12:56.975-07:00  INFO 8560 --- [paari] [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-08-13T06:12:57.016-07:00  INFO 8560 --- [paari] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-08-13T06:12:57.251-07:00  INFO 8560 --- [paari] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-13T06:12:58.630-07:00  INFO 8560 --- [paari] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-13T06:12:58.635-07:00  INFO 8560 --- [paari] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-13T06:12:59.166-07:00  INFO 8560 --- [paari] [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-13T06:12:59.880-07:00  WARN 8560 --- [paari] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-13T06:13:00.248-07:00  INFO 8560 --- [paari] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6d7ff86d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@18e04e53, org.springframework.security.web.context.SecurityContextHolderFilter@742c10d4, org.springframework.web.filter.CorsFilter@4070873b, org.springframework.security.web.authentication.logout.LogoutFilter@a0e1bf0, com.paari.security.AuthTokenFilter@589fa47a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4bd332b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2a72f74e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@34f34a07, org.springframework.security.web.session.SessionManagementFilter@7ecd699c, org.springframework.security.web.access.ExceptionTranslationFilter@413c2c00, org.springframework.security.web.access.intercept.AuthorizationFilter@73e0d140]
+2026-08-13T06:13:00.678-07:00  INFO 8560 --- [paari] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-08-13T06:13:00.722-07:00  INFO 8560 --- [paari] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-08-13T06:13:00.733-07:00  INFO 8560 --- [paari] [  restartedMain] com.paari.PaariApplication               : Started PaariApplication in 6.65 seconds (process running for 7.164)
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, name, password, phone, role, status, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, name, password, phone, role, status, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        donors
+        (address, food_type_offered, latitude, longitude, organization_name, rating, user_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        food_donations
+        (created_at, description, donor_id, expiry_time, food_type, latitude, longitude, pickup_address, pickup_time, quantity, status, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        food_donations
+        (created_at, description, donor_id, expiry_time, food_type, latitude, longitude, pickup_address, pickup_time, quantity, status, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, name, password, phone, role, status, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        receivers
+        (address, area_served, latitude, longitude, organization_name, rating, user_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, name, password, phone, role, status, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        volunteers
+        (availability_status, rating, user_id, vehicle_number, vehicle_type, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+2026-08-13T06:13:38.924-07:00  INFO 8560 --- [paari] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-13T06:13:38.925-07:00  INFO 8560 --- [paari] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-13T06:13:38.926-07:00  INFO 8560 --- [paari] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-08-13T06:13:38.953-07:00 ERROR 8560 --- [paari] [nio-8080-exec-1] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, name, password, phone, role, status, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        donors
+        (address, food_type_offered, latitude, longitude, organization_name, rating, user_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+2026-08-13T06:15:39.239-07:00 ERROR 8560 --- [paari] [nio-8080-exec-4] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:15:39.244-07:00 ERROR 8560 --- [paari] [nio-8080-exec-5] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:15:43.646-07:00 ERROR 8560 --- [paari] [io-8080-exec-10] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:15:48.914-07:00 ERROR 8560 --- [paari] [nio-8080-exec-1] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:15:59.609-07:00 ERROR 8560 --- [paari] [nio-8080-exec-4] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:00.700-07:00 ERROR 8560 --- [paari] [nio-8080-exec-6] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+2026-08-13T06:16:02.293-07:00 ERROR 8560 --- [paari] [io-8080-exec-10] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:06.679-07:00 ERROR 8560 --- [paari] [nio-8080-exec-8] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:08.764-07:00 ERROR 8560 --- [paari] [nio-8080-exec-1] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:14.458-07:00 ERROR 8560 --- [paari] [nio-8080-exec-2] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:14.513-07:00 ERROR 8560 --- [paari] [nio-8080-exec-7] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:14.585-07:00 ERROR 8560 --- [paari] [nio-8080-exec-4] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:14.596-07:00 ERROR 8560 --- [paari] [nio-8080-exec-5] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:20.066-07:00 ERROR 8560 --- [paari] [nio-8080-exec-6] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:20.082-07:00 ERROR 8560 --- [paari] [nio-8080-exec-9] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:20.092-07:00 ERROR 8560 --- [paari] [io-8080-exec-10] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:16:20.102-07:00 ERROR 8560 --- [paari] [nio-8080-exec-3] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-08-13T06:16:35.232-07:00  WARN 8560 --- [paari] [nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.security.authentication.BadCredentialsException: Bad credentials]
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, name, password, phone, role, status, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        donors
+        (address, food_type_offered, latitude, longitude, organization_name, rating, user_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-08-13T06:17:14.405-07:00 ERROR 8560 --- [paari] [nio-8080-exec-4] com.paari.security.JwtUtils              : Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-08-13T06:17:17.191-07:00 ERROR 8560 --- [paari] [nio-8080-exec-6] com.paari.security.JwtUtils              : Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2026-08-13T06:17:17.191-07:00 ERROR 8560 --- [paari] [nio-8080-exec-6] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:17:17.206-07:00 ERROR 8560 --- [paari] [nio-8080-exec-9] com.paari.security.JwtUtils              : Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2026-08-13T06:17:17.207-07:00 ERROR 8560 --- [paari] [nio-8080-exec-9] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-08-13T06:17:26.466-07:00 ERROR 8560 --- [paari] [nio-8080-exec-3] com.paari.security.JwtUtils              : Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-08-13T06:17:29.853-07:00 ERROR 8560 --- [paari] [nio-8080-exec-8] com.paari.security.JwtUtils              : Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2026-08-13T06:17:29.855-07:00 ERROR 8560 --- [paari] [nio-8080-exec-8] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:17:29.873-07:00 ERROR 8560 --- [paari] [nio-8080-exec-1] com.paari.security.JwtUtils              : Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+2026-08-13T06:17:29.873-07:00 ERROR 8560 --- [paari] [nio-8080-exec-1] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-08-13T06:17:39.236-07:00 ERROR 8560 --- [paari] [nio-8080-exec-7] com.paari.security.JwtUtils              : Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+2026-08-13T06:18:20.640-07:00 ERROR 8560 --- [paari] [nio-8080-exec-4] com.paari.security.JwtUtils              : Invalid JWT token: JWT strings must contain exactly 2 period characters. Found: 0
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-08-13T06:18:30.483-07:00 ERROR 8560 --- [paari] [nio-8080-exec-7] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:30.561-07:00 ERROR 8560 --- [paari] [nio-8080-exec-4] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:44.761-07:00 ERROR 8560 --- [paari] [nio-8080-exec-9] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:46.300-07:00 ERROR 8560 --- [paari] [nio-8080-exec-3] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:47.102-07:00 ERROR 8560 --- [paari] [nio-8080-exec-1] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:47.346-07:00 ERROR 8560 --- [paari] [nio-8080-exec-7] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:47.785-07:00 ERROR 8560 --- [paari] [nio-8080-exec-5] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:48.002-07:00 ERROR 8560 --- [paari] [nio-8080-exec-9] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:48.229-07:00 ERROR 8560 --- [paari] [nio-8080-exec-3] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:48.440-07:00 ERROR 8560 --- [paari] [nio-8080-exec-1] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:48.651-07:00 ERROR 8560 --- [paari] [nio-8080-exec-7] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+2026-08-13T06:18:48.858-07:00 ERROR 8560 --- [paari] [nio-8080-exec-5] com.paari.security.AuthEntryPointJwt     : Unauthorized error: Full authentication is required to access this resource
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Hibernate: 
+    select
+        fd1_0.id,
+        fd1_0.created_at,
+        fd1_0.description,
+        fd1_0.donor_id,
+        fd1_0.expiry_time,
+        fd1_0.food_type,
+        fd1_0.latitude,
+        fd1_0.longitude,
+        fd1_0.pickup_address,
+        fd1_0.pickup_time,
+        fd1_0.quantity,
+        fd1_0.status 
+    from
+        food_donations fd1_0 
+    where
+        fd1_0.expiry_time<? 
+        and fd1_0.status=?
+Terminate batch job (Y/N)? 

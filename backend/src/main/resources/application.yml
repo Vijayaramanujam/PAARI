@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: paari
+  sql:
+    init:
+      mode: never
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+paari:
+  jwt:
+    secret: jwtSecretKeyForPaariNetworkMustBeAtLeast256BitsToSecureHS256Algorithm1234567890
+    expirationMs: 86400000 # 1 day
+  matching:
+    radiusKm: 15.0 # configurable searching radius in km
+  routing:
+    ghApiKey: "" # to be overridden in prod env
+  mail:
+    fromAddress: noreply@paari.org

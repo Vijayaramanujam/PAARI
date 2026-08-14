@@ -57,7 +57,7 @@ export default function App() {
   }, []);
 
   const handleLoginSuccess = (userData) => {
-    setToken(userData.accessToken);
+    setToken(userData.token);
     setUser(userData);
     setPage('dashboard');
   };

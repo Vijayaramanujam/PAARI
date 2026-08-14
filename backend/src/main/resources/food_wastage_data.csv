@@ -1,0 +1,6 @@
+Type of Food,Number of Guests,Event Type,Quantity of Food,Storage Conditions,Purchase History,Seasonality,Preparation Method,Geographical Location,Pricing,Wastage Food Amount
+Buffet Leftovers,150,Corporate Event,50 kg,Refrigerated,Regular Vendor,Summer,Catering Service,Urban,Standard,15 kg
+Bakery Surplus,0,Daily Operations,10 kg,Room Temperature,Local Supplier,All Seasons,In-house Baking,Suburban,Low,2 kg
+Produce Excess,0,Market Surplus,100 kg,Cold Storage,Direct Farm,Autumn,Raw,Rural,Discounted,30 kg
+Prepared Meals,80,School Cafeteria,30 kg,Warm Display,Contracted Caterer,Winter,Kitchen Staff,Urban,Free,5 kg
+Meat Cuts,0,Butcher Surplus,25 kg,Deep Freeze,Wholesaler,Spring,Processed,Suburban,High,3 kg

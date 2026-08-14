@@ -63,15 +63,14 @@ export default function Auth({ onNavigate, onLoginSuccess, initialMode = 'login'
           email: formData.email,
           password: formData.password
         });
-        localStorage.setItem('token', res.data.accessToken);
+        localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data));
         onLoginSuccess(res.data);
       } else {
         await api.post('/api/auth/register', formData);
-        setSuccessMsg('Member registration successful! Loading Access Panel.');
+        setSuccessMsg('Member registration successful! Redirecting to sign in...');
         setTimeout(() => {
-          setMode('login');
-          setSuccessMsg('');
+          onNavigate('login');
         }, 1500);
       }
     } catch (err) {
@@ -350,7 +349,7 @@ export default function Auth({ onNavigate, onLoginSuccess, initialMode = 'login'
                 )}
 
                 {/* Geolocation settings */}
-                {(formData.role === 'DONOR' || formData.role === 'RECEIVER') && (
+                {mode === 'register' && (formData.role === 'DONOR' || formData.role === 'RECEIVER') && (
                   <div style={{ border: '2px solid var(--border)', padding: '16px', borderRadius: '16px', background: '#FAF6EE' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                       <span className="label-label" style={{ margin: 0, fontSize: '0.8rem' }}>Geographic Mapping Coordinates</span>

@@ -53,6 +53,23 @@ public class AdminController {
         return ResponseEntity.ok(res);
     }
 
+    @PutMapping("/users/{id}/toggle-status")
+    public ResponseEntity<?> toggleUserStatus(@PathVariable Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            Map<String, String> err = new HashMap<>();
+            err.put("error", "User not found with id: " + id);
+            return ResponseEntity.status(404).body(err);
+        }
+        
+        user.setStatus(user.getStatus() == UserStatus.ACTIVE ? UserStatus.INACTIVE : UserStatus.ACTIVE);
+        userRepository.save(user);
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("status", user.getStatus());
+        return ResponseEntity.ok(res);
+    }
+
     @GetMapping("/reports")
     public ResponseEntity<?> getReports() {
         long totalUsers = userRepository.count();

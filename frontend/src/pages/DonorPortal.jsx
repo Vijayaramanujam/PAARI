@@ -13,8 +13,14 @@ export default function DonorPortal() {
     pickupHours: '2', // default 2 hours offsets
     expiryHours: '12', // default 12 hours offsets
     latitude: 12.9716,
-    longitude: 77.5946
+    longitude: 77.5946,
+    eventType: 'Daily Operations',
+    storageConditions: 'Room Temperature',
+    numberOfGuests: '0'
   });
+
+  const [prediction, setPrediction] = useState(null);
+  const [predLoading, setPredLoading] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState({ type: '', text: '' });
@@ -44,6 +50,35 @@ export default function DonorPortal() {
   useEffect(() => {
     fetchDonations();
   }, []);
+
+  useEffect(() => {
+    const qty = parseFloat(formData.quantity);
+    if (!formData.foodType || isNaN(qty) || qty <= 0) {
+      setPrediction(null);
+      return;
+    }
+
+    const delayDebounce = setTimeout(async () => {
+      setPredLoading(true);
+      try {
+        const res = await api.post('/api/predictions/predict', {
+          foodType: formData.foodType,
+          quantity: qty,
+          eventType: formData.eventType,
+          storageConditions: formData.storageConditions,
+          seasonality: 'Summer',
+          numberOfGuests: parseInt(formData.numberOfGuests) || 0
+        });
+        setPrediction(res.data);
+      } catch (err) {
+        console.error('Error fetching prediction', err);
+      } finally {
+        setPredLoading(false);
+      }
+    }, 600);
+
+    return () => clearTimeout(delayDebounce);
+  }, [formData.foodType, formData.quantity, formData.eventType, formData.storageConditions, formData.numberOfGuests]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -307,6 +342,41 @@ export default function DonorPortal() {
               </div>
             </div>
 
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+              <div>
+                <span className="label-label">Event Source Context</span>
+                <select name="eventType" className="glass-input" value={formData.eventType} onChange={handleChange}>
+                  <option value="Daily Operations">Daily Operations</option>
+                  <option value="Corporate Event">Corporate Event</option>
+                  <option value="Market Surplus">Market Surplus</option>
+                  <option value="School Cafeteria">School Cafeteria</option>
+                  <option value="Butcher Surplus">Butcher Surplus</option>
+                </select>
+              </div>
+              <div>
+                <span className="label-label">Storage Conditions Mode</span>
+                <select name="storageConditions" className="glass-input" value={formData.storageConditions} onChange={handleChange}>
+                  <option value="Room Temperature">Room Temperature</option>
+                  <option value="Refrigerated">Refrigerated</option>
+                  <option value="Cold Storage">Cold Storage</option>
+                  <option value="Warm Display">Warm Display</option>
+                  <option value="Deep Freeze">Deep Freeze</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <span className="label-label">Number of Event Guests (if applicable)</span>
+              <input
+                type="number"
+                name="numberOfGuests"
+                placeholder="e.g. 150 (Leave 0 if not guest event)"
+                className="glass-input"
+                value={formData.numberOfGuests}
+                onChange={handleChange}
+              />
+            </div>
+
             <div>
               <span className="label-label">Description & Allergens</span>
               <textarea
@@ -384,6 +454,43 @@ export default function DonorPortal() {
                 </div>
               </div>
             </div>
+
+            {/* Prediction warning indicator card */}
+            {predLoading && (
+              <div style={{ padding: '16px', borderRadius: '16px', background: 'var(--border)', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                Calculating potential network food wastage...
+              </div>
+            )}
+            {!predLoading && prediction && (
+              <div className="animated-fade" style={{ padding: '20px', borderRadius: '16px', border: '1.5px solid var(--accent)', background: '#FAF6EE', display: 'grid', gap: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h4 style={{ fontWeight: '800', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Sparkles size={16} color="var(--accent)" />
+                    Wastage Prediction Advisor
+                  </h4>
+                  <span className="badge badge-warning" style={{ fontWeight: '800' }}>
+                    Match Similarity: {(prediction.confidenceScore * 100).toFixed(0)}%
+                  </span>
+                </div>
+                <div style={{ display: 'flex', gap: '20px', alignItems: 'center', margin: '8px 0' }}>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Estimated Loss</span>
+                    <div style={{ fontSize: '1.5rem', fontWeight: '900', color: 'var(--accent)' }}>
+                      {prediction.predictedWastageAmount.toFixed(1)} kg
+                    </div>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Wastage Rate</span>
+                    <div style={{ fontSize: '1.5rem', fontWeight: '900', color: 'var(--primary)' }}>
+                      {prediction.predictedWastagePercentage.toFixed(0)}%
+                    </div>
+                  </div>
+                </div>
+                <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
+                  {prediction.recommendation}
+                </div>
+              </div>
+            )}
 
             <button type="submit" disabled={loading} className="glass-button" style={{ width: '100%', marginTop: '10px' }}>
               {loading ? 'Submitting food listing to blockchain...' : 'Publish Food Listing for Claim'}

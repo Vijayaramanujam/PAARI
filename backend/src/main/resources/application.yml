@@ -1,11 +1,14 @@
 spring:
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
   application:
     name: paari
+
   sql:
     init:
       mode: never
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,13 +17,20 @@ spring:
       hibernate:
         format_sql: true
 
+server:
+  port: ${PORT:8080}
+  address: 0.0.0.0
+
 paari:
   jwt:
-    secret: jwtSecretKeyForPaariNetworkMustBeAtLeast256BitsToSecureHS256Algorithm1234567890
-    expirationMs: 86400000 # 1 day
+    secret: ${JWT_SECRET}
+    expirationMs: ${JWT_EXPIRATION_MS:86400000}
+
   matching:
-    radiusKm: 15.0 # configurable searching radius in km
+    radiusKm: 15.0
+
   routing:
-    ghApiKey: "" # to be overridden in prod env
+    ghApiKey: ${GH_API_KEY:}
+
   mail:
-    fromAddress: noreply@paari.org
+    fromAddress: ${MAIL_FROM_ADDRESS:noreply@paari.org}

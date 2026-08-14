@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '', // Empty because Vite proxy handles routing '/api' to 'http://localhost:8080'
+  baseURL: import.meta.env.VITE_API_URL || '', // Empty because Vite proxy handles routing '/api' to 'http://localhost:8080'
   headers: {
     'Content-Type': 'application/json',
   },

@@ -40,31 +40,31 @@ This audit report documents the current technical status, architectural features
 
 ## 2. Front-End / Back-End Integration Discrepancies
 
-During Phase 1 walkthrough testing, two primary routing discrepancies were identified on the Admin dashboard:
-1. **User Validation Path**: The React `AdminPortal.jsx` issues a `PUT` request to `/api/admin/users/{userId}/toggle-status`, but the Spring Boot `AdminController.java` only exposes `/users/{id}/status` taking a `@RequestParam UserStatus status`.
-2. **Impact Charts Path**: `AdminPortal.jsx` fetches graphs from `/api/analytics/charts`, which returns a 404 on the backend since only the general public `/summary` is implemented.
-
-*These will be corrected in the stabilization phase.*
+1. **User Validation Path**: The React `AdminPortal.jsx` issues a `PUT` request to `/api/admin/users/{userId}/toggle-status`. This endpoint is fully mapped in `AdminController.java`.
+2. **Impact Charts Path**: `AdminPortal.jsx` fetches graphs from `/api/analytics/charts`. The endpoint exists in `AnalyticsController.java` but requires authentication because it is not permited in `WebSecurityConfig.java`. This is correct by design since it is restricted to logged-in portal users (like Admin).
 
 ---
 
-## 3. Seed Metadata (Users & Credentials)
+## 3. Database & Connection Configuration Gaps
+
+1. **PostgreSQL Production Dependency**:
+   - The project requirements specify using **PostgreSQL** in production, but `backend/pom.xml` currently defines a `mysql-connector-j` dependency instead of `postgresql`.
+   - The production profile `backend/src/main/resources/application-prod.yml` points to a MySQL server (`jdbc:mysql://...`) instead of PostgreSQL.
+2. **SQL Schema Dialect**:
+   - `backend/src/main/resources/schema.sql` utilizes H2-specific/MySQL-specific definitions (`id BIGINT AUTO_INCREMENT PRIMARY KEY`) which will fail in standard PostgreSQL deployments.
+
+---
+
+## 4. Test Orchestration Gaps
+
+- There are **no automated test files** (unit, integration, or contract tests) present in the `backend/src/test` directory. We must supply verification test suites.
+
+---
+
+## 5. Seed Metadata (Users & Credentials)
 
 For testing and local verification, the application seeds 4 profiles corresponding to the core roles:
 - **System Admin**: `admin@paari.org` / `admin123`
 - **Food Donor (Bakery)**: `donor@paari.org` / `donor123`
 - **Receiver (NGO Shelter)**: `ngo@paari.org` / `ngo123`
 - **Volunteer Courier**: `volunteer@paari.org` / `volunteer123`
-
----
-
-## 4. Production Security Analysis
-
-### JWT Validation Configuration
-- Secret key length exceeds 256 bits, conforming to HS256 encryption specifications.
-- Expiration interval is 24 hours (86,400,000 ms), suitable for active portal sessions.
-
-### Security Gaps
-- In-memory database settings (H2 console frameOption disable) are enabled for development comfort.
-- In production, these console routes must be restricted, and a persistent PostgreSQL schema should replace the test datasource.
-- Mail triggers use local SMTP log dumps; need an active provider integration (e.g. SendGrid) for production.

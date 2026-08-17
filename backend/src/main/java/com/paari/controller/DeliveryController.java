@@ -65,8 +65,9 @@ public class DeliveryController {
     @PutMapping("/{id}/status")
     @PreAuthorize("hasRole('VOLUNTEER')")
     public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestParam DeliveryStatus status) {
+        User user = getAuthenticatedUser();
         try {
-            PickupDelivery delivery = logisticsService.updateDeliveryStatus(id, status);
+            PickupDelivery delivery = logisticsService.updateDeliveryStatus(id, user.getId(), status);
             return ResponseEntity.ok(delivery);
         } catch (Exception e) {
             Map<String, String> err = new HashMap<>();

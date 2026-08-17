@@ -37,7 +37,14 @@ public class NotificationController {
 
     @PutMapping("/{id}/read")
     public ResponseEntity<?> markAsRead(@PathVariable Long id) {
-        notificationService.markAsRead(id);
-        return ResponseEntity.ok().build();
+        User user = getAuthenticatedUser();
+        try {
+            notificationService.markAsRead(id, user.getId());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            java.util.Map<String, String> err = new java.util.HashMap<>();
+            err.put("error", e.getMessage());
+            return ResponseEntity.status(403).body(err);
+        }
     }
 }

@@ -10,3 +10,7 @@ spring:
   h2:
     console:
       enabled: true
+
+paari:
+  jwt:
+    secret: "developmentSecretKeyForLocalTestingOnlyMakeItVeryLongToPassHS256Rules"

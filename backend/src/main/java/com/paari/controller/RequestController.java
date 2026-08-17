@@ -52,8 +52,9 @@ public class RequestController {
     @PutMapping("/{id}/decision")
     @PreAuthorize("hasRole('DONOR')")
     public ResponseEntity<?> decideRequest(@PathVariable Long id, @RequestParam boolean accept) {
+        User user = getAuthenticatedUser();
         try {
-            FoodRequest request = logisticsService.decideRequest(id, accept);
+            FoodRequest request = logisticsService.decideRequest(id, user.getId(), accept);
             return ResponseEntity.ok(request);
         } catch (Exception e) {
             Map<String, String> err = new HashMap<>();

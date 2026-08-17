@@ -49,10 +49,13 @@ public class NotificationService {
         return notificationRepository.findByUserIdOrderByCreatedAtDesc(userId);
     }
 
-    public void markAsRead(Long notificationId) {
-        notificationRepository.findById(notificationId).ifPresent(n -> {
-            n.setIsRead(true);
-            notificationRepository.save(n);
-        });
+    public void markAsRead(Long notificationId, Long userId) {
+        Notification notification = notificationRepository.findById(notificationId)
+                .orElseThrow(() -> new RuntimeException("Notification not found"));
+        if (!notification.getUser().getId().equals(userId)) {
+            throw new RuntimeException("Access Denied: You do not own this notification!");
+        }
+        notification.setIsRead(true);
+        notificationRepository.save(notification);
     }
 }

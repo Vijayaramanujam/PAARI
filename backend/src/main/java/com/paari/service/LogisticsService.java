@@ -63,7 +63,7 @@ public class LogisticsService {
     }
 
     @Transactional
-    public FoodRequest decideRequest(Long requestId, boolean accept) {
+    public FoodRequest decideRequest(Long requestId, Long donorUserId, boolean accept) {
         FoodRequest request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("Request not found"));
 
@@ -72,6 +72,9 @@ public class LogisticsService {
         }
 
         FoodDonation donation = request.getFoodDonation();
+        if (!donation.getDonor().getUser().getId().equals(donorUserId)) {
+            throw new RuntimeException("Access Denied: You do not own the donation for this request!");
+        }
 
         if (accept) {
             request.setStatus(RequestStatus.ACCEPTED);
@@ -167,9 +170,13 @@ public class LogisticsService {
     }
 
     @Transactional
-    public PickupDelivery updateDeliveryStatus(Long deliveryId, DeliveryStatus newStatus) {
+    public PickupDelivery updateDeliveryStatus(Long deliveryId, Long volunteerUserId, DeliveryStatus newStatus) {
         PickupDelivery delivery = deliveryRepository.findById(deliveryId)
                 .orElseThrow(() -> new RuntimeException("Delivery task not found"));
+
+        if (delivery.getVolunteer() == null || !delivery.getVolunteer().getUser().getId().equals(volunteerUserId)) {
+            throw new RuntimeException("Access Denied: You are not assigned to this delivery task!");
+        }
 
         delivery.setStatus(newStatus);
         

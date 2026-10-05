@@ -6,9 +6,12 @@ import DonorPortal from './pages/DonorPortal';
 import ReceiverPortal from './pages/ReceiverPortal';
 import VolunteerPortal from './pages/VolunteerPortal';
 import AdminPortal from './pages/AdminPortal';
-import { LogOut, Bell, Shield, User, Landmark, HelpCircle, Heart } from 'lucide-react';
+import Chatbot from './components/Chatbot';
+import { useLanguage } from './context/LanguageContext';
+import { LogOut, Bell, Shield, User, Landmark, HelpCircle, Heart, Globe } from 'lucide-react';
 
 export default function App() {
+  const { language, setLanguage, toggleLanguage, t } = useLanguage();
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [user, setUser] = useState(null);
   const [page, setPage] = useState('landing'); // 'landing', 'login', 'register', 'dashboard'
@@ -91,7 +94,7 @@ export default function App() {
       case 'VOLUNTEER':
         return <VolunteerPortal />;
       default:
-        return <div style={{ padding: '40px', textAlignment: 'center' }}>Role dashboard not found.</div>;
+        return <div style={{ padding: '40px', textAlign: 'center' }}>Role dashboard not found.</div>;
     }
   };
 
@@ -104,13 +107,50 @@ export default function App() {
           <div style={{ background: 'var(--primary)', padding: '6px', borderRadius: '8px', color: '#fff', display: 'flex', alignItems: 'center' }}>
             <Heart size={20} fill="#fff" />
           </div>
-          <span style={{ fontSize: '1.4rem', fontWeight: '800', tracking: '-0.5px' }}>
-            PAARI<span style={{ color: 'var(--primary)', fontSize: '0.85rem', fontWeight: '600', marginLeft: '4px' }}>Net</span>
+          <span style={{ fontSize: '1.4rem', fontWeight: '800', letterSpacing: '-0.5px' }}>
+            {t('brandTitle')}<span style={{ color: 'var(--primary)', fontSize: '0.85rem', fontWeight: '600', marginLeft: '4px' }}>{t('brandSubtitle')}</span>
           </span>
         </div>
 
         {/* Action center */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          
+          {/* Language Switcher Button */}
+          <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(0,0,0,0.04)', borderRadius: '20px', padding: '3px 4px', border: '1px solid var(--border)' }}>
+            <button
+              onClick={() => setLanguage('en')}
+              style={{
+                background: language === 'en' ? 'var(--primary)' : 'transparent',
+                color: language === 'en' ? '#fff' : 'var(--text-muted)',
+                border: 'none',
+                borderRadius: '16px',
+                padding: '4px 10px',
+                fontSize: '0.78rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage('ta')}
+              style={{
+                background: language === 'ta' ? 'var(--primary)' : 'transparent',
+                color: language === 'ta' ? '#fff' : 'var(--text-muted)',
+                border: 'none',
+                borderRadius: '16px',
+                padding: '4px 10px',
+                fontSize: '0.78rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              தமிழ்
+            </button>
+          </div>
+
           {token && user ? (
             <>
               {/* User profile brief */}
@@ -140,11 +180,11 @@ export default function App() {
                 {showNotifications && (
                   <div className="glass-panel animated-fade" style={{ position: 'absolute', top: '35px', right: 0, width: '320px', padding: '16px', zIndex: 100, alignSelf: 'start', maxHeight: '400px', overflowY: 'auto' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', borderBottom: '1px solid var(--border)', paddingBottom: '8px' }}>
-                      <strong style={{ fontSize: '0.9rem' }}>Network Alerts ({notifications.filter(n => !n.read).length})</strong>
-                      <button onClick={() => setShowNotifications(false)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>Close</button>
+                      <strong style={{ fontSize: '0.9rem' }}>{t('navAlerts')} ({notifications.filter(n => !n.read).length})</strong>
+                      <button onClick={() => setShowNotifications(false)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>{t('navClose')}</button>
                     </div>
                     {notifications.length === 0 ? (
-                      <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', padding: '10px 0' }}>No active notifications.</div>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', padding: '10px 0' }}>{t('navNoAlerts')}</div>
                     ) : (
                       <div style={{ display: 'grid', gap: '10px' }}>
                         {notifications.map(n => (
@@ -158,7 +198,7 @@ export default function App() {
                                 onClick={() => handleMarkRead(n.id)}
                                 style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.7rem', fontWeight: '600' }}
                               >
-                                Dismiss
+                                {t('navDismiss')}
                               </button>
                             )}
                           </div>
@@ -176,16 +216,16 @@ export default function App() {
                 style={{ padding: '8px 14px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '6px' }}
               >
                 <LogOut size={14} />
-                Sign Out
+                {t('navSignOut')}
               </button>
             </>
           ) : (
             <>
               <button onClick={() => setPage('login')} className="glass-button-secondary" style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
-                Sign In
+                {t('navSignIn')}
               </button>
               <button onClick={() => setPage('register')} className="glass-button" style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
-                Join PAARI
+                {t('navJoin')}
               </button>
             </>
           )}
@@ -202,8 +242,11 @@ export default function App() {
 
       {/* Footer Info */}
       <footer style={{ borderTop: '1px solid var(--border)', padding: '24px 15px', textAlign: 'center', marginTop: '60px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-        <p>© 2026 PAARI Rescue Network. Backed by corporate sponsorship and local volunteer engines.</p>
+        <p>{t('footerText')}</p>
       </footer>
+
+      {/* Global Bilingual AI Chatbot */}
+      <Chatbot />
 
     </div>
   );

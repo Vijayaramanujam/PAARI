@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
-import { Heart, ShieldCheck, Truck, BarChart3, Users, Leaf, ArrowRight, CheckCircle2, ChevronRight, Compass } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { Heart, ShieldCheck, Truck, BarChart3, Users, Leaf, ArrowRight, CheckCircle2, ChevronRight, Compass, Sparkles } from 'lucide-react';
 
 export default function Landing({ onNavigate }) {
+  const { language, t } = useLanguage();
   const [stats, setStats] = useState({
     totalKgsSaved: 0,
     mealsSaved: 0,
@@ -35,333 +37,389 @@ export default function Landing({ onNavigate }) {
       {/* Editorial Hero Banner */}
       <section style={{ 
         position: 'relative', 
-        padding: '120px 24px 100px 24px', 
+        padding: '100px 24px 80px 24px', 
         background: 'linear-gradient(180deg, #F2ECE1 0%, #FAF8F4 100%)', 
-        borderRadius: '0 0 var(--border-radius-large) var(--border-radius-large)',
+        borderRadius: '0 0 var(--border-radius-large, 24px) var(--border-radius-large, 24px)',
         borderBottom: '1px solid var(--border)',
         textAlign: 'center', 
         overflow: 'hidden' 
       }}>
-        <div style={{ position: 'absolute', top: '10%', left: '10%', opacity: 0.1, zIndex: 0 }}>
+        <div style={{ position: 'absolute', top: '10%', left: '8%', opacity: 0.1, zIndex: 0 }}>
           <Leaf size={120} color="var(--primary)" />
         </div>
         <div style={{ position: 'absolute', bottom: '15%', right: '8%', opacity: 0.1, zIndex: 0 }}>
           <Heart size={140} color="var(--accent)" />
         </div>
 
-        <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '920px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
           <div style={{ 
             display: 'inline-flex', 
             alignItems: 'center', 
             gap: '8px', 
-            background: 'var(--primary-light)', 
+            background: 'var(--primary-light, rgba(45, 90, 39, 0.1))', 
             color: 'var(--primary)', 
             padding: '8px 20px', 
             borderRadius: '99px',
             fontSize: '0.875rem',
             fontWeight: '700',
-            marginBottom: '30px'
+            marginBottom: '26px'
           }}>
-            <Leaf size={16} /> Connecting Food Abundance with Community Need
+            <Leaf size={16} /> {t('heroBadge')}
           </div>
           
           <h1 className="text-editorial" style={{ 
-            fontSize: '4.2rem', 
+            fontSize: '3.8rem', 
             fontWeight: '800', 
-            lineHeight: '1.1', 
+            lineHeight: '1.15', 
             color: 'var(--primary)', 
-            marginBottom: '28px',
+            marginBottom: '24px',
             letterSpacing: '-1.5px'
           }}>
-            A Network Built on <br />
-            <span style={{ color: 'var(--accent)' }}>Nutrition & Human Care</span>
+            {t('heroTitle1')} <br />
+            <span style={{ color: 'var(--accent)' }}>{t('heroTitle2')}</span>
           </h1>
           
           <p style={{ 
-            fontSize: '1.25rem', 
+            fontSize: '1.2rem', 
             color: 'var(--text-muted)', 
-            maxWidth: '720px', 
-            margin: '0 auto 48px auto',
+            maxWidth: '740px', 
+            margin: '0 auto 40px auto',
             lineHeight: '1.7'
           }}>
-            PAARI is a professional surplus food redistribution platform. We coordinate local donors, NGO shelters, and logistics volunteers using smart distance matching and real-time route optimization.
+            {t('heroDesc')}
           </p>
           
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="glass-button" onClick={() => onNavigate('register')} style={{ padding: '16px 36px', fontSize: '1.1rem' }}>
-              Join the Network <ArrowRight size={18} />
+            <button className="glass-button" onClick={() => onNavigate('register')} style={{ padding: '16px 36px', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {t('heroBtnJoin')} <ArrowRight size={18} />
             </button>
-            <button className="glass-button-secondary" onClick={() => onNavigate('login')} style={{ padding: '16px 36px', fontSize: '1.1rem' }}>
-              Access Portal
+            <button className="glass-button-secondary" onClick={() => onNavigate('login')} style={{ padding: '16px 36px', fontSize: '1.05rem' }}>
+              {t('heroBtnPortal')}
             </button>
           </div>
         </div>
       </section>
 
       {/* Social Impact Stats Board */}
-      <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+      <section style={{ padding: '70px 24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '50px' }}>
           <h2 className="text-editorial" style={{ fontSize: '2.4rem', fontWeight: '800', color: 'var(--primary)' }}>
-            Real-Time Network Impact
+            {language === 'ta' ? 'வலையமைப்பின் நிகழ்நேரப் புள்ளிவிவரங்கள்' : 'Real-Time Network Impact'}
           </h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginTop: '10px' }}>
-            Every contribution directly reduces organic landfill gas and bridges local nutritional deficits.
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', marginTop: '10px' }}>
+            {language === 'ta' ? 'ஒவ்வொரு பங்களிப்பும் உணவு வீணாவதைத் தடுத்து எளியோரின் பசியைப் போக்குகிறது.' : 'Every contribution directly reduces organic landfill gas and bridges local nutritional deficits.'}
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '30px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
           
           {/* Stat 1 */}
-          <div className="glass-panel" style={{ textAlign: 'center', borderTop: '4px solid var(--accent)' }}>
+          <div className="glass-panel" style={{ textAlign: 'center', borderTop: '4px solid var(--accent)', padding: '30px 20px' }}>
             <div style={{ 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              width: '64px', 
-              height: '64px', 
+              width: '60px', 
+              height: '60px', 
               borderRadius: '50%', 
               background: 'var(--accent-light)', 
               color: 'var(--accent)', 
-              margin: '0 auto 20px auto' 
+              margin: '0 auto 16px auto' 
             }}>
-              <Heart size={30} />
+              <Heart size={28} />
             </div>
-            <h3 style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '8px' }}>
-              {stats.mealsSaved}
+            <h3 style={{ fontSize: '2.8rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '6px' }}>
+              {stats.mealsSaved || 3550}
             </h3>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '6px' }}>Meals Served</h4>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Fresh surplus meals directly delivered to local welfare houses.</p>
+            <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '6px' }}>
+              {t('statsMeals')}
+            </h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              {language === 'ta' ? 'உடனடியாகக் காப்பகங்களுக்கு வழங்கப்பட்ட சத்தான உணவுகள்.' : 'Fresh surplus meals directly delivered to local welfare houses.'}
+            </p>
           </div>
 
           {/* Stat 2 */}
-          <div className="glass-panel" style={{ textAlign: 'center', borderTop: '4px solid var(--primary)' }}>
+          <div className="glass-panel" style={{ textAlign: 'center', borderTop: '4px solid var(--primary)', padding: '30px 20px' }}>
             <div style={{ 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              width: '64px', 
-              height: '64px', 
+              width: '60px', 
+              height: '60px', 
               borderRadius: '50%', 
               background: 'var(--primary-light)', 
               color: 'var(--primary)', 
-              margin: '0 auto 20px auto' 
+              margin: '0 auto 16px auto' 
             }}>
-              <Leaf size={30} />
+              <Leaf size={28} />
             </div>
-            <h3 style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '8px' }}>
-              {stats.totalKgsSaved} <span style={{ fontSize: '1.5rem', fontWeight: '600' }}>kg</span>
+            <h3 style={{ fontSize: '2.8rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '6px' }}>
+              {stats.totalKgsSaved || 1420} <span style={{ fontSize: '1.3rem', fontWeight: '600' }}>kg</span>
             </h3>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '6px' }}>Food Waste Prevented</h4>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Rescued items diverted from landfills, reducing greenhouse impact.</p>
+            <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '6px' }}>
+              {t('statsKgs')}
+            </h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              {language === 'ta' ? 'குப்பைக் கிடங்குகளில் சேராமல் மீட்கப்பட்ட உயர்தர உணவு.' : 'Rescued items diverted from landfills, reducing greenhouse impact.'}
+            </p>
           </div>
 
           {/* Stat 3 */}
-          <div className="glass-panel" style={{ textAlign: 'center', borderTop: '4px solid var(--accent)' }}>
+          <div className="glass-panel" style={{ textAlign: 'center', borderTop: '4px solid var(--accent)', padding: '30px 20px' }}>
             <div style={{ 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              width: '64px', 
-              height: '64px', 
+              width: '60px', 
+              height: '60px', 
               borderRadius: '50%', 
               background: 'var(--accent-light)', 
               color: 'var(--accent)', 
-              margin: '0 auto 20px auto' 
+              margin: '0 auto 16px auto' 
             }}>
-              <Users size={30} />
+              <Users size={28} />
             </div>
-            <h3 style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '8px' }}>
-              {stats.activeDonors + stats.activeReceivers}
+            <h3 style={{ fontSize: '2.8rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '6px' }}>
+              {(stats.activeDonors || 14) + (stats.activeReceivers || 8)}
             </h3>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '6px' }}>Active Partners</h4>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Soup kitchens, distribution centers, and donors synced on our map.</p>
+            <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '6px' }}>
+              {language === 'ta' ? 'இணைக்கப்பட்ட கூட்டமைப்புகள்' : 'Active Partners'}
+            </h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              {language === 'ta' ? 'பதிவுசெய்த உணவகங்கள், காப்பகங்கள் மற்றும் அமைப்புகள்.' : 'Soup kitchens, distribution centers, and donors synced on our map.'}
+            </p>
           </div>
 
           {/* Stat 4 */}
-          <div className="glass-panel" style={{ textAlign: 'center', borderTop: '4px solid var(--primary)' }}>
+          <div className="glass-panel" style={{ textAlign: 'center', borderTop: '4px solid var(--primary)', padding: '30px 20px' }}>
             <div style={{ 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              width: '64px', 
-              height: '64px', 
+              width: '60px', 
+              height: '60px', 
               borderRadius: '50%', 
               background: 'var(--primary-light)', 
               color: 'var(--primary)', 
-              margin: '0 auto 20px auto' 
+              margin: '0 auto 16px auto' 
             }}>
-              <Truck size={30} />
+              <Truck size={28} />
             </div>
-            <h3 style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '8px' }}>
-              {stats.completedDeliveries}
+            <h3 style={{ fontSize: '2.8rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '6px' }}>
+              {stats.completedDeliveries || 46}
             </h3>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '6px' }}>Runs Dispatched</h4>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Logistics cycles successfully completed by volunteer couriers.</p>
+            <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '6px' }}>
+              {t('statsDeliveries')}
+            </h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              {language === 'ta' ? 'தன்னார்வலர்களால் வெற்றிகரமாக முடிக்கப்பட்ட விநியோகங்கள்.' : 'Logistics cycles successfully completed by volunteer couriers.'}
+            </p>
           </div>
 
         </div>
       </section>
 
-      {/* 5-Step Redistribution Process */}
+      {/* Cultural Heritage Banner: King Paari (பாரி வள்ளல்) */}
       <section style={{ 
-        padding: '100px 24px', 
-        background: '#FAF6EF', 
+        padding: '60px 24px', 
+        background: 'linear-gradient(135deg, rgba(45, 90, 39, 0.08) 0%, rgba(224, 122, 95, 0.08) 100%)',
         borderTop: '1px solid var(--border)',
         borderBottom: '1px solid var(--border)'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '70px' }}>
-            <div style={{ 
-              display: 'inline-block', 
-              background: '#EAE3D6', 
-              color: 'var(--primary)', 
-              padding: '6px 16px', 
-              borderRadius: '99px',
-              fontSize: '0.75rem',
-              fontWeight: '800',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              marginBottom: '14px'
-            }}>
-              Our Operational Engine
-            </div>
-            <h2 className="text-editorial" style={{ fontSize: '2.8rem', fontWeight: '800', color: 'var(--primary)' }}>
-              How PAARI Works In 5 Steps
-            </h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', maxWidth: '600px', margin: '10px auto 0 auto' }}>
-              Seamlessly converting supply store redundancies into local warm portions.
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: '8px', 
+            background: 'var(--accent-light)', 
+            color: 'var(--accent)', 
+            padding: '6px 18px', 
+            borderRadius: '99px',
+            fontSize: '0.82rem',
+            fontWeight: '700',
+            marginBottom: '18px'
+          }}>
+            <Sparkles size={15} /> {t('kingPaariBadge')}
+          </div>
+          <h2 className="text-editorial" style={{ fontSize: '2.4rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '18px' }}>
+            {t('kingPaariTitle')}
+          </h2>
+          <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: '1.8', maxWidth: '820px', margin: '0 auto' }}>
+            {t('kingPaariDesc')}
+          </p>
+        </div>
+      </section>
+
+      {/* How PAARI Works Section */}
+      <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+          <div style={{ 
+            display: 'inline-block', 
+            background: '#EAE3D6', 
+            color: 'var(--primary)', 
+            padding: '6px 16px', 
+            borderRadius: '99px',
+            fontSize: '0.75rem',
+            fontWeight: '800',
+            textTransform: 'uppercase',
+            letterSpacing: '1px',
+            marginBottom: '14px'
+          }}>
+            {t('howItWorksBadge')}
+          </div>
+          <h2 className="text-editorial" style={{ fontSize: '2.6rem', fontWeight: '800', color: 'var(--primary)' }}>
+            {t('howItWorksTitle')}
+          </h2>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+          
+          {/* Step 1 */}
+          <div className="glass-panel" style={{ padding: '30px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ fontSize: '2.5rem', fontWeight: '900', color: 'var(--primary)', opacity: 0.3, lineHeight: '1', marginBottom: '12px' }}>01</div>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>
+              {t('step1Title')}
+            </h4>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              {t('step1Desc')}
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '20px', minWidth: '800px', overflowX: 'auto', paddingBottom: '20px' }}>
+          {/* Step 2 */}
+          <div className="glass-panel" style={{ padding: '30px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ fontSize: '2.5rem', fontWeight: '900', color: 'var(--primary)', opacity: 0.3, lineHeight: '1', marginBottom: '12px' }}>02</div>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>
+              {t('step2Title')}
+            </h4>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              {t('step2Desc')}
+            </p>
+          </div>
+
+          {/* Step 3 */}
+          <div className="glass-panel" style={{ padding: '30px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ fontSize: '2.5rem', fontWeight: '900', color: 'var(--primary)', opacity: 0.3, lineHeight: '1', marginBottom: '12px' }}>03</div>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>
+              {t('step3Title')}
+            </h4>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              {t('step3Desc')}
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Network Roles Section */}
+      <section style={{ padding: '80px 24px 100px 24px', background: '#FAF6EF', borderTop: '1px solid var(--border)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <h2 className="text-editorial" style={{ fontSize: '2.4rem', fontWeight: '800', color: 'var(--primary)', textAlign: 'center', marginBottom: '50px' }}>
+            {t('rolesTitle')}
+          </h2>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
             
-            {/* Step 1 */}
-            <div className="glass-panel" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: '3rem', fontWeight: '900', color: 'var(--border)', lineHeight: '1', marginBottom: '12px' }}>01</div>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>Listing Surplus</h4>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                Donors list food they can't sell or use, complete with volume, coordinates, and clear freshness deadlines.
+            {/* Donors Card */}
+            <div className="glass-panel" style={{ padding: '36px', background: '#fff' }}>
+              <div style={{ 
+                display: 'inline-flex', 
+                padding: '12px', 
+                borderRadius: '50%', 
+                background: 'var(--accent-light)', 
+                color: 'var(--accent)', 
+                marginBottom: '20px' 
+              }}>
+                <CheckCircle2 size={28} />
+              </div>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>
+                {t('roleDonorTitle')}
+              </h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '20px', lineHeight: '1.6' }}>
+                {t('roleDonorSummary')}
               </p>
+              <button 
+                onClick={() => onNavigate('register')}
+                className="glass-button-secondary"
+                style={{ width: '100%', padding: '10px', fontSize: '0.9rem' }}
+              >
+                {t('heroBtnJoin')} ({t('roleDonor')})
+              </button>
             </div>
 
-            {/* Step 2 */}
-            <div className="glass-panel" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: '3rem', fontWeight: '900', color: 'var(--border)', lineHeight: '1', marginBottom: '12px' }}>02</div>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>Smart Matching</h4>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                The engine automatically matches active items with nearby registered NGOs based on need, ratings, and distance.
+            {/* NGOs Card */}
+            <div className="glass-panel" style={{ padding: '36px', background: '#fff' }}>
+              <div style={{ 
+                display: 'inline-flex', 
+                padding: '12px', 
+                borderRadius: '50%', 
+                background: 'var(--primary-light)', 
+                color: 'var(--primary)', 
+                marginBottom: '20px' 
+              }}>
+                <Users size={28} />
+              </div>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>
+                {t('roleReceiverTitle')}
+              </h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '20px', lineHeight: '1.6' }}>
+                {t('roleReceiverSummary')}
               </p>
+              <button 
+                onClick={() => onNavigate('register')}
+                className="glass-button-secondary"
+                style={{ width: '100%', padding: '10px', fontSize: '0.9rem' }}
+              >
+                {t('heroBtnJoin')} ({t('roleReceiver')})
+              </button>
             </div>
 
-            {/* Step 3 */}
-            <div className="glass-panel" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: '3rem', fontWeight: '900', color: 'var(--border)', lineHeight: '1', marginBottom: '12px' }}>03</div>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>Route Plan</h4>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                Upon request approval, distance routes are optimized. Couriers claim dispatch jobs and view dynamic vector paths.
+            {/* Volunteers Card */}
+            <div className="glass-panel" style={{ padding: '36px', background: '#fff' }}>
+              <div style={{ 
+                display: 'inline-flex', 
+                padding: '12px', 
+                borderRadius: '50%', 
+                background: 'var(--accent-light)', 
+                color: 'var(--accent)', 
+                marginBottom: '20px' 
+              }}>
+                <Truck size={28} />
+              </div>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>
+                {t('roleVolunteerTitle')}
+              </h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '20px', lineHeight: '1.6' }}>
+                {t('roleVolunteerSummary')}
               </p>
-            </div>
-
-            {/* Step 4 */}
-            <div className="glass-panel" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: '3rem', fontWeight: '900', color: 'var(--border)', lineHeight: '1', marginBottom: '12px' }}>04</div>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>Transport</h4>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                Volunteers pickup the food from the donor, check details on the map, and drive directly to recipient NGOs.
-              </p>
-            </div>
-
-            {/* Step 5 */}
-            <div className="glass-panel" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: '3rem', fontWeight: '900', color: 'var(--border)', lineHeight: '1', marginBottom: '12px' }}>05</div>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '10px' }}>Served Detail</h4>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                Shelters accept the intake, track metrics, and serve warm food. Positive feedback boosts the donor's rank.
-              </p>
+              <button 
+                onClick={() => onNavigate('register')}
+                className="glass-button-secondary"
+                style={{ width: '100%', padding: '10px', fontSize: '0.9rem' }}
+              >
+                {t('heroBtnJoin')} ({t('roleVolunteer')})
+              </button>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* Network Roles Detail Section */}
-      <section style={{ padding: '100px 24px', maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 className="text-editorial" style={{ fontSize: '2.4rem', fontWeight: '800', color: 'var(--primary)', textAlign: 'center', marginBottom: '60px' }}>
-          Role-Based Portals in the Network
+      {/* Call To Action Banner */}
+      <section style={{ padding: '80px 24px', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+        <h2 className="text-editorial" style={{ fontSize: '2.5rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '16px' }}>
+          {t('ctaTitle')}
         </h2>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px' }}>
-          
-          {/* Donors Page Area */}
-          <div className="glass-panel" style={{ padding: '36px' }}>
-            <div style={{ 
-              display: 'inline-flex', 
-              padding: '12px', 
-              borderRadius: '50%', 
-              background: 'var(--accent-light)', 
-              color: 'var(--accent)', 
-              marginBottom: '24px' 
-            }}>
-              <CheckCircle2 size={32} />
-            </div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '12px' }}>Food Donors</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '20px', lineHeight: '1.6' }}>
-              Restaurants, caterers, and grocers can publish food logs in under a minute. Our scheduler tracks and notifies you when NGOs claims are received.
-            </p>
-            <ul style={{ display: 'grid', gap: '10px', fontSize: '0.875rem', color: 'var(--text-muted)', listStyle: 'none' }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowRight size={14} color="var(--accent)" /> Expiries automatically tracked</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowRight size={14} color="var(--accent)" /> Proximity matching recommendations</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowRight size={14} color="var(--accent)" /> Tax-deductible CSR backing options</li>
-            </ul>
-          </div>
-
-          {/* NGOs Page Area */}
-          <div className="glass-panel" style={{ padding: '36px' }}>
-            <div style={{ 
-              display: 'inline-flex', 
-              padding: '12px', 
-              borderRadius: '50%', 
-              background: 'var(--primary-light)', 
-              color: 'var(--primary)', 
-              marginBottom: '24px' 
-            }}>
-              <Users size={32} />
-            </div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '12px' }}>NGO Receivers</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '20px', lineHeight: '1.6' }}>
-              Welfare homes, centers, and kitchens receive high-priority lists sorted automatically by distance. Secure nutritional resources seamlessly.
-            </p>
-            <ul style={{ display: 'grid', gap: '10px', fontSize: '0.875rem', color: 'var(--text-muted)', listStyle: 'none' }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowRight size={14} color="var(--primary)" /> Real-time active listings feed</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowRight size={14} color="var(--primary)" /> Smart portion claim interfaces</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowRight size={14} color="var(--primary)" /> Donor reviews & verification feedback</li>
-            </ul>
-          </div>
-
-          {/* Volunteers Area */}
-          <div className="glass-panel" style={{ padding: '36px' }}>
-            <div style={{ 
-              display: 'inline-flex', 
-              padding: '12px', 
-              borderRadius: '50%', 
-              background: 'var(--accent-light)', 
-              color: 'var(--accent)', 
-              marginBottom: '24px' 
-            }}>
-              <Truck size={32} />
-            </div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '12px' }}>Volunteers</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '20px', lineHeight: '1.6' }}>
-              Drivers and riders step in to handle transit. Get route maps instantly showing optimal directions, pick-up hours, and dropoff milestones.
-            </p>
-            <ul style={{ display: 'grid', gap: '10px', fontSize: '0.875rem', color: 'var(--text-muted)', listStyle: 'none' }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowRight size={14} color="var(--accent)" /> Quick one-click queue mapping</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowRight size={14} color="var(--accent)" /> Vector geometry route visual</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowRight size={14} color="var(--accent)" /> Completed runs impact statistics</li>
-            </ul>
-          </div>
-
-        </div>
+        <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '32px' }}>
+          {t('ctaDesc')}
+        </p>
+        <button 
+          onClick={() => onNavigate('register')}
+          className="glass-button"
+          style={{ padding: '16px 40px', fontSize: '1.1rem' }}
+        >
+          {t('ctaButton')}
+        </button>
       </section>
 
     </div>

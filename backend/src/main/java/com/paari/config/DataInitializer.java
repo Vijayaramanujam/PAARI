@@ -134,5 +134,15 @@ public class DataInitializer implements CommandLineRunner {
             volunteer.setRating(4.2f);
             volunteerRepository.save(volunteer);
         }
+
+        // Guarantee all demo accounts remain active and ready for login
+        for (String demoEmail : java.util.List.of("admin@paari.org", "donor@paari.org", "ngo@paari.org", "volunteer@paari.org")) {
+            userRepository.findByEmail(demoEmail).ifPresent(u -> {
+                if (u.getStatus() != UserStatus.ACTIVE) {
+                    u.setStatus(UserStatus.ACTIVE);
+                    userRepository.save(u);
+                }
+            });
+        }
     }
 }

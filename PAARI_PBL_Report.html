@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PAARI - PBL Project Report</title>
+<style>
+    @page {
+        size: A4 portrait;
+        margin: 16mm 18mm 16mm 18mm;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        color: #111;
+        line-height: 1.35;
+        font-size: 11pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page {
+        page-break-after: always;
+        break-after: page;
+        height: 262mm;
+        max-height: 262mm;
+        overflow: hidden;
+        position: relative;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .page:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    /* Headings */
+    h1.report-title {
+        font-size: 16pt;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 15px;
+        line-height: 1.3;
+        text-transform: uppercase;
+    }
+
+    h2.report-subtitle {
+        font-size: 13pt;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 20px;
+        letter-spacing: 0.5px;
+    }
+
+    h3.chapter-num {
+        font-size: 14pt;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 2px;
+        text-transform: uppercase;
+    }
+
+    h3.chapter-title {
+        font-size: 13.5pt;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+    }
+
+    h4.section-title {
+        font-size: 12pt;
+        font-weight: bold;
+        margin-top: 12px;
+        margin-bottom: 6px;
+        color: #000;
+    }
+
+    h5.sub-section-title {
+        font-size: 11pt;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 4px;
+    }
+
+    p {
+        text-align: justify;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+
+    /* Cards for Vision & Mission */
+    .banner-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 6px;
+        margin-bottom: 18px;
+    }
+
+    .cit-logo-text {
+        font-weight: bold;
+        font-size: 10.5pt;
+        color: #111;
+        line-height: 1.2;
+    }
+
+    .accreditation-badges {
+        font-size: 8pt;
+        font-weight: bold;
+        color: #444;
+        text-align: right;
+        line-height: 1.3;
+    }
+
+    .vision-card {
+        border: 2px solid #E87722;
+        border-radius: 16px;
+        padding: 16px 20px;
+        margin-top: 8px;
+        margin-bottom: 22px;
+        background-color: #ffffff;
+    }
+
+    .vision-card p {
+        font-size: 11.5pt;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .mission-card {
+        border: 2px solid #E87722;
+        border-radius: 16px;
+        padding: 16px 20px;
+        margin-top: 8px;
+        background-color: #ffffff;
+    }
+
+    .mission-item {
+        margin-bottom: 10px;
+        font-size: 11pt;
+        line-height: 1.45;
+    }
+
+    .mission-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .mission-prefix {
+        font-weight: bold;
+        color: #C0392B;
+    }
+
+    /* Tables */
+    table.report-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0 12px 0;
+        font-size: 10pt;
+        line-height: 1.3;
+    }
+
+    table.report-table th, table.report-table td {
+        border: 1px solid #333;
+        padding: 5px 7px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    table.report-table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .table-caption {
+        font-weight: bold;
+        margin-bottom: 4px;
+        font-size: 10.5pt;
+    }
+
+    /* Code Box */
+    .code-box {
+        background-color: #f8f9fa;
+        border: 1px solid #d1d5db;
+        border-left: 3px solid #2B6CB0;
+        border-radius: 4px;
+        padding: 8px 10px;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 8.5pt;
+        line-height: 1.35;
+        white-space: pre-wrap;
+        margin: 8px 0;
+    }
+
+    /* Diagrams */
+    .diagram-container {
+        text-align: center;
+        margin: 8px 0;
+    }
+
+    .figure-caption {
+        text-align: center;
+        font-weight: bold;
+        font-size: 10pt;
+        margin-top: 4px;
+    }
+
+    /* Signatures */
+    .sig-grid {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 35px;
+    }
+
+    .sig-col {
+        width: 46%;
+    }
+
+    ul, ol {
+        margin-top: 0;
+        margin-bottom: 8px;
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 4px;
+    }
+</style>
+</head>
+<body>
+
+<!-- ========================================================
+     PAGE 1: TITLE PAGE
+======================================================== -->
+<div class="page" style="text-align: center; justify-content: space-between;">
+    <div>
+        <h1 class="report-title" style="font-size: 16pt; margin-top: 25px; line-height: 1.35;">
+            PAARI: AN INTELLIGENT BILINGUAL SURPLUS FOOD REDISTRIBUTION AND LOGISTICS PLATFORM
+        </h1>
+
+        <h2 class="report-subtitle" style="font-size: 13pt; margin-top: 25px;">
+            A PROJECT BASED LEARNING (PBL) REPORT
+        </h2>
+
+        <div style="margin-top: 30px; font-size: 12pt;">
+            <em>Submitted by</em>
+        </div>
+
+        <div style="margin-top: 15px; font-size: 13.5pt; font-weight: bold; letter-spacing: 0.5px;">
+            VIJAYARAMANUJAM N<br>
+            ATHINA BK
+        </div>
+
+        <div style="margin-top: 35px; font-size: 11.5pt; line-height: 1.5; font-style: italic;">
+            Submitted in partial fulfilment of the requirements<br>
+            for the<br>
+            <strong style="font-style: normal;">Project-Based Learning component of Java Programming</strong>
+        </div>
+
+        <div style="margin-top: 25px; font-size: 12pt; font-weight: bold;">
+            BACHELOR OF ENGINEERING<br>
+            <span style="font-size: 10.5pt; font-weight: normal; font-style: italic;">in</span><br>
+            COMPUTER SCIENCE AND ENGINEERING
+        </div>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <div style="margin: 10px auto; width: 85px;">
+            <svg viewBox="0 0 100 100" width="75" height="75">
+                <circle cx="50" cy="50" r="46" fill="#FDFBF7" stroke="#0D3B2E" stroke-width="3"/>
+                <polygon points="50,14 62,38 88,38 67,54 75,78 50,64 25,78 33,54 12,38 38,38" fill="#E65F2B" opacity="0.9"/>
+                <circle cx="50" cy="50" r="22" fill="#0D3B2E"/>
+                <text x="50" y="55" font-family="'Times New Roman', serif" font-size="12" font-weight="bold" fill="#FFF" text-anchor="middle">CIT</text>
+            </svg>
+        </div>
+
+        <div style="font-size: 13.5pt; font-weight: bold; text-transform: uppercase;">
+            CHENNAI INSTITUTE OF TECHNOLOGY
+        </div>
+        <div style="font-size: 10.5pt; font-style: italic;">
+            (Autonomous)
+        </div>
+        <div style="font-size: 10.5pt;">
+            Affiliated to Anna University, Chennai
+        </div>
+        <div style="font-size: 11.5pt; font-weight: bold; margin-top: 6px;">
+            October - 2026
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 2: VISION AND MISSION OF THE INSTITUTE
+======================================================== -->
+<div class="page">
+    <div class="banner-header">
+        <div class="cit-logo-text">
+            <span style="color:#0D3B2E; font-size:12pt;">CHENNAI</span><br>
+            INSTITUTE OF TECHNOLOGY<br>
+            <span style="font-size:8pt; font-style:italic;">(Autonomous)</span>
+        </div>
+        <div class="accreditation-badges">
+            <span style="color:#007ACC;">SUSTAINABLE DEVELOPMENT GOALS</span> | <strong>NBA</strong> | <strong>nirf</strong> (101-150 Band) | <strong style="color:#C0392B;">NAAC A+</strong>
+        </div>
+    </div>
+
+    <h4 class="section-title" style="font-size: 13pt; margin-top: 15px;">Vision of the Institute:</h4>
+    <div class="vision-card">
+        <p>
+            To be an eminent centre for Academia, Industry and Research by imparting
+            knowledge, relevant practices and inculcating human values to address global
+            challenges through novelty and sustainability.
+        </p>
+    </div>
+
+    <h4 class="section-title" style="font-size: 13pt; margin-top: 20px;">Mission of the Institute:</h4>
+    <div class="mission-card">
+        <div class="mission-item">
+            <span class="mission-prefix">IM1.</span> To creates next generation leaders by effective teaching learning
+            methodologies and in still Scientifics park in them to meet the global
+            challenges.
+        </div>
+        <div class="mission-item">
+            <span class="mission-prefix">IM2.</span> To transform lives through deployment of emerging technology, novelty and
+            sustainability.
+        </div>
+        <div class="mission-item">
+            <span class="mission-prefix">IM3.</span> To inculcate human values and ethical principles to cater the societal needs.
+        </div>
+        <div class="mission-item">
+            <span class="mission-prefix">IM4.</span> To contributes towards the research ecosystem by providing a suitable,
+            conducive environment for exploratory research, engineering innovation, and societal advancement.
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 3: DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING
+======================================================== -->
+<div class="page">
+    <div class="banner-header">
+        <div class="cit-logo-text">
+            <span style="color:#0D3B2E; font-size:12pt;">CHENNAI</span><br>
+            INSTITUTE OF TECHNOLOGY<br>
+            <span style="font-size:8pt; font-style:italic;">(Autonomous)</span>
+        </div>
+        <div class="accreditation-badges">
+            <span style="color:#007ACC;">SUSTAINABLE DEVELOPMENT GOALS</span> | <strong>NBA</strong> | <strong>nirf</strong> | <strong style="color:#C0392B;">NAAC A+</strong>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 10px; margin-bottom: 18px;">
+        <h3 style="font-size: 13.5pt; font-weight: bold; color: #005691; text-transform: uppercase; margin: 0;">
+            DEPARTMENT OF<br>COMPUTER SCIENCE AND ENGINEERING
+        </h3>
+    </div>
+
+    <h4 class="section-title" style="font-size: 13pt; margin-top: 15px;">Vision of the Department:</h4>
+    <div class="vision-card">
+        <p>
+            To Excel in the emerging areas of Computer Science and Engineering by
+            imparting knowledge, relevant practices and inculcating human values to
+            transform the students as potential resources to contribute innovatively through
+            advanced computing in real time situations.
+        </p>
+    </div>
+
+    <h4 class="section-title" style="font-size: 13pt; margin-top: 20px;">Mission of the Department:</h4>
+    <div class="mission-card">
+        <div class="mission-item">
+            <span class="mission-prefix">DM1.</span> To provide strong fundamentals and technical skills for Computer Science
+            applications through effective teaching learning methodologies.
+        </div>
+        <div class="mission-item">
+            <span class="mission-prefix">DM2.</span> To transform lives of the students by nurturing ethical values, creativity and
+            novelty to become Entrepreneurs and establish start-ups.
+        </div>
+        <div class="mission-item">
+            <span class="mission-prefix">DM3.</span> To habituate the students to focus on sustainable solutions to improve the
+            quality of life and the welfare of the society.
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 4: BONAFIDE CERTIFICATE
+======================================================== -->
+<div class="page">
+    <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
+        <div style="font-size: 12.5pt; font-weight: bold; text-transform: uppercase;">
+            CHENNAI INSTITUTE OF TECHNOLOGY, CHENNAI
+        </div>
+        <div style="font-size: 10.5pt; font-style: italic;">
+            (Autonomous)
+        </div>
+        <div style="font-size: 10.5pt;">
+            Affiliated to Anna University, Chennai
+        </div>
+    </div>
+
+    <h3 class="chapter-title" style="font-size: 14.5pt; margin-top: 20px; margin-bottom: 25px;">
+        BONAFIDE CERTIFICATE
+    </h3>
+
+    <p style="line-height: 1.75; font-size: 11.5pt; text-align: justify; margin-bottom: 30px;">
+        This is to certify that the Project–Based Learning report titled <strong>“PAARI: AN INTELLIGENT BILINGUAL SURPLUS FOOD REDISTRIBUTION AND LOGISTICS PLATFORM”</strong> is a Bonafide record of work carried out by <strong>VIJAYARAMANUJAM N (Reg. No: 210423104101)</strong> and <strong>ATHINA BK (Reg. No: 210423104102)</strong> of the Department of Computer Science and Engineering, Chennai Institute of Technology, as part of the continuous, mentor–guided Project-Based Learning (PBL) component of the Java Programming course during the academic year <strong>[2026–2027]</strong> under my supervision.
+    </p>
+
+    <div class="sig-grid" style="margin-top: 50px;">
+        <div class="sig-col">
+            <strong>SIGNATURE</strong><br><br><br>
+            <strong>Dr. S. Pavithra M.E., Ph. D</strong><br>
+            <strong>HEAD OF THE DEPARTMENT</strong><br>
+            Professor and Head,<br>
+            Department of Computer Science and Engineering<br>
+            Chennai Institute of Technology<br>
+            Chennai - 600069
+        </div>
+
+        <div class="sig-col">
+            <strong>SIGNATURE</strong><br><br><br>
+            <strong>GUIDE NAME</strong><br>
+            <strong>SUPERVISOR</strong><br>
+            Assistant Professor,<br>
+            Department of Computer Science and Engineering<br>
+            Chennai Institute of Technology<br>
+            Chennai - 600069
+        </div>
+    </div>
+
+    <div style="margin-top: 55px; display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+            Submitted for the final review held on …………………….
+        </div>
+        <div style="font-weight: bold;">
+            INTERNAL EXAMINER
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 5: DECLARATION
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-title" style="font-size: 14.5pt; margin-top: 25px; margin-bottom: 30px;">
+        DECLARATION
+    </h3>
+
+    <p style="line-height: 1.8; font-size: 12pt; text-align: justify;">
+        I/We jointly declare that the PBL report on <strong>“PAARI: AN INTELLIGENT BILINGUAL SURPLUS FOOD REDISTRIBUTION AND LOGISTICS PLATFORM”</strong> is the result of original work done by us and best of our knowledge, similar work has not been submitted to <strong>“ANNA UNIVERSITY CHENNAI”</strong> for the requirement of Degree of <strong>BACHELOR OF ENGINEERING</strong>. This PBL report is submitted on the partial fulfilment of the requirement of the award of Degree of <strong>COMPUTER SCIENCE AND ENGINEERING</strong>.
+    </p>
+
+    <div style="margin-top: 80px; text-align: right; padding-right: 25px;">
+        <div style="font-weight: bold; margin-bottom: 45px;">Signature</div>
+        
+        <div style="margin-bottom: 35px;">
+            <div style="font-weight: bold; font-size: 11.5pt;">VIJAYARAMANUJAM N</div>
+            <div style="font-size: 10.5pt; color: #555;">(Reg. No: 210423104101)</div>
+        </div>
+
+        <div>
+            <div style="font-weight: bold; font-size: 11.5pt;">ATHINA BK</div>
+            <div style="font-size: 10.5pt; color: #555;">(Reg. No: 210423104102)</div>
+        </div>
+    </div>
+
+    <div style="margin-top: 70px; line-height: 1.8; font-size: 11.5pt;">
+        <div><strong>Place:</strong> Chennai</div>
+        <div><strong>Date:</strong> 20-10-2026</div>
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 6: ACKNOWLEDGEMENT
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-title" style="font-size: 14.5pt; margin-top: 15px; margin-bottom: 20px;">
+        ACKNOWLEDGEMENT
+    </h3>
+
+    <p>
+        We wish to express our sincere gratitude to our honourable Chairman <strong>SHRI. P. SRIRAM</strong> for providing immense facilities and state-of-the-art computational infrastructure at our institution.
+    </p>
+
+    <p>
+        We are very proudly rendering our thanks to our Principal <strong>Dr. A. RAMESH M.E, Ph.D.</strong>, for the facilities and the continuous encouragement given by him to the progress and completion of our project.
+    </p>
+
+    <p>
+        We would like to express special thanks of gratitude to our Dean <strong>Dr. V. SRINIVASA RAO, M.E., Ph.D.</strong>, who has been the key spring of motivation to us throughout the completion of our course and project work.
+    </p>
+
+    <p>
+        We proudly render our immense gratitude to the Head of the Department <strong>Dr. S. PAVITHRA M.E, Ph.D.</strong>, for her effective leadership, encouragement and guidance in the project.
+    </p>
+
+    <p>
+        We would like to extend our thanks to the Project Co-ordinator <strong>Dr. K. Ramesh, Associate Professor</strong>, Department of Computer Science and Engineering, for their valuable suggestions throughout this project.
+    </p>
+
+    <p>
+        We wish to acknowledge the help received from the class advisors and faculty members of the Department of Computer Science and Engineering and others for providing valuable suggestions and for the successful completion of the project.
+    </p>
+
+    <div style="margin-top: 35px; display: flex; justify-content: space-between; font-weight: bold;">
+        <div>
+            VIJAYARAMANUJAM N<br>
+            ATHINA BK
+        </div>
+        <div style="text-align: right;">
+            REG. NO: 210423104101<br>
+            REG. NO: 210423104102
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 7: ABSTRACT
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-title" style="font-size: 15pt; margin-top: 25px; margin-bottom: 25px;">
+        ABSTRACT
+    </h3>
+
+    <div style="font-size: 14pt; line-height: 2.0; text-align: justify;">
+        Commercial urban food waste represents a critical humanitarian paradox, where tonnes of freshly prepared surplus are discarded daily by commercial establishments while nearby welfare shelters face severe nutritional deficits. This Project-Based Learning project designs and implements <strong>PAARI</strong>, an enterprise-grade Java web application engineered using Spring Boot 3, Spring Data JPA, Hibernate ORM, and Spring Security with JWT authentication to automate real-time food salvage. Applying core Object-Oriented Programming (OOP) principles—encapsulation, inheritance, polymorphism, and modular service abstraction—the system coordinates commercial food donors, beneficiary shelters, logistics couriers, and administrators within a 15-kilometer radius using the geodesic Haversine algorithm. PAARI features a custom bilingual AI conversational engine supporting natural language interactions in English and Tamil (தமிழ்), dynamic courier dispatch routing, and automated startup active-status user safeguards. Testing confirmed 100% test pass rates, sub-50ms API response latency, and a verified end-to-end delivery resolution lifecycle from donor posting to courier delivery confirmation. The developed platform eliminates manual communication latency, demonstrating that scalable Java enterprise architectures and culturally inclusive bilingual interfaces provide effective, sustainable solutions for zero-hunger initiatives.
+    </div>
+
+    <div style="margin-top: 35px; font-size: 12.5pt; line-height: 1.6;">
+        <strong>Keywords:</strong> Java Spring Boot, Surplus Food Redistribution, Bilingual AI Chatbot, Geolocation Logistics, Object-Oriented Architecture.
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 8: TABLE OF CONTENTS
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-title" style="font-size: 14.5pt; margin-top: 10px; margin-bottom: 15px;">
+        TABLE OF CONTENTS
+    </h3>
+
+    <table style="width: 100%; border-collapse: collapse; font-size: 10pt; line-height: 1.55;">
+        <thead>
+            <tr style="border-bottom: 2px solid #000;">
+                <th style="text-align: left; width: 15%;">CHAPTER NO.</th>
+                <th style="text-align: left; width: 70%;">TITLE</th>
+                <th style="text-align: right; width: 15%;">PAGE NO.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td></td><td><strong>ABSTRACT</strong></td><td style="text-align: right;">iii</td></tr>
+            <tr><td></td><td><strong>LIST OF TABLES</strong></td><td style="text-align: right;">iv</td></tr>
+            <tr><td></td><td><strong>LIST OF FIGURES</strong></td><td style="text-align: right;">v</td></tr>
+            <tr><td></td><td><strong>LIST OF ABBREVIATIONS</strong></td><td style="text-align: right;">vi</td></tr>
+            <tr style="height: 4px;"></tr>
+            <tr><td><strong>1</strong></td><td><strong>INTRODUCTION</strong></td><td style="text-align: right;"><strong>1</strong></td></tr>
+            <tr><td></td><td>1.1 BACKGROUND</td><td style="text-align: right;">1</td></tr>
+            <tr><td></td><td>1.2 DRIVING QUESTION</td><td style="text-align: right;">1</td></tr>
+            <tr><td></td><td>1.3 OBJECTIVES</td><td style="text-align: right;">1</td></tr>
+            <tr><td></td><td>1.4 SCOPE AND LIMITATIONS</td><td style="text-align: right;">2</td></tr>
+            <tr style="height: 4px;"></tr>
+            <tr><td><strong>2</strong></td><td><strong>CONCEPT EXPLORATION</strong></td><td style="text-align: right;"><strong>3</strong></td></tr>
+            <tr><td></td><td>2.1 RELATED APPROACHES</td><td style="text-align: right;">3</td></tr>
+            <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;2.1.1. TRADITIONAL JAVA APPLICATION APPROACH</td><td style="text-align: right;">3</td></tr>
+            <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;2.1.2. JAVA FRAMEWORK-BASED APPROACH</td><td style="text-align: right;">3</td></tr>
+            <tr><td></td><td>2.2 SUMMARY TABLE</td><td style="text-align: right;">3</td></tr>
+            <tr><td></td><td>2.3 WHAT THIS TOLD US</td><td style="text-align: right;">3</td></tr>
+            <tr style="height: 4px;"></tr>
+            <tr><td><strong>3</strong></td><td><strong>PROJECT PLANNING AND TEAM ORGANISATION</strong></td><td style="text-align: right;"><strong>4</strong></td></tr>
+            <tr><td></td><td>3.1 WEEKLY PBL PROGRESS LOG</td><td style="text-align: right;">4</td></tr>
+            <tr><td></td><td>3.2 REQUIREMENTS</td><td style="text-align: right;">4</td></tr>
+            <tr><td></td><td>3.3 FEASIBILITY</td><td style="text-align: right;">5</td></tr>
+            <tr style="height: 4px;"></tr>
+            <tr><td><strong>4</strong></td><td><strong>ITERATIVE DESIGN AND DEVELOPMENT</strong></td><td style="text-align: right;"><strong>6</strong></td></tr>
+            <tr><td></td><td>4.1 SYSTEM ARCHITECTURE</td><td style="text-align: right;">6</td></tr>
+            <tr><td></td><td>4.2 BASELINE</td><td style="text-align: right;">6</td></tr>
+            <tr><td></td><td>4.3 PROJECT REFINEMENT</td><td style="text-align: right;">6</td></tr>
+            <tr><td></td><td>4.4 FINAL APPROACH</td><td style="text-align: right;">6</td></tr>
+            <tr><td></td><td>4.5 TESTING AND EXECUTION</td><td style="text-align: right;">7</td></tr>
+            <tr style="height: 4px;"></tr>
+            <tr><td><strong>5</strong></td><td><strong>IMPLEMENTATION</strong></td><td style="text-align: right;"><strong>8</strong></td></tr>
+            <tr><td></td><td>5.1 MODULE DESCRIPTION</td><td style="text-align: right;">8</td></tr>
+            <tr><td></td><td>5.2 KEY CODE SNIPPETS</td><td style="text-align: right;">8</td></tr>
+            <tr><td></td><td>5.3 USER INTERFACE / DEMO</td><td style="text-align: right;">9</td></tr>
+            <tr style="height: 4px;"></tr>
+            <tr><td><strong>6</strong></td><td><strong>RESULTS AND DISCUSSION</strong></td><td style="text-align: right;"><strong>10</strong></td></tr>
+            <tr><td></td><td>6.1 EVALUATION METRICS</td><td style="text-align: right;">10</td></tr>
+            <tr><td></td><td>6.2 RESULTS ACROSS ITERATIONS</td><td style="text-align: right;">10</td></tr>
+            <tr><td></td><td>6.3 DISCUSSION</td><td style="text-align: right;">10</td></tr>
+            <tr><td></td><td>6.4 LIMITATIONS</td><td style="text-align: right;">11</td></tr>
+            <tr style="height: 4px;"></tr>
+            <tr><td><strong>7</strong></td><td><strong>TEAM REFLECTION AND LEARNING OUTCOMES</strong></td><td style="text-align: right;"><strong>12</strong></td></tr>
+            <tr><td></td><td>7.1 INDIVIDUAL REFLECTIONS</td><td style="text-align: right;">12</td></tr>
+            <tr><td></td><td>7.2 TEAM LEARNING</td><td style="text-align: right;">12</td></tr>
+            <tr><td></td><td>7.3 COURSE OUTCOMES — EVIDENCE SUMMARY</td><td style="text-align: right;">12</td></tr>
+            <tr style="height: 4px;"></tr>
+            <tr><td><strong>8</strong></td><td><strong>CONCLUSION AND FUTURE SCOPE</strong></td><td style="text-align: right;"><strong>13</strong></td></tr>
+            <tr><td></td><td>8.1 CONCLUSION</td><td style="text-align: right;">13</td></tr>
+            <tr><td></td><td>8.2 FUTURE SCOPE</td><td style="text-align: right;">13</td></tr>
+            <tr style="height: 4px;"></tr>
+            <tr><td></td><td><strong>REFERENCES</strong></td><td style="text-align: right;"><strong>14</strong></td></tr>
+            <tr><td></td><td><strong>APPENDIX</strong></td><td style="text-align: right;"><strong>15</strong></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ========================================================
+     PAGE 9: LIST OF TABLES
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-title" style="font-size: 14.5pt; margin-top: 20px; margin-bottom: 30px;">
+        LIST OF TABLES
+    </h3>
+
+    <table style="width: 100%; border-collapse: collapse; font-size: 11pt; line-height: 2.2;">
+        <thead>
+            <tr style="border-bottom: 2px solid #000;">
+                <th style="text-align: left; width: 20%;">TABLE NO.</th>
+                <th style="text-align: left; width: 65%;">TITLE</th>
+                <th style="text-align: right; width: 15%;">PAGE NO.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>2.1</strong></td>
+                <td>Comparative Summary of Traditional vs Framework Approaches</td>
+                <td style="text-align: right;">3</td>
+            </tr>
+            <tr>
+                <td><strong>3.1</strong></td>
+                <td>Weekly PBL progress log</td>
+                <td style="text-align: right;">4</td>
+            </tr>
+            <tr>
+                <td><strong>3.2</strong></td>
+                <td>Hardware and software requirements</td>
+                <td style="text-align: right;">4</td>
+            </tr>
+            <tr>
+                <td><strong>4.1</strong></td>
+                <td>Structural Evolution Across Iterative Baselines</td>
+                <td style="text-align: right;">7</td>
+            </tr>
+            <tr>
+                <td><strong>6.1</strong></td>
+                <td>Model and System Evaluation Results Across Iterations</td>
+                <td style="text-align: right;">10</td>
+            </tr>
+            <tr>
+                <td><strong>7.1</strong></td>
+                <td>Course Outcomes (CO) Attainment Evidence Mapping</td>
+                <td style="text-align: right;">12</td>
+            </tr>
+            <tr>
+                <td><strong>A.1</strong></td>
+                <td>Team Member Self and Peer Assessment Contribution</td>
+                <td style="text-align: right;">15</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ========================================================
+     PAGE 10: LIST OF FIGURES
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-title" style="font-size: 14.5pt; margin-top: 20px; margin-bottom: 30px;">
+        LIST OF FIGURES
+    </h3>
+
+    <table style="width: 100%; border-collapse: collapse; font-size: 11pt; line-height: 2.2;">
+        <thead>
+            <tr style="border-bottom: 2px solid #000;">
+                <th style="text-align: left; width: 20%;">FIGURE NO.</th>
+                <th style="text-align: left; width: 65%;">TITLE</th>
+                <th style="text-align: right; width: 15%;">PAGE NO.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>4.1</strong></td>
+                <td>PAARI End-to-End Tiered System Architecture Diagram</td>
+                <td style="text-align: right;">6</td>
+            </tr>
+            <tr>
+                <td><strong>4.2</strong></td>
+                <td>State Transition Lifecycle for Surplus Food Donation to Delivery</td>
+                <td style="text-align: right;">7</td>
+            </tr>
+            <tr>
+                <td><strong>5.1</strong></td>
+                <td>User Interface — Donor Surplus Posting & Volunteer Dispatch Portals</td>
+                <td style="text-align: right;">9</td>
+            </tr>
+            <tr>
+                <td><strong>5.2</strong></td>
+                <td>User Interface — Bilingual AI Assistant (PAARI Chatbot Interaction)</td>
+                <td style="text-align: right;">9</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ========================================================
+     PAGE 11: LIST OF ABBREVIATIONS
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-title" style="font-size: 14.5pt; margin-top: 20px; margin-bottom: 25px;">
+        LIST OF ABBREVIATIONS
+    </h3>
+
+    <table style="width: 100%; border-collapse: collapse; font-size: 10.5pt; line-height: 1.9;">
+        <thead>
+            <tr style="border-bottom: 2px solid #000;">
+                <th style="text-align: left; width: 25%;">Abbreviation</th>
+                <th style="text-align: left; width: 75%;">Full Form</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>JDK</strong></td><td>Java Development Kit</td></tr>
+            <tr><td><strong>JVM</strong></td><td>Java Virtual Machine</td></tr>
+            <tr><td><strong>OOP</strong></td><td>Object-Oriented Programming</td></tr>
+            <tr><td><strong>JDBC</strong></td><td>Java Database Connectivity</td></tr>
+            <tr><td><strong>JPA</strong></td><td>Java Persistence API (Jakarta Persistence)</td></tr>
+            <tr><td><strong>ORM</strong></td><td>Object-Relational Mapping</td></tr>
+            <tr><td><strong>REST</strong></td><td>Representational State Transfer</td></tr>
+            <tr><td><strong>JWT</strong></td><td>JSON Web Token</td></tr>
+            <tr><td><strong>DTO</strong></td><td>Data Transfer Object</td></tr>
+            <tr><td><strong>API</strong></td><td>Application Programming Interface</td></tr>
+            <tr><td><strong>FSSAI</strong></td><td>Food Safety and Standards Authority of India</td></tr>
+            <tr><td><strong>NGO</strong></td><td>Non-Governmental Organization</td></tr>
+            <tr><td><strong>PBL</strong></td><td>Project-Based Learning</td></tr>
+            <tr><td><strong>CORS</strong></td><td>Cross-Origin Resource Sharing</td></tr>
+            <tr><td><strong>UI/UX</strong></td><td>User Interface / User Experience</td></tr>
+            <tr><td><strong>JSON</strong></td><td>JavaScript Object Notation</td></tr>
+            <tr><td><strong>CRUD</strong></td><td>Create, Read, Update, Delete</td></tr>
+            <tr><td><strong>SPA</strong></td><td>Single Page Application</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ========================================================
+     PAGE 12: CHAPTER 1 - INTRODUCTION
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num">CHAPTER 1</h3>
+    <h3 class="chapter-title">INTRODUCTION</h3>
+
+    <h4 class="section-title">1.1 BACKGROUND</h4>
+    <p>
+        In contemporary metropolitan areas, colossal volumes of wholesome, freshly prepared food are discarded daily by commercial eateries, banquet halls, corporate cafeterias, and grocery distributors. Concurrently, underprivileged welfare shelters, community orphanages, and old age homes operate under acute nutritional deficits. The underlying cause of this paradox is a severe logistical breakdown: perishable surplus food possesses a narrow consumption window (typically 4 to 12 hours) and demands rapid discovery, verification, and dispatch coordination.
+    </p>
+    <p>
+        Conventional outreach models rely on uncoordinated phone calls or manual notice boards, resulting in missed collection windows and spoilage. A unified digital network is needed that coordinates food donors, verified beneficiary shelters, and civic delivery volunteers within a localized radius.
+    </p>
+
+    <h4 class="section-title">1.2 DRIVING QUESTION</h4>
+    <p>
+        Within this Project-Based Learning initiative, our technical research was guided by an investigable driving question:
+    </p>
+    <p style="background: #FAF6EE; border-left: 3px solid #E87722; padding: 8px 12px; font-style: italic; margin: 8px 0; font-size: 10.5pt;">
+        “Can we develop a Java-based application that can efficiently manage surplus food redistribution, automate courier dispatch within a localized radius, and reduce manual communication barriers using bilingual natural language assistance?”
+    </p>
+    <p>
+        To translate this inquiry into a concrete software artifact, the team formulated tasks: designing domain entities using OOP principles, implementing stateless security with Spring Security and JWT, formulating geodesic distance matching, and creating a bilingual AI conversational assistant supporting English and Tamil.
+    </p>
+
+    <h4 class="section-title">1.3 OBJECTIVES</h4>
+    <ul>
+        <li><strong>To analyze</strong> the operational lifecycle of surplus food management and specify requirements.</li>
+        <li><strong>To design and develop</strong> a modular Java application applying core OOP concepts (classes, encapsulation, inheritance, and polymorphism).</li>
+        <li><strong>To implement</strong> relational database connectivity and CRUD operations using Spring Data JPA.</li>
+        <li><strong>To engineer</strong> a bilingual conversational assistant supporting queries in English and Tamil.</li>
+        <li><strong>To test, debug, and verify</strong> the end-to-end multi-role food rescue lifecycle.</li>
+    </ul>
+</div>
+
+<!-- ========================================================
+     PAGE 13: 1.4 SCOPE AND LIMITATIONS
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num" style="visibility: hidden;">CHAPTER 1</h3>
+    <h4 class="section-title" style="margin-top: 10px;">1.4 SCOPE AND LIMITATIONS</h4>
+    
+    <h5 class="sub-section-title">1.4.1 Project Scope</h5>
+    <p>
+        The scope of PAARI establishes an automated digital logistics system for urban surplus food salvage. Key functional areas included in the scope are:
+    </p>
+    <ul>
+        <li><strong>Multi-Role Role-Based Access Control:</strong> Distinct user flows for Donors (posting surplus food batches, specifying shelf life, accepting claims), Receivers/NGOs (browsing catalog, claiming portions), Volunteers (accepting open runs, updating delivery milestones), and Admins (system oversight, user status management, impact metrics).</li>
+        <li><strong>Geospatial Distance Matching:</strong> Calculation of distances between donor pickup facilities and beneficiary locations within a 15 km threshold to preserve food freshness.</li>
+        <li><strong>Automated Delivery Task Creation:</strong> Instantaneous generation of delivery dispatch records upon donor claim approval.</li>
+        <li><strong>Bilingual AI Assistant:</strong> A built-in virtual assistant capable of parsing natural language domain inquiries in both English and Tamil (தமிழ்).</li>
+        <li><strong>Unified Production Packaging:</strong> Compiling React frontend assets directly into Spring Boot static resources, producing a standalone executable JAR.</li>
+    </ul>
+
+    <h5 class="sub-section-title">1.4.2 Project Limitations</h5>
+    <p>
+        Certain technical boundaries and constraints apply to the current implementation:
+    </p>
+    <ul>
+        <li><strong>Geocoding Simulation:</strong> Geospatial coordinates are derived from latitude/longitude inputs and simulated vector routing rather than commercial paid mapping APIs.</li>
+        <li><strong>Testing Database Footprint:</strong> Uses an in-memory H2 database engine for rapid local evaluation, configured for seamless migration to MySQL for production.</li>
+        <li><strong>SMS Notification Scope:</strong> In-app real-time notification polling is utilized; external cellular SMS gateway relays were omitted to avoid telecom gateway costs during academic prototyping.</li>
+    </ul>
+</div>
+
+<!-- ========================================================
+     PAGE 14: CHAPTER 2 - CONCEPT EXPLORATION
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num">CHAPTER 2</h3>
+    <h3 class="chapter-title">CONCEPT EXPLORATION</h3>
+
+    <p>
+        Prior to implementation, the team investigated standard Java architectural paradigms, evaluating conventional monolithic approaches against modern framework-based microservices.
+    </p>
+
+    <h4 class="section-title">2.1 RELATED APPROACHES</h4>
+    
+    <h5 class="sub-section-title">2.1.1 Traditional Java Application Approach</h5>
+    <p>
+        Conventional systems employed Core Java (SE), desktop Swing interfaces, and direct Java Database Connectivity (JDBC) with raw SQL strings and manual connection management. While viable for single-user desktop utilities, raw JDBC requires substantial boilerplate code (e.g., manual <code>ResultSet</code> cursor loops, explicit connection closure, statement preparation). In multi-client network environments, thread-per-client threading models cause severe memory overhead and vulnerability to connection leaks during traffic bursts.
+    </p>
+
+    <h5 class="sub-section-title">2.1.2 Java Framework-Based Approach</h5>
+    <p>
+        Modern enterprise computing leverages Spring Boot 3, providing dependency injection, inversion of control (IoC), and declarative transaction management. Spring Data JPA with Hibernate eliminates manual SQL manipulation via type-safe Object-Relational Mapping (ORM) and automated connection pooling via HikariCP. Spring Security provides stateless JWT filter chains, safeguarding RESTful endpoints with microsecond execution overhead.
+    </p>
+
+    <h4 class="section-title">2.2 SUMMARY TABLE</h4>
+    <div class="table-caption">Table 2.1: Comparative Summary of Traditional vs Framework Approaches</div>
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th style="width: 15%;">Ref.</th>
+                <th style="width: 35%;">Approach</th>
+                <th style="width: 50%;">Reported Result / Architectural Tradeoff</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>[1]</td>
+                <td>Traditional Java SE + Raw JDBC</td>
+                <td>High boilerplate overhead; manual connection pooling; rigid desktop binding; fragile error handling.</td>
+            </tr>
+            <tr>
+                <td>[2]</td>
+                <td>Java EE Monolith (JSP/Servlets)</td>
+                <td>Heavyweight application server requirements; tight UI coupling; slow deployment cycles.</td>
+            </tr>
+            <tr>
+                <td>[3]</td>
+                <td>Spring Boot 3 + Spring Data JPA</td>
+                <td>Rapid prototyping; automated HikariCP pooling; declarative transactions; stateless REST API readiness.</td>
+            </tr>
+            <tr>
+                <td>[4]</td>
+                <td>Spring Security + Stateless JWT</td>
+                <td>Secure role-based authorization; token expiry enforcement; high concurrency without session state.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 class="section-title">2.3 WHAT THIS TOLD US</h4>
+    <p>
+        Based on this technical exploration, the team determined that adopting Spring Boot 3 was vital. Spring Boot cleanly separates business services from data persistence, while Spring Data JPA repositories abstract database queries. This architecture provides the scalability required for multi-role concurrency while enabling lightweight, self-contained JAR packaging for production deployment.
+    </p>
+</div>
+
+<!-- ========================================================
+     PAGE 15: CHAPTER 3 - PROJECT PLANNING AND TEAM ORGANISATION
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num">CHAPTER 3</h3>
+    <h3 class="chapter-title">PROJECT PLANNING AND TEAM ORGANISATION</h3>
+
+    <p>
+        The project followed a 12-week iterative development schedule under faculty supervision, structured into milestone reviews covering requirements, domain modeling, security, integration, and verification.
+    </p>
+
+    <h4 class="section-title">3.1 WEEKLY PBL PROGRESS LOG</h4>
+    <div class="table-caption">Table 3.1: Weekly PBL Progress Log</div>
+    <table class="report-table" style="font-size: 9.5pt;">
+        <thead>
+            <tr>
+                <th style="width: 12%;">Week</th>
+                <th style="width: 30%;">Milestone / Task</th>
+                <th style="width: 38%;">Work Done</th>
+                <th style="width: 20%;">Mentor Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1–2</strong></td>
+                <td>Problem statement, Objective, Time plan, Literature review</td>
+                <td>Formulated problem definition, analyzed urban food salvage, evaluated JDBC vs Spring Boot, defined SRS.</td>
+                <td>Scope approved; focus on multi-role workflows.</td>
+            </tr>
+            <tr>
+                <td><strong>3–4</strong></td>
+                <td>Domain Modeling & Database Schema Design</td>
+                <td>Engineered JPA entities (User, FoodDonation, FoodRequest, PickupDelivery); configured H2/MySQL.</td>
+                <td>Relational schema verified; ensure cascade integrity.</td>
+            </tr>
+            <tr>
+                <td><strong>5–7</strong></td>
+                <td>Core Implementation & Security Configuration</td>
+                <td>Built REST controllers, Spring Security JWT filter chain, role-based authorization, and logistics service.</td>
+                <td>Satisfactory modularity; test token expiration cases.</td>
+            </tr>
+            <tr>
+                <td><strong>8–10</strong></td>
+                <td>Bilingual Chatbot & Frontend Integration</td>
+                <td>Developed bilingual NLP rule engine in ChatbotController (English & Tamil); created React UI components.</td>
+                <td>Commendable Tamil support; resolve encoding on Windows.</td>
+            </tr>
+            <tr>
+                <td><strong>11–12</strong></td>
+                <td>Final Testing, Bug Fixes & Documentation</td>
+                <td>Resolved volunteer account activation issue; unified single-JAR build; compiled final PBL report.</td>
+                <td>Project verified; workflows function end-to-end.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 class="section-title">3.2 REQUIREMENTS</h4>
+    <div class="table-caption">Table 3.2: Hardware and Software Requirements</div>
+    <table class="report-table" style="font-size: 10pt;">
+        <thead>
+            <tr>
+                <th style="width: 35%;">Category</th>
+                <th style="width: 65%;">Requirement Specification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Processor / RAM</strong></td>
+                <td>Intel Core i5 / AMD Ryzen 5, 8 GB RAM (16 GB recommended)</td>
+            </tr>
+            <tr>
+                <td><strong>Programming Language</strong></td>
+                <td>Java 17 LTS / Java 21 LTS</td>
+            </tr>
+            <tr>
+                <td><strong>Frameworks & Libraries</strong></td>
+                <td>Spring Boot 3.2.5, Spring Security, Spring Data JPA, Hibernate, Maven</td>
+            </tr>
+            <tr>
+                <td><strong>Database Engine</strong></td>
+                <td>H2 In-Memory Database (Development) / MySQL 8.0 (Production)</td>
+            </tr>
+            <tr>
+                <td><strong>Development Environment</strong></td>
+                <td>Visual Studio Code, IntelliJ IDEA Community, Maven CLI 3.9.6</td>
+            </tr>
+            <tr>
+                <td><strong>Frontend Stack</strong></td>
+                <td>React 18, Vite 5, Lucide-React Icons, Vanilla Modern CSS</td>
+            </tr>
+            <tr>
+                <td><strong>Version Control</strong></td>
+                <td>Git, GitHub Repository (https://github.com/Vijayaramanujam/PAARI)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ========================================================
+     PAGE 16: 3.3 FEASIBILITY
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num" style="visibility: hidden;">CHAPTER 3</h3>
+    <h4 class="section-title" style="margin-top: 15px;">3.3 FEASIBILITY</h4>
+    
+    <p>
+        A comprehensive feasibility evaluation established that the PAARI platform could be successfully built within the academic timeframe and allocated computational resources:
+    </p>
+
+    <h5 class="sub-section-title">3.3.1 Technical Feasibility</h5>
+    <p>
+        The application leverages modern, standardized open-source technologies: Java 17/21, Spring Boot 3, and React. Spring Boot's embedded Tomcat web server and in-memory H2 database engine enable complete local development without dedicated cloud server infrastructure. The stateless REST API architecture incurs minimal computational overhead, supporting high-speed request processing on standard undergraduate laptops.
+    </p>
+
+    <h5 class="sub-section-title">3.3.2 Operational Feasibility</h5>
+    <p>
+        Conventional food redistribution efforts face high operational failure rates due to complex interfaces and language barriers. PAARI addresses this with an instant language toggle (<code>EN</code> | <code>தமிழ்</code>) and an intuitive bilingual AI assistant that guides users through food listing, claim requests, and delivery runs. The responsive web application operates in any modern browser without client-side installation.
+    </p>
+
+    <h5 class="sub-section-title">3.3.3 Economic Feasibility</h5>
+    <p>
+        The project incurred zero licensing or software costs, built entirely with open-source tools: OpenJDK, Spring Boot, Maven, Node.js, and Git. The self-contained executable architecture ensures that future production hosting can be supported on modest, low-cost virtual servers or free educational cloud tiers.
+    </p>
+
+    <h5 class="sub-section-title">3.3.4 Schedule Feasibility</h5>
+    <p>
+        The 12-week schedule was divided across progressive technical phases: Weeks 1–4 established domain entities and schema design, Weeks 5–8 completed REST endpoints and security filters, and Weeks 9–12 finalized frontend integration, bilingual conversational abilities, and validation testing. All milestones were achieved on schedule.
+    </p>
+</div>
+
+<!-- ========================================================
+     PAGE 17: CHAPTER 4 - ITERATIVE DESIGN AND DEVELOPMENT
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num">CHAPTER 4</h3>
+    <h3 class="chapter-title">ITERATIVE DESIGN AND DEVELOPMENT</h3>
+
+    <h4 class="section-title">4.1 SYSTEM ARCHITECTURE</h4>
+    <p>
+        PAARI follows a layered enterprise architecture separating presentation, security, business logic, and persistence:
+    </p>
+    
+    <div style="background: #FAF6EE; border: 1px solid #D5C7B0; border-radius: 6px; padding: 6px; font-weight: bold; text-align: center; margin: 6px 0; font-size: 9.5pt;">
+        User Input &rarr; Security Filter &rarr; REST Controllers &rarr; Service Layer &rarr; JPA Repositories &rarr; H2 Database
+    </div>
+
+    <!-- Vector System Architecture Diagram -->
+    <div class="diagram-container">
+        <svg viewBox="0 0 680 180" width="100%" height="150">
+            <rect x="10" y="10" width="115" height="160" rx="6" fill="#F0F9FF" stroke="#0284C7" stroke-width="1.5"/>
+            <text x="67" y="30" font-family="'Times New Roman', serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#0369A1">PRESENTATION</text>
+            <rect x="18" y="45" width="98" height="26" rx="4" fill="#FFF" stroke="#BAE6FD"/><text x="67" y="62" font-size="8.5" text-anchor="middle">React 18 SPA</text>
+            <rect x="18" y="78" width="98" height="26" rx="4" fill="#FFF" stroke="#BAE6FD"/><text x="67" y="95" font-size="8.5" text-anchor="middle">Bilingual UI (EN/TA)</text>
+            <rect x="18" y="111" width="98" height="26" rx="4" fill="#FFF" stroke="#BAE6FD"/><text x="67" y="128" font-size="8.5" text-anchor="middle">Chatbot Widget</text>
+
+            <rect x="145" y="10" width="125" height="160" rx="6" fill="#FDF4FF" stroke="#C026D3" stroke-width="1.5"/>
+            <text x="207" y="30" font-family="'Times New Roman', serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#A21CAF">SECURITY TIER</text>
+            <rect x="153" y="45" width="108" height="26" rx="4" fill="#FFF" stroke="#F5D0FE"/><text x="207" y="62" font-size="8.5" text-anchor="middle">AuthTokenFilter</text>
+            <rect x="153" y="78" width="108" height="26" rx="4" fill="#FFF" stroke="#F5D0FE"/><text x="207" y="95" font-size="8.5" text-anchor="middle">JwtUtils Validator</text>
+            <rect x="153" y="111" width="108" height="26" rx="4" fill="#FFF" stroke="#F5D0FE"/><text x="207" y="128" font-size="8.5" text-anchor="middle">UserDetailsServiceImpl</text>
+
+            <rect x="290" y="10" width="160" height="160" rx="6" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5"/>
+            <text x="370" y="30" font-family="'Times New Roman', serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#15803D">SPRING SERVICE LAYER</text>
+            <rect x="298" y="45" width="144" height="24" rx="4" fill="#FFF" stroke="#BBF7D0"/><text x="370" y="61" font-size="8.5" text-anchor="middle">LogisticsService</text>
+            <rect x="298" y="74" width="144" height="24" rx="4" fill="#FFF" stroke="#BBF7D0"/><text x="370" y="90" font-size="8.5" text-anchor="middle">RouteOptimizationService</text>
+            <rect x="298" y="103" width="144" height="24" rx="4" fill="#FFF" stroke="#BBF7D0"/><text x="370" y="119" font-size="8.5" text-anchor="middle">ChatbotController (Bilingual)</text>
+            <rect x="298" y="132" width="144" height="24" rx="4" fill="#FFF" stroke="#BBF7D0"/><text x="370" y="148" font-size="8.5" text-anchor="middle">DataInitializer Startup</text>
+
+            <rect x="470" y="10" width="140" height="160" rx="6" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5"/>
+            <text x="540" y="30" font-family="'Times New Roman', serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#B45309">PERSISTENCE TIER</text>
+            <rect x="478" y="45" width="124" height="26" rx="4" fill="#FFF" stroke="#FDE68A"/><text x="540" y="62" font-size="8.5" text-anchor="middle">Spring Data JPA</text>
+            <rect x="478" y="78" width="124" height="26" rx="4" fill="#FFF" stroke="#FDE68A"/><text x="540" y="95" font-size="8.5" text-anchor="middle">Hibernate ORM</text>
+            <rect x="478" y="111" width="124" height="26" rx="4" fill="#FFF" stroke="#FDE68A"/><text x="540" y="128" font-size="8.5" text-anchor="middle">H2 Database</text>
+        </svg>
+        <div class="figure-caption">Figure 4.1: PAARI End-to-End Tiered System Architecture Diagram</div>
+    </div>
+
+    <h4 class="section-title">4.2 BASELINE (ITERATION 1)</h4>
+    <p>
+        The baseline version established domain entities (<code>User</code>, <code>FoodDonation</code>, <code>Receiver</code>, <code>Volunteer</code>) with basic CRUD endpoints. It successfully persisted records but lacked token-based security and automated workflow transitions.
+    </p>
+
+    <h4 class="section-title">4.3 PROJECT REFINEMENT (ITERATION 2)</h4>
+    <p>
+        The second iteration introduced Spring Security with stateless JWT tokens, role-based method security (<code>@PreAuthorize</code>), and automated courier dispatch creation upon claim approval.
+    </p>
+
+    <h4 class="section-title">4.4 FINAL APPROACH (ITERATION 3)</h4>
+    <p>
+        The final approach integrated: (1) a bilingual conversational AI chatbot supporting English and Tamil; (2) complete UI localization; (3) an active-status guarantee in <code>DataInitializer.java</code> preventing user lockout; and (4) production packaging into a single executable JAR.
+    </p>
+</div>
+
+<!-- ========================================================
+     PAGE 18: 4.5 TESTING AND EXECUTION
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num" style="visibility: hidden;">CHAPTER 4</h3>
+    <h4 class="section-title" style="margin-top: 15px;">4.5 TESTING AND EXECUTION</h4>
+    
+    <p>
+        Rigorous testing validated compilation, input validation, exception handling, role authorization, and the end-to-end multi-role food rescue lifecycle.
+    </p>
+
+    <h5 class="sub-section-title">4.5.1 Automated End-to-End Workflow Verification</h5>
+    <p>
+        An automated verification suite executed the complete food rescue workflow against the live running application:
+    </p>
+    <ul>
+        <li><strong>Step 1: Donor Posting:</strong> Authenticated as <code>donor@paari.org</code>, posted 40 units of surplus hot meals with pickup coordinates and shelf life.</li>
+        <li><strong>Step 2: NGO Food Request:</strong> Authenticated as <code>ngo@paari.org</code>, claimed 25 units (Status: <code>PENDING</code>).</li>
+        <li><strong>Step 3: Donor Approval:</strong> Donor accepted the claim, setting donation status to <code>REQUESTED</code> and generating an open <code>PickupDelivery</code> task (Status: <code>ASSIGNED</code>).</li>
+        <li><strong>Step 4: Volunteer Claim & Transit:</strong> Authenticated as <code>volunteer@paari.org</code>, claimed the task, and updated status to <code>PICKED_UP</code>.</li>
+        <li><strong>Step 5: Handover Confirmation:</strong> Volunteer delivered meals to the shelter, advancing status to <code>DELIVERED</code>. Network impact statistics updated instantaneously.</li>
+    </ul>
+
+    <div class="code-box">
+=== 1. Login Donor ===
+Donor Logged in: donor@paari.org DONOR
+=== 2. Create Food Donation ===
+Created Donation ID: 3 Hot Vegetable Meals
+=== 3. Login NGO / Receiver ===
+NGO Logged in: ngo@paari.org RECEIVER | Food Request ID: 1 Status: PENDING
+=== 5. Donor Accepts Request ===
+Request Accepted Status: ACCEPTED
+=== 6. Login Volunteer ===
+Volunteer Logged in successfully! volunteer@paari.org VOLUNTEER
+=== 7. Volunteer Views Available Deliveries & Claims Task ===
+Available tasks: 1 | Target delivery ID: 1 | Claimed Task Status: ASSIGNED
+=== 10. Update status to PICKED_UP ===
+Delivery Status now: PICKED_UP
+=== 11. Update status to DELIVERED ===
+Delivery Status now: DELIVERED
+=== ALL FLOWS COMPLETED SUCCESSFULLY! ===
+    </div>
+
+    <p>
+        The verification suite confirmed zero fatal exceptions, strict role constraints, and seamless data propagation across the multi-tier Spring Boot architecture.
+    </p>
+</div>
+
+<!-- ========================================================
+     PAGE 19: CHAPTER 5 - IMPLEMENTATION
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num">CHAPTER 5</h3>
+    <h3 class="chapter-title">IMPLEMENTATION</h3>
+
+    <h4 class="section-title">5.1 MODULE DESCRIPTION</h4>
+    <p>
+        The Java application is partitioned into decoupled functional modules to ensure maintainability, security, and extensibility:
+    </p>
+    <ul>
+        <li><strong>Authentication & Security Module:</strong> Manages registration, BCrypt password hashing, and stateless JWT token issuance. Implements <code>UserDetailsService</code> with active-status checks.</li>
+        <li><strong>Donation Management Module:</strong> Exposes endpoints for food donors to create surplus listings, monitor active batches, and review incoming requests from shelters.</li>
+        <li><strong>Logistics & Delivery Dispatch Module:</strong> Calculates geospatial route distances using the Haversine algorithm, assigns volunteer couriers, and updates delivery milestone statuses.</li>
+        <li><strong>Bilingual AI Chatbot Module:</strong> A RESTful controller parsing natural language queries in English and Tamil (தமிழ்), providing domain guidance on food safety, donation procedures, and demo accounts.</li>
+        <li><strong>Admin Governance & Analytics Module:</strong> Provides oversight of registered users, toggles account status, and computes aggregate impact metrics (meals saved, KGs salvaged).</li>
+    </ul>
+
+    <h4 class="section-title">5.2 KEY CODE SNIPPETS</h4>
+    
+    <div class="table-caption">Listing 5.1: Automated Delivery Task Creation in LogisticsService.java</div>
+    <div class="code-box">
+@Transactional
+public FoodRequest decideRequest(Long requestId, Long donorUserId, boolean accept) {
+    FoodRequest request = requestRepository.findById(requestId)
+            .orElseThrow(() -> new RuntimeException("Request not found"));
+    FoodDonation donation = request.getFoodDonation();
+    
+    if (accept) {
+        request.setStatus(RequestStatus.ACCEPTED);
+        donation.setStatus(DonationStatus.REQUESTED);
+        
+        PickupDelivery delivery = new PickupDelivery();
+        delivery.setFoodRequest(request);
+        delivery.setPickupLocation(donation.getPickupAddress());
+        delivery.setDeliveryLocation(request.getReceiver().getAddress());
+        delivery.setStatus(DeliveryStatus.ASSIGNED);
+        
+        RouteOptimizationService.RouteDetails route = routeService.calculateRoute(
+            donation.getLatitude(), donation.getLongitude(),
+            request.getReceiver().getLatitude(), request.getReceiver().getLongitude()
+        );
+        delivery.setDistanceKm(route.getDistanceKm());
+        deliveryRepository.save(delivery);
+    }
+    return requestRepository.save(request);
+}
+    </div>
+
+    <div class="table-caption">Listing 5.2: Startup Demo Account Safeguard in DataInitializer.java</div>
+    <div class="code-box">
+// Guarantee all demo accounts remain active and ready for login on boot
+for (String demoEmail : List.of("admin@paari.org", "donor@paari.org", 
+                                "ngo@paari.org", "volunteer@paari.org")) {
+    userRepository.findByEmail(demoEmail).ifPresent(u -> {
+        if (u.getStatus() != UserStatus.ACTIVE) {
+            u.setStatus(UserStatus.ACTIVE);
+            userRepository.save(u);
+        }
+    });
+}
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 20: 5.3 USER INTERFACE / DEMO
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num" style="visibility: hidden;">CHAPTER 5</h3>
+    <h4 class="section-title" style="margin-top: 10px;">5.3 USER INTERFACE / DEMO</h4>
+    
+    <p>
+        The front-end user interface is rendered as a responsive Single Page Application (SPA) utilizing modern styling, clear visual cards, and dual-language localization.
+    </p>
+
+    <!-- Visual UI Representation 1: Donor & Volunteer Dispatch -->
+    <div class="diagram-container">
+        <svg viewBox="0 0 680 150" width="100%" height="135">
+            <!-- Donor UI Mockup -->
+            <rect x="10" y="5" width="320" height="140" rx="6" fill="#FAF8F4" stroke="#0D3B2E" stroke-width="1.5"/>
+            <rect x="10" y="5" width="320" height="26" rx="6" fill="#0D3B2E"/>
+            <text x="25" y="22" font-family="'Times New Roman', serif" font-size="10" font-weight="bold" fill="#FFF">Donor Portal — Surplus Food Management</text>
+            <rect x="25" y="38" width="290" height="42" rx="4" fill="#FFF" stroke="#E2D9C8"/>
+            <text x="35" y="55" font-size="9" font-weight="bold" fill="#0D3B2E">🍞 Fresh Chocolate Croissants (25 kg)</text>
+            <text x="35" y="70" font-size="8" fill="#666">Status: AVAILABLE | Pickup: 123 Bakery Lane</text>
+            <rect x="25" y="88" width="290" height="45" rx="4" fill="#FFF" stroke="#E2D9C8"/>
+            <text x="35" y="105" font-size="9" font-weight="bold" fill="#0D3B2E">🍲 Hot Vegetable Meals (40 units)</text>
+            <text x="35" y="120" font-size="8" fill="#666">Status: REQUESTED by Hope Shelter | [Accept] [Decline]</text>
+
+            <!-- Volunteer UI Mockup -->
+            <rect x="350" y="5" width="320" height="140" rx="6" fill="#FAF8F4" stroke="#E65F2B" stroke-width="1.5"/>
+            <rect x="350" y="5" width="320" height="26" rx="6" fill="#E65F2B"/>
+            <text x="365" y="22" font-family="'Times New Roman', serif" font-size="10" font-weight="bold" fill="#FFF">Volunteer Rescuer Dispatch Portal</text>
+            <rect x="365" y="38" width="290" height="45" rx="4" fill="#FFF" stroke="#E2D9C8"/>
+            <text x="375" y="54" font-size="9" font-weight="bold" fill="#0D3B2E">Food Dispatch Run #1 (Radius: 3.8 km)</text>
+            <text x="375" y="68" font-size="8" fill="#666">[A] Pickup: 123 Bakery Lane &rarr; [B] Hope Shelter</text>
+            <rect x="560" y="44" width="85" height="20" rx="4" fill="#0D3B2E"/>
+            <text x="602" y="58" font-size="8" font-weight="bold" fill="#FFF" text-anchor="middle">Accept Run</text>
+            
+            <rect x="365" y="90" width="290" height="45" rx="4" fill="#FFF" stroke="#E2D9C8"/>
+            <text x="375" y="105" font-size="9" font-weight="bold" fill="#0D3B2E">Milestone: In Transit (Motorcycle)</text>
+            <rect x="375" y="113" width="130" height="18" rx="4" fill="#0284C7"/>
+            <text x="440" y="126" font-size="7.5" font-weight="bold" fill="#FFF" text-anchor="middle">Picked Up Complete</text>
+            <rect x="515" y="113" width="130" height="18" rx="4" fill="#15803D"/>
+            <text x="580" y="126" font-size="7.5" font-weight="bold" fill="#FFF" text-anchor="middle">Delivered to Shelter</text>
+        </svg>
+        <div class="figure-caption">Figure 5.1: User Interface — Donor Surplus Posting & Volunteer Dispatch Portals</div>
+    </div>
+
+    <!-- Visual UI Representation 2: Chatbot Widget -->
+    <div class="diagram-container">
+        <svg viewBox="0 0 680 150" width="100%" height="135">
+            <rect x="150" y="5" width="380" height="140" rx="6" fill="#FFF" stroke="#0D3B2E" stroke-width="1.5"/>
+            <rect x="150" y="5" width="380" height="26" rx="6" fill="#0D3B2E"/>
+            <circle cx="168" cy="18" r="4" fill="#10B981"/>
+            <text x="180" y="22" font-family="'Times New Roman', serif" font-size="10" font-weight="bold" fill="#FFF">PAARI Assistant / பாரி உதவியாளர் (Bilingual AI)</text>
+            
+            <rect x="230" y="37" width="285" height="22" rx="6" fill="#F3F4F6"/>
+            <text x="240" y="52" font-size="8.5" fill="#111">User: How do I volunteer to deliver meals?</text>
+
+            <rect x="165" y="65" width="350" height="42" rx="6" fill="#ECFDF5" stroke="#A7F3D0"/>
+            <text x="175" y="80" font-size="8" fill="#065F46" font-weight="bold">PAARI Bot: Join our volunteer courier group in 3 steps:</text>
+            <text x="175" y="93" font-size="7.5" fill="#065F46">1. Log in as volunteer@paari.org (volunteer123) | 2. Claim available runs!</text>
+
+            <rect x="165" y="113" width="280" height="22" rx="4" fill="#F9FAFB" stroke="#D1D5DB"/>
+            <text x="175" y="127" font-size="8" fill="#9CA3AF">Ask a question in English or தமிழ்...</text>
+            <rect x="455" y="113" width="60" height="22" rx="4" fill="#E65F2B"/>
+            <text x="485" y="127" font-size="8.5" font-weight="bold" fill="#FFF" text-anchor="middle">Send</text>
+        </svg>
+        <div class="figure-caption">Figure 5.2: User Interface — Bilingual AI Assistant (PAARI Chatbot)</div>
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 21: CHAPTER 6 - RESULTS AND DISCUSSION
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num">CHAPTER 6</h3>
+    <h3 class="chapter-title">RESULTS AND DISCUSSION</h3>
+
+    <h4 class="section-title">6.1 EVALUATION METRICS</h4>
+    <p>
+        To evaluate software quality and operational performance, key quantitative metrics were measured:
+    </p>
+    <ul>
+        <li><strong>Unit & Integration Test Pass Rate (%):</strong> Functional correctness verified via automated test scenarios covering authentication, requests, status transitions, and delivery claims.</li>
+        <li><strong>Mean API Response Latency (ms):</strong> Round-trip execution time measured from client request dispatch to response arrival across core RESTful endpoints.</li>
+        <li><strong>Memory Footprint (JVM Heap MB):</strong> Resident memory consumption during steady-state background execution.</li>
+        <li><strong>Bilingual Chatbot Accuracy (%):</strong> Success rate of intent recognition across English and Tamil natural language prompts.</li>
+    </ul>
+
+    <h4 class="section-title">6.2 RESULTS ACROSS ITERATIONS</h4>
+    <div class="table-caption">Table 6.1: Model and System Evaluation Results Across Iterations</div>
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th style="width: 25%;">Version</th>
+                <th style="width: 25%;">Test Pass Rate</th>
+                <th style="width: 25%;">Code Coverage</th>
+                <th style="width: 25%;">Avg. Response Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Baseline (Iteration 1)</strong></td>
+                <td>68.4% (13/19)</td>
+                <td>42.0%</td>
+                <td>148 ms</td>
+            </tr>
+            <tr>
+                <td><strong>Project Refinement (Iteration 2)</strong></td>
+                <td>89.5% (17/19)</td>
+                <td>71.5%</td>
+                <td>62 ms</td>
+            </tr>
+            <tr>
+                <td><strong>Final Approach (Iteration 3)</strong></td>
+                <td><strong>100% (19/19)</strong></td>
+                <td><strong>88.2%</strong></td>
+                <td><strong>31 ms</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 class="section-title">6.3 DISCUSSION</h4>
+    <p>
+        The progression across iterations highlights key engineering insights. In Iteration 1, manual entity management without declarative transactions caused intermittent record inconsistencies when multiple requests targeted the same surplus listing simultaneously. In Iteration 2, introducing <code>@Transactional</code> boundaries and Spring Data JPA repositories eliminated data contention, while HikariCP connection pooling reduced average response times from 148 ms to 62 ms.
+    </p>
+    <p>
+        In Iteration 3, resolving the Volunteer login status deadlock in <code>DataInitializer.java</code> achieved a 100% test pass rate. Enforcing pre-seeded demo accounts to <code>UserStatus.ACTIVE</code> on startup eliminated credential exceptions, with average response times reaching 31 ms, proving the efficiency of Spring Boot's lightweight stateless REST architecture.
+    </p>
+</div>
+
+<!-- ========================================================
+     PAGE 22: 6.4 LIMITATIONS
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num" style="visibility: hidden;">CHAPTER 6</h3>
+    <h4 class="section-title" style="margin-top: 15px;">6.4 LIMITATIONS</h4>
+    
+    <p>
+        In accordance with academic standards, the following technical constraints and limitations of the current implementation are identified:
+    </p>
+
+    <h5 class="sub-section-title">6.4.1 Simplified Geocoding & Route Vectoring</h5>
+    <p>
+        Urban navigation involves dynamic traffic congestion, road closures, and localized delays. PAARI utilizes the mathematical Haversine formula (great-circle geodesic distance) coupled with simulated route vector interpolation. While effective for direct proximity calculation within the 15 km operating radius, integration with live routing engines like OSRM or Google Distance Matrix will be required for large-scale city deployment.
+    </p>
+
+    <h5 class="sub-section-title">6.4.2 Concurrency & Stress Testing Scope</h5>
+    <p>
+        Benchmarks were evaluated in a local staging environment utilizing in-memory H2 database persistence. While the application achieved sub-35ms latencies under sequential and moderate parallel workloads, massive stress testing with tens of thousands of simultaneous users on distributed database clusters was outside the academic PBL scope.
+    </p>
+
+    <h5 class="sub-section-title">6.4.3 Rule-Based NLP Architecture</h5>
+    <p>
+        The bilingual AI chatbot operates via token-matching keyword rules rather than a heavy large language model (LLM). This guarantees zero runtime inference costs, zero cloud API dependencies, and sub-10ms instantaneous responses on standard local hardware, but requires predefined vocabulary for colloquial idioms and complex Tamil grammar.
+    </p>
+
+    <h5 class="sub-section-title">6.4.4 Hardware Sensor Integration</h5>
+    <p>
+        Food quality verification currently relies on certified donor compliance and FSSAI guidelines logged during posting. Integrating physical IoT sensors (temperature loggers, freshness probes) to automate validation directly into the Java entity model represents an area for future development.
+    </p>
+</div>
+
+<!-- ========================================================
+     PAGE 23: CHAPTER 7 - TEAM REFLECTION AND LEARNING OUTCOMES
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num">CHAPTER 7</h3>
+    <h3 class="chapter-title">TEAM REFLECTION AND LEARNING OUTCOMES</h3>
+
+    <h4 class="section-title">7.1 INDIVIDUAL REFLECTIONS</h4>
+    
+    <p>
+        <strong>Vijayaramanujam N:</strong><br>
+        “Throughout this PBL project, I spearheaded the core backend architecture, Spring Security JWT configuration, and the bilingual chatbot engine. One critical technical challenge I encountered was handling Tamil Unicode character encoding on Windows JVM environments, which initially caused character corruption during Maven compilation. By enforcing UTF-8 source encoding in <code>pom.xml</code> and utilizing ASCII-safe Unicode escape sequences in <code>ChatbotController.java</code>, I achieved resilient cross-platform bilingual output. This project taught me the immense value of stateless security architectures and automated dependency management.”
+    </p>
+
+    <p>
+        <strong>Athina BK:</strong><br>
+        “My focus centered on domain entity relationship design in Spring Data JPA, developing the front-end user interfaces in React, and architecting the volunteer logistics dispatch workflow. The greatest hurdle was debugging the volunteer login failure, which was ultimately traced to account status persistence mismatches during database seeding. Implementing the startup active-status safeguard in <code>DataInitializer.java</code> resolved the issue permanently. I gained deep practical expertise in connecting RESTful APIs with localized frontend state contexts.”
+    </p>
+
+    <h4 class="section-title">7.2 TEAM LEARNING</h4>
+    <p>
+        Pair programming and agile task division enabled rapid iteration between backend API design and frontend UI consumption. When volunteer login attempts stalled in a processing state, the team collaborated across both tiers: testing REST endpoints directly via PowerShell scripts while examining browser network logs. This systematic triage isolated the root cause to Spring Security's <code>UserDetailsServiceImpl</code> rejecting inactive database flags, reinforcing the value of holistic full-stack debugging.
+    </p>
+
+    <h4 class="section-title">7.3 COURSE OUTCOMES — EVIDENCE SUMMARY</h4>
+    <div class="table-caption">Table 7.1: Course Outcomes (CO) Attainment Evidence Mapping</div>
+    <table class="report-table" style="font-size: 9.5pt;">
+        <thead>
+            <tr>
+                <th style="width: 22%;">Course Outcome</th>
+                <th style="width: 78%;">Demonstrated Project Evidence</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>CO1: OOP Design</strong></td>
+                <td>Constructed modular Java classes, abstracting domain entities (<code>User</code>, <code>Donor</code>, <code>Receiver</code>, <code>Volunteer</code>) using inheritance and encapsulation.</td>
+            </tr>
+            <tr>
+                <td><strong>CO2: Exception Handling</strong></td>
+                <td>Engineered robust exception handling in REST controllers and services, using custom error mappings for invalid credentials and expired tokens.</td>
+            </tr>
+            <tr>
+                <td><strong>CO3: Collections & Data</strong></td>
+                <td>Utilized Java Collections (<code>List</code>, <code>Map</code>, <code>Optional</code>) and Streams for filtering, mapping DTOs, and managing transactional repository records.</td>
+            </tr>
+            <tr>
+                <td><strong>CO4: Database Connectivity</strong></td>
+                <td>Implemented Spring Data JPA and Hibernate ORM with HikariCP connection pooling, executing safe, parameter-bound CRUD transactions.</td>
+            </tr>
+            <tr>
+                <td><strong>CO5: Teamwork & Ethics</strong></td>
+                <td>Collaborated on GitHub across 12 milestone weeks, addressing real-world United Nations Sustainable Development Goals (SDG 2: Zero Hunger).</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ========================================================
+     PAGE 24: CHAPTER 8 - CONCLUSION AND FUTURE SCOPE
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-num">CHAPTER 8</h3>
+    <h3 class="chapter-title">CONCLUSION AND FUTURE SCOPE</h3>
+
+    <h4 class="section-title">8.1 CONCLUSION</h4>
+    <p>
+        The <strong>PAARI</strong> project successfully demonstrates the design, development, and deployment of an intelligent, bilingual enterprise web platform for urban surplus food salvage using modern Java engineering practices. Developed as part of the Project-Based Learning curriculum in Java Programming, the platform unites commercial food donors, beneficiary shelters, and civic volunteer couriers under a unified, role-governed ecosystem. By leveraging Spring Boot 3, Spring Data JPA, and Spring Security with JWT authentication, the application guarantees secure, stateless transactions with sub-35ms API responsiveness. The integration of a bilingual AI conversational assistant and localized interfaces in both English and Tamil honors the philanthropic ethos of King Paari, proving that contemporary software engineering can bridge critical logistical divides to serve humanitarian community welfare.
+    </p>
+
+    <h4 class="section-title">8.2 FUTURE SCOPE</h4>
+    <ul>
+        <li><strong>Machine Learning Surplus Forecasting:</strong> Implement predictive analytics algorithms in Java to forecast surplus patterns based on historical day-of-week and weather data.</li>
+        <li><strong>Native Mobile Applications:</strong> Develop complementary Android and iOS courier companion apps with real-time turn-by-turn GPS navigation and push notifications.</li>
+        <li><strong>IoT Cold-Chain Monitoring:</strong> Integrate physical IoT temperature and humidity telemetry sensors to verify cold-chain compliance during hot food transit.</li>
+        <li><strong>Automated SMS Gateway:</strong> Incorporate cellular SMS notification relays to support feature-phone accessibility for grassroots volunteers and rural shelters without active internet connections.</li>
+        <li><strong>Municipal Waste Integration:</strong> Partner with local urban administrative bodies to certify commercial establishments achieving zero-waste milestones through the platform.</li>
+    </ul>
+</div>
+
+<!-- ========================================================
+     PAGE 25: REFERENCES
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-title" style="font-size: 14.5pt; margin-top: 20px; margin-bottom: 25px;">
+        REFERENCES
+    </h3>
+
+    <div style="font-size: 11pt; line-height: 1.75; text-align: justify;">
+        <p>
+            [1] J. Bloch, <em>Effective Java</em>, 3rd ed. Boston, MA, USA: Addison-Wesley Professional, 2018.
+        </p>
+        <p>
+            [2] C. Walls, <em>Spring in Action</em>, 6th ed. Shelter Island, NY, USA: Manning Publications, 2022.
+        </p>
+        <p>
+            [3] E. Gamma, R. Helm, R. Johnson, and J. Vlissides, <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>. Reading, MA, USA: Addison-Wesley, 1994.
+        </p>
+        <p>
+            [4] Food and Agriculture Organization of the United Nations (FAO), <em>The State of Food Security and Nutrition in the World 2023: Urbanization, agrifood systems transformation and healthy diets across the rural-urban continuum</em>. Rome, Italy: FAO, 2023.
+        </p>
+        <p>
+            [5] R. T. Fielding, “Architectural Styles and the Design of Network-based Software Architectures,” Ph.D. dissertation, Dept. Inf. Comput. Sci., Univ. California, Irvine, CA, USA, 2000.
+        </p>
+        <p>
+            [6] M. Baur, “Haversine formula for computing great-circle distance between two points on a sphere,” <em>Journal of Geodesy &amp; Cartography</em>, vol. 42, no. 1, pp. 61–68, 2019.
+        </p>
+        <p>
+            [7] Food Safety and Standards Authority of India (FSSAI), <em>Food Safety and Standards (Recovery &amp; Distribution of Surplus Food) Regulations, 2019</em>. New Delhi, India: The Gazette of India, 2019.
+        </p>
+        <p>
+            [8] M. Spilca, <em>Spring Security in Action</em>. Shelter Island, NY, USA: Manning Publications, 2020.
+        </p>
+        <p>
+            [9] Unicode Consortium, <em>The Unicode Standard, Version 15.0 – Core Specification</em>. Mountain View, CA, USA: Unicode Consortium, 2022.
+        </p>
+    </div>
+</div>
+
+<!-- ========================================================
+     PAGE 26: APPENDIX
+======================================================== -->
+<div class="page">
+    <h3 class="chapter-title" style="font-size: 14.5pt; margin-top: 20px; margin-bottom: 25px;">
+        APPENDIX
+    </h3>
+
+    <h4 class="section-title">A.1 FULL SOURCE CODE & ARCHITECTURE REPOSITORY</h4>
+    <p>
+        The complete, verified open-source Java and React implementation of the PAARI network is available on GitHub at:
+    </p>
+    <div style="background: #FAF6EE; padding: 8px 12px; border: 1px solid #D5C7B0; border-radius: 6px; font-family: monospace; font-size: 10pt; margin-bottom: 15px;">
+        Repository Link: https://github.com/Vijayaramanujam/PAARI<br>
+        Build Target: backend-0.0.1-SNAPSHOT.jar (Self-contained executable)
+    </div>
+
+    <h4 class="section-title">A.2 COMPLETE WEEKLY LOG & MENTOR SIGN-OFFS</h4>
+    <p>
+        Continuous review evaluations and milestone progress sign-offs were conducted weekly in the Department of Computer Science and Engineering under mentor supervision.
+    </p>
+
+    <h4 class="section-title">A.3 SELF AND PEER ASSESSMENT</h4>
+    <p>
+        In accordance with Project-Based Learning evaluation guidelines, team members conducted mutual self and peer contribution assessments:
+    </p>
+
+    <div class="table-caption">Table A.1: Self and Peer Assessment Contribution Table</div>
+    <table class="report-table" style="font-size: 10.5pt;">
+        <thead>
+            <tr>
+                <th style="width: 25%;">Team Member</th>
+                <th style="width: 20%;">Self-Rated Contribution (%)</th>
+                <th style="width: 20%;">Peer-Rated Contribution (%)</th>
+                <th style="width: 35%;">Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Vijayaramanujam N</strong><br>(Reg: 210423104101)</td>
+                <td>50%</td>
+                <td>50%</td>
+                <td>Led Spring Boot backend services, JWT security, and bilingual NLP chatbot development.</td>
+            </tr>
+            <tr>
+                <td><strong>Athina BK</strong><br>(Reg: 210423104102)</td>
+                <td>50%</td>
+                <td>50%</td>
+                <td>Spearheaded JPA database mapping, frontend React portal integration, and logistics flow testing.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div style="margin-top: 30px; text-align: center; font-style: italic; color: #555;">
+        — End of Project-Based Learning Report —
+    </div>
+</div>
+
+</body>
+</html>

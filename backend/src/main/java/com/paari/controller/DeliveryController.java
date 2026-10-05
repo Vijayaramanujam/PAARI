@@ -76,23 +76,114 @@ public class DeliveryController {
         }
     }
 
-    @GetMapping("/{id}/route")
-    public ResponseEntity<?> getRouteDetails(@PathVariable Long id) {
+    @PutMapping("/{id}/location")
+    public ResponseEntity<?> updateLiveLocation(
+            @PathVariable Long id,
+            @RequestParam Double latitude,
+            @RequestParam Double longitude,
+            @RequestParam(required = false) Double bearing) {
         PickupDelivery delivery = deliveryRepository.findById(id).orElse(null);
         if (delivery == null) {
             Map<String, String> err = new HashMap<>();
             err.put("error", "Delivery record not found");
             return ResponseEntity.status(404).body(err);
         }
-        
+
+        delivery.setCurrentLatitude(latitude);
+        delivery.setCurrentLongitude(longitude);
+        if (bearing != null) {
+            delivery.setCurrentBearing(bearing);
+        }
+        delivery.setLastLocationUpdate(java.time.LocalDateTime.now());
+        deliveryRepository.save(delivery);
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("status", "SUCCESS");
+        res.put("deliveryId", id);
+        res.put("latitude", latitude);
+        res.put("longitude", longitude);
+        res.put("bearing", delivery.getCurrentBearing());
+        res.put("lastUpdate", delivery.getLastLocationUpdate());
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/{id}/tracking")
+    public ResponseEntity<?> getLiveTracking(@PathVariable Long id) {
+        PickupDelivery delivery = deliveryRepository.findById(id).orElse(null);
+        if (delivery == null) {
+            Map<String, String> err = new HashMap<>();
+            err.put("error", "Delivery record not found");
+            return ResponseEntity.status(404).body(err);
+        }
+
         Map<String, Object> response = new HashMap<>();
         response.put("deliveryId", delivery.getId());
-        response.put("pickupLocation", delivery.getPickupLocation());
-        response.put("deliveryLocation", delivery.getDeliveryLocation());
+        response.put("status", delivery.getStatus());
         response.put("distanceKm", delivery.getDistanceKm());
         response.put("routeData", delivery.getRouteData());
-        response.put("status", delivery.getStatus());
+
+        // Origin details (Donor)
+        response.put("pickupLocation", delivery.getPickupLocation());
+        if (delivery.getFoodRequest() != null && delivery.getFoodRequest().getFoodDonation() != null) {
+            FoodDonation donation = delivery.getFoodRequest().getFoodDonation();
+            response.put("pickupLat", donation.getLatitude() != null ? donation.getLatitude() : 12.9716);
+            response.put("pickupLng", donation.getLongitude() != null ? donation.getLongitude() : 77.5946);
+            response.put("foodType", donation.getFoodType());
+            response.put("quantity", delivery.getFoodRequest().getQuantityRequested());
+            if (donation.getDonor() != null) {
+                response.put("donorName", donation.getDonor().getOrganizationName());
+            }
+        } else {
+            response.put("pickupLat", 12.9716);
+            response.put("pickupLng", 77.5946);
+        }
+
+        // Destination details (Receiver / Shelter)
+        response.put("deliveryLocation", delivery.getDeliveryLocation());
+        if (delivery.getFoodRequest() != null && delivery.getFoodRequest().getReceiver() != null) {
+            Receiver receiver = delivery.getFoodRequest().getReceiver();
+            response.put("deliveryLat", receiver.getLatitude() != null ? receiver.getLatitude() : 12.9750);
+            response.put("deliveryLng", receiver.getLongitude() != null ? receiver.getLongitude() : 77.6000);
+            response.put("receiverName", receiver.getOrganizationName());
+        } else {
+            response.put("deliveryLat", 12.9750);
+            response.put("deliveryLng", 77.6000);
+        }
+
+        // Live Volunteer position
+        response.put("currentLat", delivery.getCurrentLatitude());
+        response.put("currentLng", delivery.getCurrentLongitude());
+        response.put("currentBearing", delivery.getCurrentBearing() != null ? delivery.getCurrentBearing() : 0.0);
+        response.put("lastUpdate", delivery.getLastLocationUpdate());
+
+        // Volunteer Courier Profile
+        if (delivery.getVolunteer() != null) {
+            Volunteer vol = delivery.getVolunteer();
+            response.put("volunteerId", vol.getId());
+            response.put("vehicleType", vol.getVehicleType());
+            response.put("vehicleNumber", vol.getVehicleNumber());
+            if (vol.getUser() != null) {
+                response.put("volunteerName", vol.getUser().getName());
+                response.put("volunteerPhone", vol.getUser().getPhone());
+            }
+        }
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/by-request/{requestId}")
+    public ResponseEntity<?> getDeliveryByRequestId(@PathVariable Long requestId) {
+        PickupDelivery delivery = deliveryRepository.findByFoodRequestId(requestId).orElse(null);
+        if (delivery == null) {
+            Map<String, String> err = new HashMap<>();
+            err.put("error", "No active delivery assignment found for this request");
+            return ResponseEntity.status(404).body(err);
+        }
+        return getLiveTracking(delivery.getId());
+    }
+
+    @GetMapping("/{id}/route")
+    public ResponseEntity<?> getRouteDetails(@PathVariable Long id) {
+        return getLiveTracking(id);
     }
 }

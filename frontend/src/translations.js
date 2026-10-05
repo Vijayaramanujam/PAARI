@@ -157,7 +157,30 @@ export const translations = {
     volunteerClaimFail: 'Failed to claim task.',
     volunteerAwaitingPickup: 'Awaiting pickup',
     volunteerTransitMode: 'Transit mode',
-    volunteerTripDistance: 'Trip Distance'
+    volunteerTripDistance: 'Trip Distance',
+
+    // Real-Time Live Map Tracking
+    liveTrackingTitle: 'Live Google Maps Courier Tracking',
+    liveMapModalHeader: 'Real-Time Delivery Navigation',
+    trackLiveBtn: 'Live Track Delivery',
+    courierLiveBadge: 'LIVE GPS TRACKING',
+    courierSpeed: 'Speed',
+    etaLabel: 'Estimated Arrival (ETA)',
+    remainingDistance: 'Distance Left',
+    centerCourierBtn: 'Center on Courier',
+    deviceGpsBtn: 'Use Device GPS',
+    simGpsBtn: 'Simulate Live Route',
+    simStartBtn: 'Start Transit',
+    simPauseBtn: 'Pause Transit',
+    headingToPickup: 'En route to donor pickup location',
+    headingToDropoff: 'En route to shelter dropoff location',
+    arrivedAtDestination: 'Arrived at shelter destination!',
+    courierDetails: 'Assigned Volunteer Courier',
+    vehicleLabel: 'Vehicle',
+    phoneLabelShort: 'Phone',
+    openInGoogleMaps: 'Open in Google Maps',
+    googleMapsDirections: 'Turn-by-Turn Navigation',
+    campusHubBadge: 'CIT Chennai Hub'
   },
 
   ta: {
@@ -318,6 +341,29 @@ export const translations = {
     volunteerClaimFail: 'பணியை ஏற்க முடியவில்லை.',
     volunteerAwaitingPickup: 'எடுக்கக் காத்திருக்கிறது',
     volunteerTransitMode: 'பயணத்தில் உள்ளது',
-    volunteerTripDistance: 'பயண தூரம்'
+    volunteerTripDistance: 'பயண தூரம்',
+
+    // Real-Time Live Map Tracking
+    liveTrackingTitle: 'நேரலை கூகிள் மேப் விநியோகக் கண்காணிப்பு',
+    liveMapModalHeader: 'நிகழ்நேர விநியோக வழித்தடம்',
+    trackLiveBtn: 'நேரலை விநியோகத்தைக் காண்க',
+    courierLiveBadge: 'நேரலை GPS கண்காணிப்பு',
+    courierSpeed: 'வேகம்',
+    etaLabel: 'வந்துசேரும் நேரம் (ETA)',
+    remainingDistance: 'மீதமுள்ள தூரம்',
+    centerCourierBtn: 'வாகனத்தை மையப்படுத்து',
+    deviceGpsBtn: 'சாதன GPS பயன்படுத்து',
+    simGpsBtn: 'நேரலை வழியை உருவகப்படுத்து',
+    simStartBtn: 'பயணத்தைத் தொடங்கு',
+    simPauseBtn: 'பயணத்தை நிறுத்து',
+    headingToPickup: 'உணவை எடுக்க உணவகத்திற்குச் செல்கிறார்',
+    headingToDropoff: 'உணவை வழங்க காப்பகத்திற்குச் செல்கிறார்',
+    arrivedAtDestination: 'காப்பகத்தைச் சென்றடைந்தார்!',
+    courierDetails: 'நியமிக்கப்பட்ட தன்னார்வலர்',
+    vehicleLabel: 'வாகனம்',
+    phoneLabelShort: 'தொலைபேசி',
+    openInGoogleMaps: 'Google Maps இல் திறக்க',
+    googleMapsDirections: 'கூகிள் மேப் வழிகாட்டல்',
+    campusHubBadge: 'CIT சென்னை மையம்'
   }
 };

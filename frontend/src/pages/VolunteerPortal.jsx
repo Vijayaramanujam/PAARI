@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useLanguage } from '../context/LanguageContext';
 import { Truck, MapPin, CheckCircle, Navigation, Compass, AlertCircle, BookmarkCheck, History, Award } from 'lucide-react';
+import LiveDeliveryMap from '../components/LiveDeliveryMap';
 
 export default function VolunteerPortal() {
   const { language, t } = useLanguage();
@@ -202,10 +203,10 @@ export default function VolunteerPortal() {
                     <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '10px' }}>
                       <button
                         onClick={() => setActiveRouteTask(t)}
-                        className="glass-button-secondary"
-                        style={{ padding: '8px 16px', fontSize: '0.85rem' }}
+                        className="glass-button"
+                        style={{ padding: '8px 16px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--primary)', color: '#FFF' }}
                       >
-                        <Compass size={14} /> {t('volunteerCompass')}
+                        <Navigation size={14} /> {t('trackLiveBtn') || 'Live GPS Navigation'}
                       </button>
                       
                       {t.status === 'ASSIGNED' ? (
@@ -234,72 +235,15 @@ export default function VolunteerPortal() {
             )}
           </div>
 
-          {/* SIDE PANEL: Interactive Vector Routing map */}
+          {/* SIDE PANEL: Live Google Maps Delivery Component */}
           {activeRouteTask && (
-            <div className="glass-panel animated-fade" style={{ padding: '24px', border: '1.5px solid var(--primary)', alignSelf: 'start', background: '#FAF6EE' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Navigation size={16} color="var(--accent)" />
-                  Geodirectional Route Path
-                </h3>
-                <button
-                  onClick={() => setActiveRouteTask(null)}
-                  style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '1.25rem', fontWeight: 'bold' }}
-                >
-                  &times;
-                </button>
-              </div>
-
-              {/* Interactive Vector Animation Map */}
-              <div style={{ minHeight: '200px', background: '#FFF', borderRadius: '12px', border: '1px solid var(--border)', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="100%" height="180" viewBox="0 0 300 200" style={{ pointerEvents: 'none' }}>
-                  <defs>
-                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(15,59,46,0.02)" strokeWidth="1" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#grid)" />
-
-                  {/* Route path */}
-                  <path
-                    d="M 60,140 Q 140,40 240,90"
-                    fill="none"
-                    stroke="var(--accent)"
-                    strokeWidth="3.5"
-                    strokeDasharray="6,6"
-                    style={{ animation: 'dash 12s linear infinite' }}
-                  />
-
-                  {/* Nodes */}
-                  <circle cx="60" cy="140" r="8" fill="var(--accent-light)" />
-                  <circle cx="60" cy="140" r="4.5" fill="var(--accent)" />
-                  
-                  <circle cx="240" cy="90" r="8" fill="var(--primary-light)" />
-                  <circle cx="240" cy="90" r="4.5" fill="var(--primary)" />
-
-                  <text x="45" y="165" fill="var(--text-muted)" fontSize="9" fontWeight="800">Shop [A]</text>
-                  <text x="220" y="115" fill="var(--text-muted)" fontSize="9" fontWeight="800">NGO [B]</text>
-                </svg>
-
-                <div style={{ position: 'absolute', bottom: '10px', left: '10px', right: '10px', display: 'flex', justifyContent: 'space-between', background: 'rgba(255,255,255,0.92)', padding: '8px 12px', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '0.75rem' }}>
-                  <div>
-                    <span style={{ color: 'var(--text-muted)' }}>Status:</span>{' '}
-                    <strong style={{ color: 'var(--primary)' }}>{activeRouteTask.status}</strong>
-                  </div>
-                  <div>
-                    <span style={{ color: 'var(--text-muted)' }}>Dist:</span>{' '}
-                    <strong>{activeRouteTask.distanceKm ? activeRouteTask.distanceKm.toFixed(1) : '—'} km</strong>
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ marginTop: '16px', display: 'grid', gap: '8px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                <div>🏁 <strong>Target Dropoff point:</strong> {activeRouteTask.deliveryLocation}</div>
-                <div style={{ display: 'flex', gap: '6px', alignItems: 'center', color: 'var(--accent)', fontWeight: '600' }}>
-                  <AlertCircle size={14} />
-                  <span>Always check preparation and pickup time before setting out.</span>
-                </div>
-              </div>
+            <div style={{ position: 'sticky', top: '90px' }}>
+              <LiveDeliveryMap
+                deliveryId={activeRouteTask.id}
+                initialData={activeRouteTask}
+                isVolunteer={true}
+                onClose={() => setActiveRouteTask(null)}
+              />
             </div>
           )}
         </div>

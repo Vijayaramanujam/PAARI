@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
-import { Search, MapPin, Inbox, CheckCircle2, ChevronRight, Star, AlertTriangle, ShieldCheck, Heart, Clock } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { Search, MapPin, Inbox, CheckCircle2, ChevronRight, Star, AlertTriangle, ShieldCheck, Heart, Clock, Navigation } from 'lucide-react';
+import LiveDeliveryMap from '../components/LiveDeliveryMap';
 
 export default function ReceiverPortal() {
+  const { language, t } = useLanguage();
   const [activeTab, setActiveTab] = useState('browse'); // 'browse', 'claims'
   const [availableDonations, setAvailableDonations] = useState([]);
   const [myClaims, setMyClaims] = useState([]);
   const [loading, setLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
+
+  // Live GPS Tracking Modal state
+  const [trackingDelivery, setTrackingDelivery] = useState(null);
+  const [trackingNotice, setTrackingNotice] = useState('');
 
   // Claim Modal states
   const [claimDonation, setClaimDonation] = useState(null);
@@ -39,6 +46,23 @@ export default function ReceiverPortal() {
       setMyClaims(res.data);
     } catch (err) {
       console.error('Error fetching claims', err);
+    }
+  };
+
+  const handleOpenTracking = async (requestId) => {
+    setActionLoading(true);
+    setTrackingNotice('');
+    try {
+      const res = await api.get(`/api/deliveries/by-request/${requestId}`);
+      if (res.data && res.data.id) {
+        setTrackingDelivery(res.data);
+      } else {
+        setTrackingNotice('A volunteer is being assigned. Live GPS tracking will activate upon assignment.');
+      }
+    } catch (err) {
+      setTrackingNotice('Delivery coordination in progress. GPS route will be broadcast once picked up.');
+    } finally {
+      setActionLoading(false);
     }
   };
 
@@ -186,6 +210,13 @@ export default function ReceiverPortal() {
       {activeTab === 'claims' && (
         <div>
           <h3 style={{ fontSize: '1.25rem', marginBottom: '20px', fontWeight: '800', color: 'var(--primary)' }}>Your Claims Logistics Pipeline</h3>
+
+          {trackingNotice && (
+            <div className="badge-warning" style={{ padding: '12px 18px', borderRadius: '12px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}>
+              <span>ℹ️ {trackingNotice}</span>
+              <button onClick={() => setTrackingNotice('')} style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '1.1rem' }}>&times;</button>
+            </div>
+          )}
           {myClaims.length === 0 ? (
             <div className="glass-panel" style={{ padding: '50px 30px', textAlign: 'center', color: 'var(--text-muted)' }}>
               <Inbox size={36} color="var(--primary)" style={{ opacity: 0.4, marginBottom: '12px' }} />
@@ -209,7 +240,17 @@ export default function ReceiverPortal() {
                       <MapPin size={12} color="var(--accent)" /> {c.foodDonation.pickupAddress}
                     </div>
                   </div>
-                  <div>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    {(c.status === 'ACCEPTED' || c.status === 'ASSIGNED' || c.status === 'PICKED_UP') && (
+                      <button
+                        onClick={() => handleOpenTracking(c.id)}
+                        disabled={actionLoading}
+                        className="glass-button"
+                        style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', padding: '8px 16px', background: '#0D3B2E', color: '#FFF' }}
+                      >
+                        <Navigation size={14} color="#10B981" /> {t('trackLiveBtn') || 'Live Track Courier (GPS)'}
+                      </button>
+                    )}
                     {c.status === 'COMPLETED' && (
                       <button
                         onClick={() => {
@@ -354,6 +395,20 @@ export default function ReceiverPortal() {
                 </div>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: Real-time Live GPS Tracking Map */}
+      {trackingDelivery && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(15,59,46,0.75)', backdropFilter: 'blur(5px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+          <div className="glass-panel animated-fade" style={{ width: '100%', maxWidth: '980px', height: '85vh', maxHeight: '720px', padding: 0, border: '2px solid var(--primary)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <LiveDeliveryMap
+              deliveryId={trackingDelivery.id}
+              initialData={trackingDelivery}
+              isVolunteer={false}
+              onClose={() => setTrackingDelivery(null)}
+            />
           </div>
         </div>
       )}

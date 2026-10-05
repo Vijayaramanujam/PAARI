@@ -36,13 +36,30 @@ public class RouteOptimizationService {
         double hours = distance / 35.0;
         long etaMinutes = Math.max(5, Math.round(hours * 60.0)); // minimum 5 mins
 
-        // Mock GeoJSON path
-        String mockPathJson = String.format(
-                "{\"type\":\"LineString\",\"coordinates\":[[%f,%f],[%f,%f],[%f,%f]]}",
-                startLng, startLat,
-                (startLng + endLng) / 2.0 + 0.005, (startLat + endLat) / 2.0 + 0.005, // mock bend in road
-                endLng, endLat
-        );
+        // Generate realistic street waypoints (12 segments emulating city grid roads)
+        StringBuilder coords = new StringBuilder("[");
+        int segments = 12;
+        for (int i = 0; i <= segments; i++) {
+            double fraction = (double) i / segments;
+            double lat = startLat + fraction * (endLat - startLat);
+            double lng = startLng + fraction * (endLng - startLng);
+            
+            if (i > 0 && i < segments) {
+                double lateralOffset = 0.0022 * Math.sin(fraction * Math.PI);
+                if (i % 2 == 1) {
+                    lat += lateralOffset * 0.7;
+                    lng += lateralOffset * 0.3;
+                } else {
+                    lat -= lateralOffset * 0.3;
+                    lng += lateralOffset * 0.7;
+                }
+            }
+            if (i > 0) coords.append(",");
+            coords.append(String.format(java.util.Locale.US, "[%f,%f]", lng, lat));
+        }
+        coords.append("]");
+
+        String mockPathJson = String.format("{\"type\":\"LineString\",\"coordinates\":%s}", coords.toString());
 
         if (apiKey != null && !apiKey.trim().isEmpty()) {
             logger.info("GraphHopper key detected. Stubbing exterior integration. Distance: {} km", distance);

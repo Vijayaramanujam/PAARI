@@ -10,6 +10,7 @@ public interface PickupDeliveryRepository extends JpaRepository<PickupDelivery, 
     List<PickupDelivery> findByVolunteerId(Long volunteerId);
     List<PickupDelivery> findByVolunteerUserId(Long userId);
     List<PickupDelivery> findByStatus(DeliveryStatus status);
+    java.util.Optional<PickupDelivery> findByFoodRequestId(Long foodRequestId);
     
     @Query("SELECT pd FROM PickupDelivery pd WHERE pd.volunteer IS NULL AND pd.status = 'ASSIGNED'")
     List<PickupDelivery> findUnassignedTasks();

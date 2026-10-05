@@ -57,39 +57,39 @@ public class DataInitializer implements CommandLineRunner {
 
             Donor donor = new Donor();
             donor.setUser(donorUser);
-            donor.setOrganizationName("Baker's Delight Bakery");
-            donor.setAddress("123 Bakery Lane, Food City");
-            donor.setFoodTypeOffered("Flour and Pastries");
-            donor.setRating(4.5f);
-            donor.setLatitude(12.9716); // Bangalore Center approx
-            donor.setLongitude(77.5946);
+            donor.setOrganizationName("Baker's Delight (CIT Campus)");
+            donor.setAddress("Chennai Institute of Technology, Sarathy Nagar, Kundrathur, Chennai - 600069");
+            donor.setFoodTypeOffered("Fresh Bakery & Meals");
+            donor.setRating(4.8f);
+            donor.setLatitude(12.9715628); // Chennai Institute of Technology (CIT)
+            donor.setLongitude(80.043079);
             donorRepository.save(donor);
 
             // Seed sample food donations
             FoodDonation donation1 = new FoodDonation();
             donation1.setDonor(donor);
-            donation1.setFoodType("Fresh Chocolate Croissants");
+            donation1.setFoodType("Fresh Chocolate Croissants & Buns");
             donation1.setQuantity(BigDecimal.valueOf(25));
-            donation1.setDescription("Freshly baked this morning, excess stock from daily bake.");
-            donation1.setPickupAddress("123 Bakery Lane, Food City");
+            donation1.setDescription("Freshly baked items from CIT Food Court, excess stock ready for distribution.");
+            donation1.setPickupAddress("Chennai Institute of Technology, Sarathy Nagar, Kundrathur, Chennai - 600069");
             donation1.setPickupTime(LocalDateTime.now().plusHours(1));
             donation1.setExpiryTime(LocalDateTime.now().plusHours(12));
             donation1.setStatus(DonationStatus.AVAILABLE);
-            donation1.setLatitude(12.9716);
-            donation1.setLongitude(77.5946);
+            donation1.setLatitude(12.9715628);
+            donation1.setLongitude(80.043079);
             donationRepository.save(donation1);
 
             FoodDonation donation2 = new FoodDonation();
             donation2.setDonor(donor);
-            donation2.setFoodType("Whole Wheat Bread Loaves");
-            donation2.setQuantity(BigDecimal.valueOf(10));
-            donation2.setDescription("10 loaves of organic unsliced whole wheat bread.");
-            donation2.setPickupAddress("123 Bakery Lane, Food City");
+            donation2.setFoodType("Prepared Nutritious Meal Packs");
+            donation2.setQuantity(BigDecimal.valueOf(40));
+            donation2.setDescription("40 warm packed meal trays prepared with hygienic standards at CIT.");
+            donation2.setPickupAddress("Chennai Institute of Technology, Sarathy Nagar, Kundrathur, Chennai - 600069");
             donation2.setPickupTime(LocalDateTime.now().plusHours(2));
             donation2.setExpiryTime(LocalDateTime.now().plusHours(24));
             donation2.setStatus(DonationStatus.AVAILABLE);
-            donation2.setLatitude(12.9716);
-            donation2.setLongitude(77.5946);
+            donation2.setLatitude(12.9715628);
+            donation2.setLongitude(80.043079);
             donationRepository.save(donation2);
         }
 
@@ -107,11 +107,11 @@ public class DataInitializer implements CommandLineRunner {
             Receiver receiver = new Receiver();
             receiver.setUser(receiverUser);
             receiver.setOrganizationName("Hope Food Rescue Shelter");
-            receiver.setAddress("456 Care Road, Food City");
-            receiver.setAreaServed("Downtown Food City");
+            receiver.setAddress("Kundrathur Main Road, Near Murugan Temple, Chennai");
+            receiver.setAreaServed("Kundrathur & Porur Region, Chennai");
             receiver.setRating(4.8f);
-            receiver.setLatitude(12.9750); // Near Bangalore Center approx
-            receiver.setLongitude(77.6000);
+            receiver.setLatitude(12.9860); // Kundrathur Main Road
+            receiver.setLongitude(80.0650);
             receiverRepository.save(receiver);
         }
 
@@ -129,13 +129,13 @@ public class DataInitializer implements CommandLineRunner {
             Volunteer volunteer = new Volunteer();
             volunteer.setUser(volunteerUser);
             volunteer.setVehicleType("Motorcycle");
-            volunteer.setVehicleNumber("MH-12-AB-9876");
+            volunteer.setVehicleNumber("TN-09-AB-2026");
             volunteer.setAvailabilityStatus(true);
-            volunteer.setRating(4.2f);
+            volunteer.setRating(4.9f);
             volunteerRepository.save(volunteer);
         }
 
-        // Guarantee all demo accounts remain active and ready for login
+        // Guarantee all demo accounts remain active and ready for login & update coords
         for (String demoEmail : java.util.List.of("admin@paari.org", "donor@paari.org", "ngo@paari.org", "volunteer@paari.org")) {
             userRepository.findByEmail(demoEmail).ifPresent(u -> {
                 if (u.getStatus() != UserStatus.ACTIVE) {
@@ -144,5 +144,23 @@ public class DataInitializer implements CommandLineRunner {
                 }
             });
         }
+
+        // Sync existing demo donor and receiver coordinates to CIT Chennai
+        userRepository.findByEmail("donor@paari.org")
+            .flatMap(u -> donorRepository.findByUserId(u.getId()))
+            .ifPresent(d -> {
+                d.setLatitude(12.9715628);
+                d.setLongitude(80.043079);
+                d.setAddress("Chennai Institute of Technology, Sarathy Nagar, Kundrathur, Chennai - 600069");
+                donorRepository.save(d);
+            });
+        userRepository.findByEmail("ngo@paari.org")
+            .flatMap(u -> receiverRepository.findByUserId(u.getId()))
+            .ifPresent(r -> {
+                r.setLatitude(12.9860);
+                r.setLongitude(80.0650);
+                r.setAddress("Kundrathur Main Road, Near Murugan Temple, Chennai");
+                receiverRepository.save(r);
+            });
     }
 }

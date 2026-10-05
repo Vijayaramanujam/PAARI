@@ -44,6 +44,18 @@ public class PickupDelivery {
     @Column(name = "route_data", columnDefinition = "TEXT")
     private String routeData;
 
+    @Column(name = "current_latitude")
+    private Double currentLatitude;
+
+    @Column(name = "current_longitude")
+    private Double currentLongitude;
+
+    @Column(name = "current_bearing")
+    private Double currentBearing;
+
+    @Column(name = "last_location_update")
+    private LocalDateTime lastLocationUpdate;
+
     // Constructors
     public PickupDelivery() {}
 
@@ -68,4 +80,12 @@ public class PickupDelivery {
     public void setDistanceKm(Double distanceKm) { this.distanceKm = distanceKm; }
     public String getRouteData() { return routeData; }
     public void setRouteData(String routeData) { this.routeData = routeData; }
+    public Double getCurrentLatitude() { return currentLatitude; }
+    public void setCurrentLatitude(Double currentLatitude) { this.currentLatitude = currentLatitude; }
+    public Double getCurrentLongitude() { return currentLongitude; }
+    public void setCurrentLongitude(Double currentLongitude) { this.currentLongitude = currentLongitude; }
+    public Double getCurrentBearing() { return currentBearing; }
+    public void setCurrentBearing(Double currentBearing) { this.currentBearing = currentBearing; }
+    public LocalDateTime getLastLocationUpdate() { return lastLocationUpdate; }
+    public void setLastLocationUpdate(LocalDateTime lastLocationUpdate) { this.lastLocationUpdate = lastLocationUpdate; }
 }

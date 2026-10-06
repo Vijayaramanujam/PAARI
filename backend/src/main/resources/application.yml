@@ -28,7 +28,7 @@ spring:
 
 paari:
   jwt:
-    secret: ${JWT_SECRET}
+    secret: ${JWT_SECRET:paariSecureProductionSecretKeyWithMoreThan256BitsLengthForHS256Algorithm2026}
     expirationMs: ${JWT_EXPIRATION_MS:86400000}
 
   matching:

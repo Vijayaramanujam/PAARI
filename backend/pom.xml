@@ -18,6 +18,7 @@
         <jjwt.version>0.11.5</jjwt.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <frontend.skip>false</frontend.skip>
     </properties>
     <dependencies>
         <!-- Spring Boot Starters -->
@@ -114,6 +115,7 @@
                 <configuration>
                     <workingDirectory>../frontend</workingDirectory>
                     <installDirectory>target</installDirectory>
+                    <skip>${frontend.skip}</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -158,6 +160,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <skip>${frontend.skip}</skip>
                             <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
                             <resources>
                                 <resource>

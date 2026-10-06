@@ -73,7 +73,7 @@ public class WebSecurityConfig {
             .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/index.html", "/favicon.ico", "/*.svg", "/assets/**").permitAll()
+                .requestMatchers("/", "/index.html", "/favicon.ico", "/*.svg", "/*.png", "/*.jpg", "/*.jpeg", "/assets/**", "/error").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/analytics/summary").permitAll()
                 .requestMatchers("/api/chatbot/**").permitAll()

@@ -6,9 +6,10 @@ import DonorPortal from './pages/DonorPortal';
 import ReceiverPortal from './pages/ReceiverPortal';
 import VolunteerPortal from './pages/VolunteerPortal';
 import AdminPortal from './pages/AdminPortal';
+import DataInspector from './pages/DataInspector';
 import Chatbot from './components/Chatbot';
 import { useLanguage } from './context/LanguageContext';
-import { LogOut, Bell, Shield, User, Landmark, HelpCircle, Heart, Globe } from 'lucide-react';
+import { LogOut, Bell, Shield, User, Landmark, HelpCircle, Heart, Globe, Database } from 'lucide-react';
 
 export default function App() {
   const { language, setLanguage, toggleLanguage, t } = useLanguage();
@@ -151,6 +152,26 @@ export default function App() {
             </button>
           </div>
 
+          {/* Backend Live Data Inspector Button */}
+          <button
+            onClick={() => setPage(page === 'inspector' ? (token ? 'dashboard' : 'landing') : 'inspector')}
+            className={page === 'inspector' ? 'glass-button' : 'glass-button-secondary'}
+            style={{
+              padding: '6px 14px',
+              fontSize: '0.8rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              border: page === 'inspector' ? '1.5px solid var(--accent)' : '1px solid var(--border)',
+              background: page === 'inspector' ? '#FAF6EE' : 'transparent',
+              color: page === 'inspector' ? 'var(--primary)' : 'inherit'
+            }}
+            title="Inspect backend database tables, persistence, and SQL console"
+          >
+            <Database size={14} color="#D97706" />
+            <span>{page === 'inspector' ? '← ' + (t('navDashboard') || 'Back') : t('navDataInspector')}</span>
+          </button>
+
           {token && user ? (
             <>
               {/* User profile brief */}
@@ -237,6 +258,7 @@ export default function App() {
         {page === 'landing' && <Landing onNavigate={setPage} />}
         {page === 'login' && <Auth onNavigate={setPage} onLoginSuccess={handleLoginSuccess} initialMode="login" />}
         {page === 'register' && <Auth onNavigate={setPage} onLoginSuccess={handleLoginSuccess} initialMode="register" />}
+        {page === 'inspector' && <DataInspector />}
         {page === 'dashboard' && token && renderDashboardByRole()}
       </main>
 

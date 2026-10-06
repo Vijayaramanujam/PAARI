@@ -78,6 +78,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/analytics/summary").permitAll()
                 .requestMatchers("/api/chatbot/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/api/system/**").permitAll()
                 .anyRequest().authenticated()
             );
 

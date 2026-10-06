@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
-import { UserCheck, ShieldAlert, BarChart3, Users, Settings, Filter, ShieldCheck, Check, Trash2, Ban } from 'lucide-react';
+import { UserCheck, ShieldAlert, BarChart3, Users, Settings, Filter, ShieldCheck, Check, Trash2, Ban, Database } from 'lucide-react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import DataInspector from './DataInspector';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -99,6 +100,13 @@ export default function AdminPortal() {
             style={{ padding: '10px 20px', fontSize: '0.85rem' }}
           >
             <BarChart3 size={16} /> Impact Analysis Systems
+          </button>
+          <button
+            onClick={() => setActiveTab('database')}
+            className={activeTab === 'database' ? 'glass-button' : 'glass-button-secondary'}
+            style={{ padding: '10px 20px', fontSize: '0.85rem' }}
+          >
+            <Database size={16} color="var(--accent)" /> DB Explorer (H2)
           </button>
         </div>
       </div>
@@ -248,6 +256,13 @@ export default function AdminPortal() {
             </div>
           </div>
 
+        </div>
+      )}
+
+      {/* VIEW: Database Inspector & Evidence Explorer */}
+      {activeTab === 'database' && (
+        <div style={{ marginTop: '-20px' }}>
+          <DataInspector />
         </div>
       )}
 

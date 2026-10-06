@@ -14,6 +14,9 @@ export const translations = {
     navClose: 'Close',
     langToggle: 'Language',
     currentLang: 'English',
+    navDataInspector: 'Data Inspector (DB)',
+    dispatchRunBtn: 'Dispatch Fresh Run',
+    refreshRunsBtn: 'Refresh Runs',
 
     // Landing Page
     heroBadge: 'Connecting Food Abundance with Community Need',
@@ -198,6 +201,9 @@ export const translations = {
     navClose: 'மூடு',
     langToggle: 'மொழி',
     currentLang: 'தமிழ்',
+    navDataInspector: 'தரவு காட்சி (DB)',
+    dispatchRunBtn: 'புதிய பணி உருவாக்கு',
+    refreshRunsBtn: 'புதுப்பி',
 
     // Landing Page
     heroBadge: 'உணவு மிகுதியையும் சமூகத் தேவைகளையும் இணைக்கிறது',

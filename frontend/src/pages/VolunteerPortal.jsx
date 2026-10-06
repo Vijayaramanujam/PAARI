@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useLanguage } from '../context/LanguageContext';
-import { Truck, MapPin, CheckCircle, Navigation, Compass, AlertCircle, BookmarkCheck, History, Award } from 'lucide-react';
+import { Truck, MapPin, CheckCircle, Navigation, Compass, AlertCircle, BookmarkCheck, History, Award, RotateCw, Sparkles } from 'lucide-react';
 import LiveDeliveryMap from '../components/LiveDeliveryMap';
 
 export default function VolunteerPortal() {
   const { language, t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('browse'); // 'browse', 'active'
+  const [activeTab, setActiveTab] = useState('active'); // default to 'active' so volunteer immediately sees their assigned work!
   const [availableTasks, setAvailableTasks] = useState([]);
   const [myTasks, setMyTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,9 +20,11 @@ export default function VolunteerPortal() {
     setLoading(true);
     try {
       const res = await api.get('/api/deliveries/available');
-      setAvailableTasks(res.data);
+      setAvailableTasks(res.data || []);
+      return res.data;
     } catch(err) {
       console.error('Error fetching available tasks', err);
+      return [];
     } finally {
       setLoading(false);
     }
@@ -31,9 +33,16 @@ export default function VolunteerPortal() {
   const fetchMyTasks = async () => {
     try {
       const res = await api.get('/api/deliveries/my');
-      setMyTasks(res.data);
+      const tasks = res.data || [];
+      setMyTasks(tasks);
+      const activeOnes = tasks.filter(t => t.status !== 'DELIVERED' && t.status !== 'CANCELLED');
+      if (activeOnes.length > 0 && !activeRouteTask) {
+        setActiveRouteTask(activeOnes[0]);
+      }
+      return tasks;
     } catch (err) {
       console.error('Error fetching my deliveries', err);
+      return [];
     }
   };
 
@@ -42,18 +51,45 @@ export default function VolunteerPortal() {
     fetchMyTasks();
   }, []);
 
+  const handleDispatchTestJob = async () => {
+    setActionLoading(true);
+    setMsg({ type: '', text: '' });
+    try {
+      const res = await api.post('/api/system/quick-dispatch-job');
+      setMsg({ type: 'success', text: '⚡ Fresh delivery run dispatched from CIT Chennai hub! Available in Open Runs Board.' });
+      await fetchAvailable();
+      await fetchMyTasks();
+      setActiveTab('browse');
+    } catch (err) {
+      setMsg({ type: 'error', text: 'Could not dispatch job: ' + (err.response?.data?.error || err.message) });
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleManualRefresh = async () => {
+    setActionLoading(true);
+    const [avail, mine] = await Promise.all([fetchAvailable(), fetchMyTasks()]);
+    setActionLoading(false);
+    const activeCount = (mine || []).filter(t => t.status !== 'DELIVERED' && t.status !== 'CANCELLED').length;
+    setMsg({ type: 'success', text: `Synchronized: ${(avail || []).length} open run(s) available, ${activeCount} active job(s) in progress.` });
+    setTimeout(() => setMsg({ type: '', text: '' }), 3500);
+  };
+
   const handleClaim = async (deliveryId) => {
     setActionLoading(true);
     setMsg({ type: '', text: '' });
     try {
       await api.post(`/api/deliveries/assign?deliveryId=${deliveryId}`);
       setMsg({ type: 'success', text: t('volunteerClaimSuccess') });
-      fetchAvailable();
-      fetchMyTasks();
+      await fetchAvailable();
+      const updatedMine = await fetchMyTasks();
+      const claimed = (updatedMine || []).find(t => t.id === deliveryId);
+      if (claimed) setActiveRouteTask(claimed);
       setTimeout(() => {
         setMsg({ type: '', text: '' });
         setActiveTab('active');
-      }, 1500);
+      }, 1000);
     } catch (err) {
       setMsg({ type: 'error', text: err.response?.data?.message || err.response?.data?.error || t('volunteerClaimFail') });
     } finally {
@@ -87,18 +123,38 @@ export default function VolunteerPortal() {
           <h2 className="text-editorial" style={{ fontSize: '2.2rem', fontWeight: '800', color: 'var(--primary)', marginTop: '4px' }}>{t('volunteerPortalTitle')}</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '4px' }}>{t('volunteerPortalDesc')}</p>
         </div>
-        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', flexWrap: 'wrap', alignItems: 'center' }}>
+          <button
+            onClick={handleManualRefresh}
+            disabled={actionLoading}
+            className="glass-button-secondary"
+            title="Refresh jobs from backend"
+            style={{ padding: '9px 14px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '6px' }}
+          >
+            <RotateCw size={14} className={actionLoading ? 'animate-spin' : ''} /> {t('refreshRunsBtn') || 'Refresh'}
+          </button>
+
+          <button
+            onClick={handleDispatchTestJob}
+            disabled={actionLoading}
+            className="glass-button"
+            style={{ padding: '9px 18px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '6px', background: '#D97706', borderColor: '#D97706', color: '#FFF' }}
+          >
+            <Sparkles size={15} /> {t('dispatchRunBtn') || 'Dispatch Fresh Run'}
+          </button>
+
           <button
             onClick={() => setActiveTab('browse')}
             className={activeTab === 'browse' ? 'glass-button' : 'glass-button-secondary'}
-            style={{ padding: '10px 20px', fontSize: '0.85rem' }}
+            style={{ padding: '9px 18px', fontSize: '0.85rem' }}
           >
             <Truck size={16} /> {t('volunteerOpenRuns')} ({availableTasks.length})
           </button>
+
           <button
             onClick={() => setActiveTab('active')}
             className={activeTab === 'active' ? 'glass-button' : 'glass-button-secondary'}
-            style={{ padding: '10px 20px', fontSize: '0.85rem' }}
+            style={{ padding: '9px 18px', fontSize: '0.85rem' }}
           >
             <Navigation size={16} /> {t('volunteerActiveJobs')} ({myTasks.filter(t => t.status !== 'DELIVERED' && t.status !== 'CANCELLED').length})
           </button>
@@ -114,13 +170,31 @@ export default function VolunteerPortal() {
       {/* VIEW: Available Tasks list */}
       {activeTab === 'browse' && (
         <div>
-          <h3 style={{ fontSize: '1.25rem', marginBottom: '20px', fontWeight: '800', color: 'var(--primary)' }}>{t('volunteerRunsBoard')}</h3>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: 'var(--primary)', margin: 0 }}>{t('volunteerRunsBoard')}</h3>
+            <button
+              onClick={handleDispatchTestJob}
+              disabled={actionLoading}
+              className="glass-button-secondary"
+              style={{ fontSize: '0.8rem', padding: '6px 14px', display: 'flex', alignItems: 'center', gap: '6px' }}
+            >
+              <Sparkles size={14} color="#D97706" /> + Generate New Run (CIT Hub)
+            </button>
+          </div>
           {loading ? (
             <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>{t('volunteerSearching')}</div>
           ) : availableTasks.length === 0 ? (
             <div className="glass-panel" style={{ padding: '50px 30px', textAlign: 'center', color: 'var(--text-muted)' }}>
               <Award size={36} color="var(--primary)" style={{ opacity: 0.5, marginBottom: '12px', margin: '0 auto' }} />
               <p>{t('volunteerNoRuns')}</p>
+              <button
+                onClick={handleDispatchTestJob}
+                disabled={actionLoading}
+                className="glass-button"
+                style={{ marginTop: '16px', padding: '10px 22px', fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#D97706', borderColor: '#D97706', color: '#FFF' }}
+              >
+                <Sparkles size={16} /> {t('dispatchRunBtn') || 'Dispatch Test Delivery Run (CIT Hub)'}
+              </button>
             </div>
           ) : (
             <div style={{ display: 'grid', gap: '20px' }}>

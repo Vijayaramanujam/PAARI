@@ -38,5 +38,5 @@ ENV SPRING_PROFILES_ACTIVE=dev
 
 EXPOSE 10000
 
-# Run with 384MB heap limit to ensure stability on Render 512MB free tier
-ENTRYPOINT ["sh", "-c", "java -Xmx384m -Djava.security.egd=file:/dev/./urandom -jar /app/app.jar --server.port=${PORT}"]
+ENTRYPOINT ["sh", "-c", "java -Xmx384m -Djava.security.egd=file:/dev/./urandom -jar /app/app.jar --server.port=${PORT} --spring.profiles.active=${SPRING_PROFILES_ACTIVE:-dev}"]
+

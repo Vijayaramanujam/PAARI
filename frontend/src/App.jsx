@@ -83,20 +83,69 @@ export default function App() {
     }
   };
 
+  class ErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { hasError: false, error: null };
+    }
+    static getDerivedStateFromError(error) {
+      return { hasError: true, error };
+    }
+    componentDidCatch(error, errorInfo) {
+      console.error("React Component caught error:", error, errorInfo);
+    }
+    render() {
+      if (this.state.hasError) {
+        return (
+          <div style={{ padding: '60px 24px', textAlign: 'center', maxWidth: '640px', margin: '40px auto' }} className="glass-panel">
+            <h3 style={{ color: '#DC2626', marginBottom: '12px', fontWeight: '800', fontSize: '1.4rem' }}>Portal Display Notice</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '0.95rem' }}>
+              {this.state.error?.message || 'A display issue occurred while rendering this view.'}
+            </p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+              <button 
+                onClick={() => { this.setState({ hasError: false, error: null }); window.location.reload(); }}
+                className="glass-button"
+                style={{ padding: '10px 22px', fontSize: '0.9rem' }}
+              >
+                Reload Page
+              </button>
+              <button 
+                onClick={() => { handleLogout(); window.location.reload(); }}
+                className="glass-button-secondary"
+                style={{ padding: '10px 22px', fontSize: '0.9rem' }}
+              >
+                Sign Out & Return Home
+              </button>
+            </div>
+          </div>
+        );
+      }
+      return this.props.children;
+    }
+  }
+
   const renderDashboardByRole = () => {
     if (!user) return null;
+    let content;
     switch(user.role) {
       case 'ADMIN':
-        return <AdminPortal />;
+        content = <AdminPortal />;
+        break;
       case 'DONOR':
-        return <DonorPortal />;
+        content = <DonorPortal />;
+        break;
       case 'RECEIVER':
-        return <ReceiverPortal />;
+        content = <ReceiverPortal />;
+        break;
       case 'VOLUNTEER':
-        return <VolunteerPortal />;
+        content = <VolunteerPortal />;
+        break;
       default:
-        return <div style={{ padding: '40px', textAlign: 'center' }}>Role dashboard not found.</div>;
+        content = <div style={{ padding: '40px', textAlign: 'center' }}>Role dashboard not found.</div>;
+        break;
     }
+    return <ErrorBoundary key={user.role}>{content}</ErrorBoundary>;
   };
 
   return (

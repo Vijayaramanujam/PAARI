@@ -35,7 +35,7 @@ export default function VolunteerPortal() {
       const res = await api.get('/api/deliveries/my');
       const tasks = res.data || [];
       setMyTasks(tasks);
-      const activeOnes = tasks.filter(t => t.status !== 'DELIVERED' && t.status !== 'CANCELLED');
+      const activeOnes = tasks.filter(task => task.status !== 'DELIVERED' && task.status !== 'CANCELLED');
       if (activeOnes.length > 0 && !activeRouteTask) {
         setActiveRouteTask(activeOnes[0]);
       }
@@ -71,7 +71,7 @@ export default function VolunteerPortal() {
     setActionLoading(true);
     const [avail, mine] = await Promise.all([fetchAvailable(), fetchMyTasks()]);
     setActionLoading(false);
-    const activeCount = (mine || []).filter(t => t.status !== 'DELIVERED' && t.status !== 'CANCELLED').length;
+    const activeCount = (mine || []).filter(task => task.status !== 'DELIVERED' && task.status !== 'CANCELLED').length;
     setMsg({ type: 'success', text: `Synchronized: ${(avail || []).length} open run(s) available, ${activeCount} active job(s) in progress.` });
     setTimeout(() => setMsg({ type: '', text: '' }), 3500);
   };
@@ -84,7 +84,7 @@ export default function VolunteerPortal() {
       setMsg({ type: 'success', text: t('volunteerClaimSuccess') });
       await fetchAvailable();
       const updatedMine = await fetchMyTasks();
-      const claimed = (updatedMine || []).find(t => t.id === deliveryId);
+      const claimed = (updatedMine || []).find(task => task.id === deliveryId);
       if (claimed) setActiveRouteTask(claimed);
       setTimeout(() => {
         setMsg({ type: '', text: '' });
@@ -156,7 +156,7 @@ export default function VolunteerPortal() {
             className={activeTab === 'active' ? 'glass-button' : 'glass-button-secondary'}
             style={{ padding: '9px 18px', fontSize: '0.85rem' }}
           >
-            <Navigation size={16} /> {t('volunteerActiveJobs')} ({myTasks.filter(t => t.status !== 'DELIVERED' && t.status !== 'CANCELLED').length})
+            <Navigation size={16} /> {t('volunteerActiveJobs')} ({myTasks.filter(task => task.status !== 'DELIVERED' && task.status !== 'CANCELLED').length})
           </button>
         </div>
       </div>
@@ -198,29 +198,29 @@ export default function VolunteerPortal() {
             </div>
           ) : (
             <div style={{ display: 'grid', gap: '20px' }}>
-              {availableTasks.map((t) => (
-                <div key={t.id} className="glass-panel" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
+              {availableTasks.map((task) => (
+                <div key={task.id} className="glass-panel" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
                   <div style={{ display: 'grid', gap: '8px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)' }}>{t('volunteerRunPrefix')}{t.id}</h4>
+                      <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)' }}>{t('volunteerRunPrefix')}{task.id}</h4>
                       <span className="badge badge-warning" style={{ fontWeight: '800' }}>
-                        Radius: {t.distanceKm ? t.distanceKm.toFixed(1) : '—'} km
+                        Radius: {task.distanceKm ? task.distanceKm.toFixed(1) : '—'} km
                       </span>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <span style={{ color: 'var(--accent)', fontWeight: '800', width: '90px', display: 'inline-block' }}>[A] {t('volunteerPickup')}:</span> 
-                        <span>{t.pickupLocation}</span>
+                        <span>{task.pickupLocation}</span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <span style={{ color: 'var(--primary)', fontWeight: '800', width: '90px', display: 'inline-block' }}>[B] {t('volunteerDropoff')}:</span> 
-                        <span>{t.deliveryLocation}</span>
+                        <span>{task.deliveryLocation}</span>
                       </div>
                     </div>
                   </div>
                   <div>
                     <button
-                      onClick={() => handleClaim(t.id)}
+                      onClick={() => handleClaim(task.id)}
                       disabled={actionLoading}
                       className="glass-button"
                       style={{ padding: '10px 24px', fontSize: '0.85rem' }}
@@ -240,52 +240,52 @@ export default function VolunteerPortal() {
         <div style={{ display: 'grid', gridTemplateColumns: activeRouteTask ? '1.2fr 0.8fr' : '1fr', gap: '30px', alignItems: 'start' }}>
           <div>
             <h3 style={{ fontSize: '1.25rem', marginBottom: '20px', fontWeight: '800', color: 'var(--primary)' }}>{t('volunteerActiveTitle')}</h3>
-            {myTasks.filter(t => t.status !== 'DELIVERED' && t.status !== 'CANCELLED').length === 0 ? (
+            {myTasks.filter(task => task.status !== 'DELIVERED' && task.status !== 'CANCELLED').length === 0 ? (
               <div className="glass-panel" style={{ padding: '50px 30px', textAlign: 'center', color: 'var(--text-muted)' }}>
                 <History size={36} color="var(--primary)" style={{ opacity: 0.5, marginBottom: '12px', margin: '0 auto' }} />
                 <p>{t('volunteerNoActive')}</p>
               </div>
             ) : (
               <div style={{ display: 'grid', gap: '20px' }}>
-                {myTasks.filter(t => t.status !== 'DELIVERED' && t.status !== 'CANCELLED').map((t) => (
-                  <div key={t.id} className="glass-panel" style={{ display: 'grid', gap: '16px' }}>
+                {myTasks.filter(task => task.status !== 'DELIVERED' && task.status !== 'CANCELLED').map((task) => (
+                  <div key={task.id} className="glass-panel" style={{ display: 'grid', gap: '16px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                          <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)' }}>{t('volunteerRunPrefix')}{t.id}</h4>
-                          <span className={`badge ${t.status === 'ASSIGNED' ? 'badge-warning' : 'badge-info'}`}>
-                            {t.status === 'ASSIGNED' ? t('volunteerAwaitingPickup') : t('volunteerTransitMode')}
+                          <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)' }}>{t('volunteerRunPrefix')}{task.id}</h4>
+                          <span className={`badge ${task.status === 'ASSIGNED' ? 'badge-warning' : 'badge-info'}`}>
+                            {task.status === 'ASSIGNED' ? t('volunteerAwaitingPickup') : t('volunteerTransitMode')}
                           </span>
                         </div>
                         <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                          NGO Welfare Recipient: <strong>{t.foodRequest?.receiver?.organizationName || 'Shelter Partner'}</strong>
+                          NGO Welfare Recipient: <strong>{task.foodRequest?.receiver?.organizationName || 'Shelter Partner'}</strong>
                         </p>
                       </div>
                       <div style={{ textAlign: 'right' }}>
                         <strong style={{ color: 'var(--accent)', fontSize: '1.2rem', fontWeight: '900' }}>
-                          {t.distanceKm ? t.distanceKm.toFixed(1) : '—'} km
+                          {task.distanceKm ? task.distanceKm.toFixed(1) : '—'} km
                         </strong>
                         <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('volunteerTripDistance')}</div>
                       </div>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.9rem', color: 'var(--text-muted)', background: '#FAF6EE', padding: '16px', borderRadius: '16px', border: '1px solid var(--border)' }}>
-                      <div>📍 <strong>{t('volunteerPickup')}:</strong> {t.pickupLocation}</div>
-                      <div>🏁 <strong>{t('volunteerDropoff')}:</strong> {t.deliveryLocation}</div>
+                      <div>📍 <strong>{t('volunteerPickup')}:</strong> {task.pickupLocation}</div>
+                      <div>🏁 <strong>{t('volunteerDropoff')}:</strong> {task.deliveryLocation}</div>
                     </div>
 
                     <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '10px' }}>
                       <button
-                        onClick={() => setActiveRouteTask(t)}
+                        onClick={() => setActiveRouteTask(task)}
                         className="glass-button"
                         style={{ padding: '8px 16px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--primary)', color: '#FFF' }}
                       >
                         <Navigation size={14} /> {t('trackLiveBtn') || 'Live GPS Navigation'}
                       </button>
                       
-                      {t.status === 'ASSIGNED' ? (
+                      {task.status === 'ASSIGNED' ? (
                         <button
-                          onClick={() => handleUpdateStatus(t.id, 'PICKED_UP')}
+                          onClick={() => handleUpdateStatus(task.id, 'PICKED_UP')}
                           disabled={actionLoading}
                           className="glass-button"
                           style={{ padding: '8px 18px', fontSize: '0.85rem' }}
@@ -294,7 +294,7 @@ export default function VolunteerPortal() {
                         </button>
                       ) : (
                         <button
-                          onClick={() => handleUpdateStatus(t.id, 'DELIVERED')}
+                          onClick={() => handleUpdateStatus(task.id, 'DELIVERED')}
                           disabled={actionLoading}
                           className="glass-button"
                           style={{ padding: '8px 18px', fontSize: '0.85rem', background: 'var(--primary)', borderColor: 'var(--primary)' }}

@@ -170,13 +170,13 @@ export default function DataInspector() {
 
       {/* STAT METRICS ROW */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px', marginBottom: '24px' }}>
-        {tables.map((t) => {
-          const Icon = t.icon;
-          const isSelected = activeTable === t.key;
+        {tables.map((tbl) => {
+          const Icon = tbl.icon;
+          const isSelected = activeTable === tbl.key;
           return (
             <button
-              key={t.key}
-              onClick={() => { setActiveTable(t.key); setSearchTerm(''); }}
+              key={tbl.key}
+              onClick={() => { setActiveTable(tbl.key); setSearchTerm(''); }}
               className="glass-panel"
               style={{
                 padding: '14px 16px',
@@ -190,11 +190,11 @@ export default function DataInspector() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                 <Icon size={18} color={isSelected ? 'var(--primary)' : 'var(--text-muted)'} />
                 <span style={{ fontSize: '1.25rem', fontWeight: '900', color: isSelected ? 'var(--primary)' : 'var(--text-dark)' }}>
-                  {t.count}
+                  {tbl.count}
                 </span>
               </div>
               <div style={{ fontSize: '0.75rem', fontWeight: isSelected ? '800' : '600', color: isSelected ? 'var(--primary)' : 'var(--text-muted)' }}>
-                {t.label}
+                {tbl.label}
               </div>
             </button>
           );

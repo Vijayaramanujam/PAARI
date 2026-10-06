@@ -33,13 +33,30 @@ export default function Auth({ onNavigate, onLoginSuccess, initialMode = 'login'
     });
   };
 
-  const fillDemoAccount = (email, password) => {
+  const fillDemoAccount = async (email, password) => {
     setFormData((prev) => ({
       ...prev,
       email,
       password
     }));
     setMode('login');
+    setLoading(true);
+    setErrorMsg('');
+    try {
+      const res = await api.post('/api/auth/login', { email, password });
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data));
+      onLoginSuccess(res.data);
+    } catch (err) {
+      console.error('Demo login error', err);
+      if (err.response?.data?.message) {
+        setErrorMsg(err.response.data.message);
+      } else {
+        setErrorMsg('Sign-in failed. Please check backend connection.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGeoTrigger = () => {

@@ -1,0 +1,9 @@
+.git
+target
+backend/target
+frontend/node_modules
+frontend/dist
+backend/data
+apache-maven-3.9.6
+*.log
+*.mv.db

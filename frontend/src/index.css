@@ -1,25 +1,32 @@
-/* PAARI Food Rescue Network - Global organic charity style system */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+/* PAARI Net Food Rescue & Nourishment Network - Creative Food-Centric Design System */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --primary: #0F3B2E;         /* Deep Forest Green */
+  /* Food & Culinary Creative Direction Palette */
+  --primary: #103D30;         /* Deep Kitchen Forest Green */
+  --primary-rich: #205B39;    /* Fresh Garden Herb Green */
   --primary-hover: #165343;
-  --primary-light: #E9F1EE;   /* Soft Sage Green Tint */
-  --accent: #E65F2B;          /* Warm Earthy Clay Orange */
-  --accent-hover: #CF4E1D;
-  --accent-light: #FDF0EC;
-  --background: #FAF8F4;      /* Soft warm off-white / cream background */
+  --primary-light: #E7EFEA;   /* Soft Herb Sage Tint */
+  --accent: #F15A29;          /* Vibrant Saffron & Food Orange */
+  --accent-hover: #D94819;
+  --accent-light: #FDF1EB;    /* Warm Citrus & Peach Tint */
+  --background: #F7F3EB;      /* Warm Sourdough & Honey Ivory */
   --surface: #FFFFFF;
-  --surface-card: #FFFFFF;
-  --border: #E8E4DC;          /* Soft organic clay-tinted border */
-  --text-main: #1D2622;       /* Rich Charcoal/Dark Green Text */
-  --text-muted: #626D68;      /* Sage-tinted muted text */
-  --font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, sans-serif;
+  --surface-warm: #FAF6EE;    /* Warm Butter Cream */
+  --surface-honey: #F3EBDD;   /* Honeycomb Cream Card */
+  --surface-sage: #DDEAE0;    /* Soft Herb Sage */
+  --border: #E5DEC9;          /* Soft Wheat Border */
+  --border-light: #EFE9DB;
+  --text-main: #202A25;       /* Roasted Charcoal Text */
+  --text-muted: #58645E;      /* Sage Muted Gray */
+  --font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --transition-fast: 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --shadow-premium: 0 12px 40px rgba(15, 59, 46, 0.04), 0 2px 8px rgba(15, 59, 46, 0.02);
-  --shadow-hover: 0 20px 48px rgba(15, 59, 46, 0.09), 0 4px 16px rgba(15, 59, 46, 0.03);
-  --border-radius-large: 24px;
-  --border-radius-medium: 16px;
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-premium: 0 14px 38px rgba(16, 61, 48, 0.05), 0 2px 8px rgba(16, 61, 48, 0.02);
+  --shadow-hover: 0 24px 54px rgba(16, 61, 48, 0.10), 0 4px 18px rgba(241, 90, 41, 0.05);
+  --shadow-warm: 0 16px 40px rgba(241, 90, 41, 0.12);
+  --border-radius-large: 26px;
+  --border-radius-medium: 18px;
   --border-radius-small: 10px;
 }
 
@@ -27,6 +34,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -37,9 +48,31 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
   background-image: 
-    radial-gradient(at 10% 10%, rgba(230, 95, 43, 0.03) 0px, transparent 40%),
-    radial-gradient(at 90% 90%, rgba(15, 59, 46, 0.03) 0px, transparent 40%);
+    radial-gradient(at 12% 12%, rgba(241, 90, 41, 0.035) 0px, transparent 45%),
+    radial-gradient(at 88% 88%, rgba(16, 61, 48, 0.04) 0px, transparent 45%),
+    radial-gradient(at 50% 50%, rgba(221, 234, 224, 0.3) 0px, transparent 70%);
   background-attachment: fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: #CFC5B2;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B6AB96;
+}
+
+/* Selection Color */
+::selection {
+  background: rgba(241, 90, 41, 0.2);
+  color: var(--primary);
 }
 
 /* Organic Layout Containers */
@@ -57,7 +90,7 @@ body {
 .glass-panel:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
-  border-color: rgba(15, 59, 46, 0.15);
+  border-color: rgba(16, 61, 48, 0.18);
 }
 
 .glass-button {
@@ -65,28 +98,29 @@ body {
   border: 1px solid var(--accent);
   color: #fff;
   border-radius: 99px;
-  padding: 12px 28px;
+  padding: 13px 30px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(230, 95, 43, 0.15);
-  transition: all var(--transition-fast);
+  box-shadow: 0 8px 24px rgba(241, 90, 41, 0.22);
+  transition: all var(--transition-smooth);
   font-family: var(--font-family);
   display: inline-flex;
   align-items: center;
   gap: 8px;
   justify-content: center;
+  text-decoration: none;
 }
 
 .glass-button:hover {
   background: var(--accent-hover);
   border-color: var(--accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(230, 95, 43, 0.25);
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 12px 30px rgba(241, 90, 41, 0.32);
 }
 
 .glass-button:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.99);
 }
 
 .glass-button-secondary {
@@ -98,17 +132,19 @@ body {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-smooth);
   font-family: var(--font-family);
   display: inline-flex;
   align-items: center;
   gap: 8px;
   justify-content: center;
+  text-decoration: none;
 }
 
 .glass-button-secondary:hover {
   background: var(--primary-light);
   transform: translateY(-2px);
+  border-color: var(--primary-rich);
 }
 
 .glass-button-secondary:active {
@@ -117,7 +153,7 @@ body {
 
 .glass-input {
   background: var(--surface);
-  border: 2.2px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: var(--border-radius-medium);
   color: var(--text-main);
   padding: 14px 18px;
@@ -130,7 +166,7 @@ body {
 .glass-input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(15, 59, 46, 0.08);
+  box-shadow: 0 0 0 4px rgba(16, 61, 48, 0.08);
 }
 
 .label-label {
@@ -147,8 +183,27 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes pulseGlow {
+  0% { transform: scale(0.97); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(0.97); opacity: 0.8; }
+}
+
+@keyframes floatBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
 .animated-fade {
   animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animated-float {
+  animation: floatBob 4s ease-in-out infinite;
+}
+
+.animated-pulse {
+  animation: pulseGlow 2.5s ease-in-out infinite;
 }
 
 /* Status Badges */
@@ -163,12 +218,12 @@ body {
   text-transform: uppercase;
 }
 
-.badge-success { background: var(--primary-light); color: var(--primary); border: 1px solid rgba(15, 59, 46, 0.15); }
-.badge-warning { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(230, 95, 43, 0.15); }
+.badge-success { background: var(--primary-light); color: var(--primary); border: 1px solid rgba(16, 61, 48, 0.15); }
+.badge-warning { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(241, 90, 41, 0.18); }
 .badge-error { background: #FDF2F2; color: #DC2626; border: 1px solid rgba(220, 38, 38, 0.15); }
 .badge-info { background: #EFF6FF; color: #1D4ED8; border: 1px solid rgba(29, 78, 216, 0.15); }
 
-/* Global helper classes */
+/* Typography helper classes */
 .charity-card-header {
   font-family: 'Outfit', var(--font-family);
   font-weight: 800;
@@ -177,4 +232,89 @@ body {
 
 .text-editorial {
   font-family: 'Outfit', var(--font-family);
+  letter-spacing: -0.02em;
 }
+
+/* 3D Tilt Card Perspective */
+.tilt-card-container {
+  perspective: 1000px;
+}
+
+.tilt-card {
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+}
+
+/* GSAP Scroll Trigger Flow Line */
+.flow-line-path {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* Desktop Editorial Nav Links */
+.nav-pill-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+.nav-pill-link:hover {
+  color: var(--primary);
+  background: rgba(16, 61, 48, 0.07);
+}
+
+.nav-pill-link.active {
+  color: var(--primary);
+  background: rgba(16, 61, 48, 0.1);
+}
+
+@media (min-width: 960px) {
+  .editorial-nav-links {
+    display: flex !important;
+  }
+}
+
+/* Ensure Journey Step Boxes Are Visible by Default */
+.journey-step-box {
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.journey-step-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(16, 61, 48, 0.1);
+}
+
+/* Radar & Command Hub Pulse */
+@keyframes radarSweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pingRing {
+  0% { transform: scale(0.9); opacity: 0.9; }
+  70% { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.radar-ping {
+  animation: pingRing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

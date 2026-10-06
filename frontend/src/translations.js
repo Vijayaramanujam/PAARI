@@ -4,6 +4,10 @@ export const translations = {
     brandTitle: 'PAARI',
     brandSubtitle: 'Net',
     navHome: 'Home',
+    navJourney: 'The Food Journey',
+    navImpact: 'Nourishment Impact',
+    navDonors: 'For Food Donors',
+    navNGOs: 'For Community Kitchens',
     navSignIn: 'Sign In',
     navJoin: 'Join PAARI',
     navSignOut: 'Sign Out',
@@ -17,6 +21,52 @@ export const translations = {
     navDataInspector: 'Data Inspector (DB)',
     dispatchRunBtn: 'Dispatch Fresh Run',
     refreshRunsBtn: 'Refresh Runs',
+
+    // Food-Centric Creative Landing Page
+    heroEyebrow: 'TECHNOLOGY WITH A HUMAN PURPOSE • ZERO FOOD WASTE',
+    heroFoodHeadlinePart1: 'Good Food Deserves',
+    heroFoodHeadlinePart2: 'A Second Journey.',
+    heroFoodSupporting: 'Connecting surplus chef-prepared dishes, bakery bakes, and farm produce with shelters and kitchens in need. We ensure every meal brings dignity and warmth.',
+    heroBtnRescue: 'Rescue Food Now',
+    heroBtnExploreNetwork: 'Explore Food Network',
+
+    // Problem Section
+    problemTag: 'The Urgent Paradox',
+    problemTitle: 'Kitchen Surplus Meets Community Hunger',
+    problemDesc: 'Globally and in every city, up to one-third of wholesome food prepared in hotels, banquets, and bakeries never reaches a plate—while shelter homes struggle with daily nutrition costs. PAARI bridges this void in real time.',
+    statSurplusTag: 'Edible Kitchen Surplus',
+    statSurplusVal: '1/3',
+    statSurplusDesc: 'Of all prepared food in commercial kitchens is typically discarded without redistribution.',
+    statTimeTag: 'Average Rescue Window',
+    statTimeVal: '< 180 min',
+    statTimeDesc: 'From kitchen dispatch to warm dining table with temperature integrity.',
+
+    // 4-Stage Food Journey
+    journeyBadge: 'From Kitchen To Plate',
+    journeyTitle: 'The 4-Stage Food Redistribution Journey',
+    step1HarvestTitle: '01 — HARVEST & LIST',
+    step1HarvestDesc: 'Kitchens & bakeries list surplus hot meals, exact portion quantity, preparation time, and temperature status.',
+    step2MatchTitle: '02 — CHEF-GRADE MATCH',
+    step2MatchDesc: 'Our geolocation engine pairs the surplus with the nearest verified shelter kitchen within 15 km in under 3 minutes.',
+    step3LogisticsTitle: '03 — THERMAL LOGISTICS',
+    step3LogisticsDesc: 'Registered volunteer couriers collect food in insulated bags with turn-by-turn route assistance and safety tracking.',
+    step4NourishTitle: '04 — NOURISH & SERVE',
+    step4NourishDesc: 'Shelters receive verified wholesome food with dignity, eliminating hunger and preventing landfill methane emission.',
+
+    // Role-Based Entry Cards
+    roleCard1Title: 'I Cook & Provide Food',
+    roleCard1Role: 'Food Donors • Restaurants & Bakeries',
+    roleCard1Desc: 'Share banquet or bakery surplus, earn green sustainability badges, and reduce organic food waste.',
+    roleCard2Title: 'We Nourish Communities',
+    roleCard2Role: 'NGOs, Orphanages & Shelters',
+    roleCard2Desc: 'Receive wholesome, clean, hot meals delivered to your doorstep without paying a single rupee.',
+    roleCard3Title: 'I Deliver Warmth',
+    roleCard3Role: 'Food Couriers • Volunteers',
+    roleCard3Desc: 'Champion zero hunger in your neighborhood by picking up and delivering meals on your bike or car.',
+
+    // Final CTA
+    finalCtaStatement: 'Small Actions. Shared Abundance. A Better Tomorrow.',
+    finalCtaDesc: 'Every unserved croissant, every banquet meal, every volunteer run transforms hunger into human dignity.',
 
     // Landing Page
     heroBadge: 'Connecting Food Abundance with Community Need',
@@ -191,6 +241,10 @@ export const translations = {
     brandTitle: 'பாரி',
     brandSubtitle: 'வலையமைப்பு',
     navHome: 'முகப்பு',
+    navJourney: 'உணவுப் பயணம்',
+    navImpact: 'ஊட்டச்சத்து தாக்கம்',
+    navDonors: 'உணவு வழங்குநர்களுக்கு',
+    navNGOs: 'காப்பகங்களுக்கு',
     navSignIn: 'உள்நுழைக',
     navJoin: 'பாரியில் இணையுங்கள்',
     navSignOut: 'வெளியேறுக',
@@ -204,6 +258,52 @@ export const translations = {
     navDataInspector: 'தரவு காட்சி (DB)',
     dispatchRunBtn: 'புதிய பணி உருவாக்கு',
     refreshRunsBtn: 'புதுப்பி',
+
+    // Food-Centric Creative Landing Page
+    heroEyebrow: 'மனிதநேயத் தொழில்நுட்பம் • உணவை வீணாக்காதீர்',
+    heroFoodHeadlinePart1: 'நல்ல உணவுக்குத் தேவை',
+    heroFoodHeadlinePart2: 'மறுவாழ்வுப் பயணம்.',
+    heroFoodSupporting: 'ஹோட்டல்கள், பேக்கரிகள் மற்றும் சமையலறைகளின் சுவையான உபரி உணவை காப்பகங்களோடு இணைக்கும் தளம். ஒவ்வொரு உணவும் கண்ணியத்துடன் பகிர்ந்தளிக்கப்படுகிறது.',
+    heroBtnRescue: 'உணவை மீட்கவும்',
+    heroBtnExploreNetwork: 'வலையமைப்பை அறிக',
+
+    // Problem Section
+    problemTag: 'உணவு முரண்பாடு',
+    problemTitle: 'சமையலறை உபரியும் சமூகப் பசியும்',
+    problemDesc: 'தினமும் ஹோட்டல்கள் மற்றும் விழாக்களில் தயாராகும் உணவில் மூன்றில் ஒரு பங்கு வீணடிக்கப்படுகிறது. அதே வேளையில் பல காப்பகங்கள் உணவிற்காக ஏங்குகின்றன. இந்த இடைவெளியை பாரி தளம் உடனடியாக நிரப்புகிறது.',
+    statSurplusTag: 'உண்ணக்கூடிய உபரி உணவு',
+    statSurplusVal: '1/3',
+    statSurplusDesc: 'வணிக சமையலறைகளில் தயாரிக்கப்படும் உணவில் வழக்கமாக வீணடிக்கப்படும் பங்கு.',
+    statTimeTag: 'சராசரி மீட்பு நேரம்',
+    statTimeVal: '< 180 நிமிடம்',
+    statTimeDesc: 'சமையலறை முதல் காப்பக உணவு மேசை வரை வெப்பம் மாறாமல் சேர்க்கும் நேரம்.',
+
+    // 4-Stage Food Journey
+    journeyBadge: 'சமையலறை முதல் சாப்பாடு வரை',
+    journeyTitle: 'பாரி 4 படிநிலை உணவுப் பகிர்வு முறை',
+    step1HarvestTitle: '01 — உணவைப் பதிவிடுதல்',
+    step1HarvestDesc: 'சமையலறைகள் உணவின் வகை, அளவு, சமைத்த நேரம் மற்றும் பாதுகாப்பு விவரங்களைப் பதிவிடுகின்றன.',
+    step2MatchTitle: '02 — உடனடிப் பொருத்தம்',
+    step2MatchDesc: '15 கி.மீ சுற்றளவிலுள்ள தகுதியான காப்பகங்களை 3 நிமிடங்களுக்குள் புவியியல் அடிப்படையில் கண்டறிகிறது.',
+    step3LogisticsTitle: '03 — பாதுகாப்பான போக்குவரத்து',
+    step3LogisticsDesc: 'தன்னார்வலர்கள் வெப்பப் பாதுகாப்புப் பைகளில் உணவை எடுத்துக்கொண்டு ஜிபிஎஸ் வழிகாட்டலுடன் செல்கின்றனர்.',
+    step4NourishTitle: '04 — பரிமாறி மகிழ்தல்',
+    step4NourishDesc: 'காப்பக மக்கள் சத்தான உணவை அன்போடும் கண்ணியத்தோடும் உண்டு மகிழ்கின்றனர்.',
+
+    // Role-Based Entry Cards
+    roleCard1Title: 'உணவு சமைத்து வழங்குபவர்',
+    roleCard1Role: 'உணவு வழங்குநர் • உணவகம் & பேக்கரி',
+    roleCard1Desc: 'ஹோட்டல்கள், பேக்கரிகள் உபரி உணவை வழங்கி பசியைப் போக்கலாம்.',
+    roleCard2Title: 'நாங்கள் ஆதரவு தருகிறோம்',
+    roleCard2Role: 'காப்பகங்கள் & ஆதரவற்றோர் இல்லங்கள்',
+    roleCard2Desc: 'இலவசமாக, நேரடியாக உங்கள் இருப்பிடத்திற்கே சுவையான உணவு வந்து சேரும்.',
+    roleCard3Title: 'நான் உணவைச் சேர்க்கிறேன்',
+    roleCard3Role: 'தன்னார்வலர் • உணவு விநியோகம்',
+    roleCard3Desc: 'உங்கள் இருசக்கர வாகனத்தில் உணவை ஏந்திச்சென்று எளியோருக்கு வழங்கி மகிழுங்கள்.',
+
+    // Final CTA
+    finalCtaStatement: 'சிறு முயற்சி. பகிரப்பட்ட உணவு. வளமான எதிர்காலம்.',
+    finalCtaDesc: 'ஒவ்வொரு சிறு உணவும், ஒவ்வொரு விநியோகமும் ஒரு மனிதரின் பசியை ஆற்றி கண்ணியத்தை நிலைநாட்டுகிறது.',
 
     // Landing Page
     heroBadge: 'உணவு மிகுதியையும் சமூகத் தேவைகளையும் இணைக்கிறது',

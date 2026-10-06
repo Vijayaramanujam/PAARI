@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useLanguage } from '../context/LanguageContext';
-import { Truck, MapPin, CheckCircle, Navigation, Compass, AlertCircle, BookmarkCheck, History, Award, RotateCw, Sparkles } from 'lucide-react';
+import { Truck, MapPin, CheckCircle, Navigation, Compass, AlertCircle, BookmarkCheck, History, Award, RotateCw, Sparkles, Utensils } from 'lucide-react';
 import LiveDeliveryMap from '../components/LiveDeliveryMap';
 
 export default function VolunteerPortal() {
   const { language, t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('active'); // default to 'active' so volunteer immediately sees their assigned work!
+  const [activeTab, setActiveTab] = useState(() => {
+    return sessionStorage.getItem('paari_volunteer_tab') || 'active';
+  });
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    sessionStorage.setItem('paari_volunteer_tab', tab);
+  };
   const [availableTasks, setAvailableTasks] = useState([]);
   const [myTasks, setMyTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -144,7 +151,7 @@ export default function VolunteerPortal() {
           </button>
 
           <button
-            onClick={() => setActiveTab('browse')}
+            onClick={() => handleTabChange('browse')}
             className={activeTab === 'browse' ? 'glass-button' : 'glass-button-secondary'}
             style={{ padding: '9px 18px', fontSize: '0.85rem' }}
           >
@@ -152,7 +159,7 @@ export default function VolunteerPortal() {
           </button>
 
           <button
-            onClick={() => setActiveTab('active')}
+            onClick={() => handleTabChange('active')}
             className={activeTab === 'active' ? 'glass-button' : 'glass-button-secondary'}
             style={{ padding: '9px 18px', fontSize: '0.85rem' }}
           >
@@ -200,14 +207,26 @@ export default function VolunteerPortal() {
             <div style={{ display: 'grid', gap: '20px' }}>
               {availableTasks.map((task) => (
                 <div key={task.id} className="glass-panel" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
-                  <div style={{ display: 'grid', gap: '8px' }}>
+                  <div style={{ display: 'grid', gap: '8px', flex: '1', minWidth: '280px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)' }}>{t('volunteerRunPrefix')}{task.id}</h4>
                       <span className="badge badge-warning" style={{ fontWeight: '800' }}>
                         Radius: {task.distanceKm ? task.distanceKm.toFixed(1) : '—'} km
                       </span>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+
+                    {/* Food Cargo Banner */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#FDF1EB', padding: '8px 14px', borderRadius: '12px', border: '1px solid rgba(241, 90, 41, 0.2)', margin: '2px 0' }}>
+                      <Utensils size={16} color="#F15A29" />
+                      <strong style={{ fontSize: '0.94rem', color: 'var(--primary)' }}>
+                        {task.foodRequest?.foodDonation?.foodType || 'Fresh Meals & Provisions'}
+                      </strong>
+                      <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#F15A29', marginLeft: 'auto' }}>
+                        {task.foodRequest?.quantityRequested || task.foodRequest?.foodDonation?.quantity || '15'} kg
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <span style={{ color: 'var(--accent)', fontWeight: '800', width: '90px', display: 'inline-block' }}>[A] {t('volunteerPickup')}:</span> 
                         <span>{task.pickupLocation}</span>
@@ -248,8 +267,8 @@ export default function VolunteerPortal() {
             ) : (
               <div style={{ display: 'grid', gap: '20px' }}>
                 {myTasks.filter(task => task.status !== 'DELIVERED' && task.status !== 'CANCELLED').map((task) => (
-                  <div key={task.id} className="glass-panel" style={{ display: 'grid', gap: '16px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div key={task.id} className="glass-panel" style={{ display: 'grid', gap: '14px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
                       <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
                           <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)' }}>{t('volunteerRunPrefix')}{task.id}</h4>
@@ -257,7 +276,7 @@ export default function VolunteerPortal() {
                             {task.status === 'ASSIGNED' ? t('volunteerAwaitingPickup') : t('volunteerTransitMode')}
                           </span>
                         </div>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+                        <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
                           NGO Welfare Recipient: <strong>{task.foodRequest?.receiver?.organizationName || 'Shelter Partner'}</strong>
                         </p>
                       </div>
@@ -267,6 +286,17 @@ export default function VolunteerPortal() {
                         </strong>
                         <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('volunteerTripDistance')}</div>
                       </div>
+                    </div>
+
+                    {/* Food Cargo Banner */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#FDF1EB', padding: '8px 14px', borderRadius: '12px', border: '1px solid rgba(241, 90, 41, 0.2)' }}>
+                      <Utensils size={16} color="#F15A29" />
+                      <strong style={{ fontSize: '0.94rem', color: 'var(--primary)' }}>
+                        {task.foodRequest?.foodDonation?.foodType || 'Fresh Meals & Provisions'}
+                      </strong>
+                      <span style={{ fontSize: '0.82rem', fontWeight: '800', color: '#F15A29', marginLeft: 'auto' }}>
+                        Cargo: {task.foodRequest?.quantityRequested || task.foodRequest?.foodDonation?.quantity || '15'} kg
+                      </span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.9rem', color: 'var(--text-muted)', background: '#FAF6EE', padding: '16px', borderRadius: '16px', border: '1px solid var(--border)' }}>

@@ -11,6 +11,54 @@ import Chatbot from './components/Chatbot';
 import { useLanguage } from './context/LanguageContext';
 import { LogOut, Bell, Shield, User, Landmark, HelpCircle, Heart, Globe, Database } from 'lucide-react';
 
+// Stable Module-Level Error Boundary to prevent component remounting
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("React Component caught error:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: '60px 24px', textAlign: 'center', maxWidth: '640px', margin: '40px auto' }} className="glass-panel">
+          <h3 style={{ color: '#DC2626', marginBottom: '12px', fontWeight: '800', fontSize: '1.4rem' }}>Portal Display Notice</h3>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '0.95rem' }}>
+            {this.state.error?.message || 'A display issue occurred while rendering this view.'}
+          </p>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+            <button 
+              onClick={() => { this.setState({ hasError: false, error: null }); window.location.reload(); }}
+              className="glass-button"
+              style={{ padding: '10px 22px', fontSize: '0.9rem' }}
+            >
+              Reload Page
+            </button>
+            <button 
+              onClick={() => {
+                if (this.props.onLogout) this.props.onLogout();
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.reload();
+              }}
+              className="glass-button-secondary"
+              style={{ padding: '10px 22px', fontSize: '0.9rem' }}
+            >
+              Sign Out & Return Home
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export default function App() {
   const { language, setLanguage, toggleLanguage, t } = useLanguage();
   const [token, setToken] = useState(localStorage.getItem('token') || '');
@@ -83,48 +131,6 @@ export default function App() {
     }
   };
 
-  class ErrorBoundary extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { hasError: false, error: null };
-    }
-    static getDerivedStateFromError(error) {
-      return { hasError: true, error };
-    }
-    componentDidCatch(error, errorInfo) {
-      console.error("React Component caught error:", error, errorInfo);
-    }
-    render() {
-      if (this.state.hasError) {
-        return (
-          <div style={{ padding: '60px 24px', textAlign: 'center', maxWidth: '640px', margin: '40px auto' }} className="glass-panel">
-            <h3 style={{ color: '#DC2626', marginBottom: '12px', fontWeight: '800', fontSize: '1.4rem' }}>Portal Display Notice</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '0.95rem' }}>
-              {this.state.error?.message || 'A display issue occurred while rendering this view.'}
-            </p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-              <button 
-                onClick={() => { this.setState({ hasError: false, error: null }); window.location.reload(); }}
-                className="glass-button"
-                style={{ padding: '10px 22px', fontSize: '0.9rem' }}
-              >
-                Reload Page
-              </button>
-              <button 
-                onClick={() => { handleLogout(); window.location.reload(); }}
-                className="glass-button-secondary"
-                style={{ padding: '10px 22px', fontSize: '0.9rem' }}
-              >
-                Sign Out & Return Home
-              </button>
-            </div>
-          </div>
-        );
-      }
-      return this.props.children;
-    }
-  }
-
   const renderDashboardByRole = () => {
     if (!user) return null;
     let content;
@@ -145,25 +151,102 @@ export default function App() {
         content = <div style={{ padding: '40px', textAlign: 'center' }}>Role dashboard not found.</div>;
         break;
     }
-    return <ErrorBoundary key={user.role}>{content}</ErrorBoundary>;
+    return <ErrorBoundary key={user.role} onLogout={handleLogout}>{content}</ErrorBoundary>;
   };
 
+  // Scroll detection for navbar blur and shadow
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 25);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--background)' }}>
       
-      {/* Global Navigation Bar */}
-      <nav className="glass-panel" style={{ margin: '15px', padding: '15px 30px', position: 'sticky', top: '15px', zIndex: 90, display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => setPage(token ? 'dashboard' : 'landing')}>
-          <div style={{ background: 'var(--primary)', padding: '6px', borderRadius: '8px', color: '#fff', display: 'flex', alignItems: 'center' }}>
+      {/* Section A: Premium Floating Navigation Bar */}
+      <nav
+        className="glass-panel"
+        style={{
+          margin: isScrolled ? '8px 16px' : '14px 24px',
+          padding: isScrolled ? '12px 28px' : '16px 32px',
+          position: 'sticky',
+          top: '10px',
+          zIndex: 90,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderRadius: '99px',
+          background: isScrolled ? 'rgba(255, 255, 255, 0.94)' : 'rgba(255, 255, 255, 0.88)',
+          backdropFilter: 'blur(16px)',
+          boxShadow: isScrolled
+            ? '0 16px 36px rgba(16, 61, 48, 0.09), 0 2px 6px rgba(16, 61, 48, 0.04)'
+            : '0 8px 24px rgba(16, 61, 48, 0.04)',
+          border: '1.5px solid var(--border)',
+          transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
+        }}
+      >
+        {/* Brand Identity */}
+        <div
+          style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', flexShrink: 0, marginRight: '16px' }}
+          onClick={() => setPage(token ? 'dashboard' : 'landing')}
+        >
+          <div
+            style={{
+              background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-rich) 100%)',
+              padding: '7px',
+              borderRadius: '12px',
+              color: '#fff',
+              display: 'flex',
+              boxShadow: '0 4px 12px rgba(16, 61, 48, 0.2)'
+            }}
+          >
             <Heart size={20} fill="#fff" />
           </div>
-          <span style={{ fontSize: '1.4rem', fontWeight: '800', letterSpacing: '-0.5px' }}>
-            {t('brandTitle')}<span style={{ color: 'var(--primary)', fontSize: '0.85rem', fontWeight: '600', marginLeft: '4px' }}>{t('brandSubtitle')}</span>
+          <span style={{ fontSize: '1.45rem', fontWeight: '900', letterSpacing: '-0.02em', color: 'var(--primary)', whiteSpace: 'nowrap' }}>
+            {t('brandTitle')}<span style={{ color: 'var(--accent)', fontSize: '0.9rem', fontWeight: '800', marginLeft: '6px' }}>{t('brandSubtitle')}</span>
           </span>
         </div>
 
+        {/* Center Editorial Links (Visible on Landing Page) */}
+        {page === 'landing' && (
+          <div
+            style={{
+              display: 'none',
+              alignItems: 'center',
+              gap: '8px',
+              margin: '0 auto',
+              padding: '4px 12px',
+              background: 'rgba(255, 255, 255, 0.72)',
+              borderRadius: '99px',
+              border: '1px solid rgba(16, 61, 48, 0.08)',
+              boxShadow: '0 2px 8px rgba(16, 61, 48, 0.03)'
+            }}
+            className="editorial-nav-links"
+          >
+            <a href="#hero-section" className="nav-pill-link">
+              {t('navHome')}
+            </a>
+            <a href="#journey-section" className="nav-pill-link">
+              {t('navJourney')}
+            </a>
+            <a href="#impact-section" className="nav-pill-link">
+              {t('navImpact')}
+            </a>
+            <a href="#roles-section" className="nav-pill-link">
+              {t('navDonors')}
+            </a>
+            <a href="#roles-section" className="nav-pill-link">
+              {t('navNGOs')}
+            </a>
+          </div>
+        )}
+
         {/* Action center */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
           
           {/* Language Switcher Button */}
           <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(0,0,0,0.04)', borderRadius: '20px', padding: '3px 4px', border: '1px solid var(--border)' }}>
@@ -311,9 +394,92 @@ export default function App() {
         {page === 'dashboard' && token && renderDashboardByRole()}
       </main>
 
-      {/* Footer Info */}
-      <footer style={{ borderTop: '1px solid var(--border)', padding: '24px 15px', textAlign: 'center', marginTop: '60px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-        <p>{t('footerText')}</p>
+      {/* Section I: Comprehensive Food Rescue Editorial Footer */}
+      <footer
+        style={{
+          borderTop: '1px solid var(--border)',
+          background: '#FAF6EE',
+          padding: '60px 24px 30px 24px',
+          marginTop: '80px',
+          color: 'var(--text-muted)'
+        }}
+      >
+        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '40px', marginBottom: '50px' }}>
+            
+            {/* Col 1: Brand & Philosophy */}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                <div style={{ background: 'var(--primary)', padding: '6px', borderRadius: '10px', color: '#fff', display: 'flex' }}>
+                  <Heart size={18} fill="#fff" />
+                </div>
+                <span style={{ fontSize: '1.3rem', fontWeight: '900', color: 'var(--primary)' }}>
+                  {t('brandTitle')}<span style={{ color: 'var(--accent)', fontSize: '0.85rem', marginLeft: '3px' }}>{t('brandSubtitle')}</span>
+                </span>
+              </div>
+              <p style={{ fontSize: '0.88rem', lineHeight: '1.65', color: 'var(--text-muted)', marginBottom: '16px' }}>
+                {language === 'ta'
+                  ? 'பாரி என்பது தொழில்முறை உபரி உணவு மறுபகிர்வு தளம். ஹோட்டல்கள், பேக்கரிகள் மற்றும் சமையலறைகளின் உணவை காப்பகங்களோடு இணைக்கிறது.'
+                  : 'PAARI Net is a professional surplus food rescue network. Connecting chef-grade commercial surplus with shelter homes through intelligent distance matching.'}
+              </p>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'var(--primary-light)', color: 'var(--primary)', padding: '4px 12px', borderRadius: '99px', fontSize: '0.75rem', fontWeight: '800' }}>
+                🌱 Sustainable Development Goal #2: Zero Hunger
+              </div>
+            </div>
+
+            {/* Col 2: The Journey Links */}
+            <div>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Platform Journey
+              </h4>
+              <ul style={{ listStyle: 'none', display: 'grid', gap: '10px', fontSize: '0.88rem' }}>
+                <li><a href="#hero-section" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>{t('navHome')}</a></li>
+                <li><a href="#journey-section" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>{t('navJourney')}</a></li>
+                <li><a href="#problem-section" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>The Food Paradox</a></li>
+                <li><a href="#network-section" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Topological Network</a></li>
+                <li><a href="#impact-section" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>{t('navImpact')}</a></li>
+              </ul>
+            </div>
+
+            {/* Col 3: Ecosystem Roles */}
+            <div>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Ecosystem
+              </h4>
+              <ul style={{ listStyle: 'none', display: 'grid', gap: '10px', fontSize: '0.88rem' }}>
+                <li><a href="#roles-section" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>{t('navDonors')}</a></li>
+                <li><a href="#roles-section" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>{t('navNGOs')}</a></li>
+                <li><a href="#roles-section" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Thermal Food Couriers</a></li>
+                <li><button onClick={() => setPage('inspector')} style={{ background: 'none', border: 'none', color: '#D97706', cursor: 'pointer', padding: 0, fontSize: '0.88rem', fontWeight: '700' }}>🔍 Database Inspector (DB)</button></li>
+              </ul>
+            </div>
+
+            {/* Col 4: King Paari Sangam Heritage */}
+            <div>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: '800', color: 'var(--primary)', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Our Heritage
+              </h4>
+              <p style={{ fontSize: '0.84rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
+                {language === 'ta'
+                  ? 'முல்லைக்குத் தேர் கொடுத்த வள்ளல் பாரியின் கொடைப் பண்பை தொழில்நுட்ப வடிவில் முன்னெடுத்துச் செல்லும் கூட்டு முயற்சி.'
+                  : 'Inspired by classical Sangam lore of King Paari (வள்ளல் பாரி), who bestowed his royal chariot to cradle a fragile wild jasmine vine. We champion unconditional generosity.'}
+              </p>
+            </div>
+
+          </div>
+
+          {/* Bottom Copyright Row */}
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px', fontSize: '0.82rem' }}>
+            <p>{t('footerText')}</p>
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <span>Privacy & Food Safety Protocols</span>
+              <span>•</span>
+              <span>CIT Chennai Campus Hub</span>
+              <span>•</span>
+              <span style={{ fontWeight: '700', color: 'var(--primary)' }}>{language === 'ta' ? 'தமிழ் பதிப்பு' : 'English Edition'}</span>
+            </div>
+          </div>
+        </div>
       </footer>
 
       {/* Global Bilingual AI Chatbot */}

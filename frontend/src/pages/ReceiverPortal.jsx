@@ -6,7 +6,15 @@ import LiveDeliveryMap from '../components/LiveDeliveryMap';
 
 export default function ReceiverPortal() {
   const { language, t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('browse'); // 'browse', 'claims'
+  const [activeTab, setActiveTab] = useState(() => {
+    return sessionStorage.getItem('paari_receiver_tab') || 'browse';
+  });
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    sessionStorage.setItem('paari_receiver_tab', tab);
+  };
+
   const [availableDonations, setAvailableDonations] = useState([]);
   const [myClaims, setMyClaims] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -98,7 +106,7 @@ export default function ReceiverPortal() {
         setClaimDonation(null);
         setClaimQty('');
         setSuccessMsg('');
-        setActiveTab('claims');
+        handleTabChange('claims');
       }, 1500);
     } catch (err) {
       setErrorMsg(err.response?.data?.message || err.response?.data?.error || 'Failed to submit portion claim.');
@@ -139,14 +147,14 @@ export default function ReceiverPortal() {
         </div>
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
           <button
-            onClick={() => setActiveTab('browse')}
+            onClick={() => handleTabChange('browse')}
             className={activeTab === 'browse' ? 'glass-button' : 'glass-button-secondary'}
             style={{ padding: '10px 20px', fontSize: '0.85rem' }}
           >
             <Search size={16} /> Browse Food Listings
           </button>
           <button
-            onClick={() => setActiveTab('claims')}
+            onClick={() => handleTabChange('claims')}
             className={activeTab === 'claims' ? 'glass-button' : 'glass-button-secondary'}
             style={{ padding: '10px 20px', fontSize: '0.85rem' }}
           >
@@ -228,16 +236,18 @@ export default function ReceiverPortal() {
                 <div key={c.id} className="glass-panel" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
                   <div style={{ display: 'grid', gap: '6px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)' }}>{c.foodDonation.foodType}</h4>
+                      <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--primary)' }}>
+                        {c.foodDonation?.foodType || 'Surplus Meal Pack'}
+                      </h4>
                       <span className={`badge ${c.status === 'PENDING' ? 'badge-warning' : c.status === 'ACCEPTED' ? 'badge-info' : c.status === 'COMPLETED' ? 'badge-success' : 'badge-error'}`}>
                         {c.status}
                       </span>
                     </div>
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                      Redistribution weight: <strong>{c.quantityRequested} kg</strong> | From: {c.foodDonation.donor.organizationName}
+                      Redistribution weight: <strong>{c.quantityRequested} kg</strong> | From: {c.foodDonation?.donor?.organizationName || 'Authorized Donor'}
                     </p>
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                      <MapPin size={12} color="var(--accent)" /> {c.foodDonation.pickupAddress}
+                      <MapPin size={12} color="var(--accent)" /> {c.foodDonation?.pickupAddress || 'Address on file'}
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -255,9 +265,9 @@ export default function ReceiverPortal() {
                       <button
                         onClick={() => {
                           setFeedbackTarget({
-                            donationId: c.foodDonation.id,
-                            donorName: c.foodDonation.donor.organizationName,
-                            donorUserId: c.foodDonation.donor.user.id
+                            donationId: c.foodDonation?.id,
+                            donorName: c.foodDonation?.donor?.organizationName || 'Partner Kitchen',
+                            donorUserId: c.foodDonation?.donor?.user?.id
                           });
                         }}
                         className="glass-button-secondary"

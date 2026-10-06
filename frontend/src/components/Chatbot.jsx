@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import api from '../api';
 import { useLanguage } from '../context/LanguageContext';
 import { MessageCircle, X, Send, Sparkles, RefreshCw, Bot, User, Globe, ChevronDown } from 'lucide-react';
+import { gsap } from 'gsap';
 
 export default function Chatbot() {
   const { language, setLanguage, t } = useLanguage();
@@ -10,6 +11,17 @@ export default function Chatbot() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const drawerRef = useRef(null);
+
+  // GSAP smooth entrance on drawer open
+  useEffect(() => {
+    if (isOpen && drawerRef.current) {
+      gsap.fromTo(drawerRef.current,
+        { opacity: 0, y: 25, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'power2.out' }
+      );
+    }
+  }, [isOpen]);
 
   // Initialize or re-render initial welcome message when language changes if no conversation started
   useEffect(() => {
@@ -161,47 +173,50 @@ export default function Chatbot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
+          title="PAARI AI Food Guide • Ask anything about food safety, donating, or claiming meals"
+          aria-label="Open PAARI AI Food Guide"
           style={{
-            background: 'linear-gradient(135deg, var(--primary) 0%, #2D5A27 100%)',
+            background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-rich) 100%)',
             color: '#fff',
-            border: 'none',
+            border: '1.5px solid rgba(255,255,255,0.25)',
             borderRadius: '50px',
-            padding: '14px 22px',
+            padding: '13px 22px',
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
-            boxShadow: '0 10px 25px rgba(30, 81, 40, 0.4), 0 4px 10px rgba(0,0,0,0.1)',
+            boxShadow: '0 12px 28px rgba(16, 61, 48, 0.35), 0 4px 10px rgba(0,0,0,0.1)',
             cursor: 'pointer',
             fontWeight: '700',
-            fontSize: '0.95rem',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+            fontSize: '0.94rem',
+            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-3px) scale(1.03)')}
+          onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-3px) scale(1.025)')}
           onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0) scale(1)')}
         >
           <div style={{ position: 'relative', display: 'flex' }}>
-            <Bot size={22} />
+            <Bot size={21} />
             <span
               style={{
                 position: 'absolute',
                 top: '-2px',
                 right: '-2px',
-                width: '8px',
-                height: '8px',
+                width: '9px',
+                height: '9px',
                 backgroundColor: '#10B981',
                 borderRadius: '50%',
-                boxShadow: '0 0 0 2px #fff'
+                boxShadow: '0 0 0 2px #fff',
+                animation: 'pulseGlow 2s infinite ease-in-out'
               }}
             />
           </div>
-          <span>{language === 'ta' ? 'பாரி AI உதவியாளர்' : 'PAARI AI Guide'}</span>
+          <span>{language === 'ta' ? 'பாரி AI வழிகாட்டி' : 'PAARI AI Food Guide'}</span>
           <span
             style={{
-              backgroundColor: 'rgba(255,255,255,0.2)',
+              backgroundColor: 'rgba(255,255,255,0.18)',
               padding: '2px 8px',
               borderRadius: '12px',
-              fontSize: '0.75rem',
-              fontWeight: '600'
+              fontSize: '0.74rem',
+              fontWeight: '700'
             }}
           >
             {language === 'ta' ? 'தமிழ்' : 'EN'}
@@ -212,20 +227,21 @@ export default function Chatbot() {
       {/* Expandable Chat Drawer Window */}
       {isOpen && (
         <div
-          className="glass-panel animated-fade"
+          ref={drawerRef}
+          className="glass-panel"
           style={{
-            width: '380px',
+            width: '390px',
             maxWidth: 'calc(100vw - 32px)',
-            height: '560px',
+            height: '570px',
             maxHeight: 'calc(100vh - 60px)',
             display: 'flex',
             flexDirection: 'column',
-            borderRadius: '20px',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255,255,255,0.1)',
+            borderRadius: '24px',
+            boxShadow: '0 24px 50px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(255,255,255,0.1)',
             overflow: 'hidden',
-            backgroundColor: 'rgba(255, 255, 255, 0.96)',
+            backgroundColor: 'rgba(255, 255, 255, 0.97)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid var(--border)'
+            border: '1.5px solid var(--border)'
           }}
         >
           {/* Header */}
